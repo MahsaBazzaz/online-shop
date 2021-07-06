@@ -3,17 +3,19 @@
 
 <head>
     <title>menu component</title>
+    <link rel="stylesheet" href="../../assets/fonts/font awsome/css/font-awesome.css">
 </head>
 <style>
     @font-face {
         font-family: iransans;
-        src: url("iransans_medium.woff");
+        src: url("../../assets/fonts/iran\ sans/iransans_medium.woff");
     }
     
      :root {
         --menu-blue: rgb(0, 255, 221);
         --menu-yello: rgb(255, 200, 10);
-        --menu-gray: rgb(225, 225, 225);
+        --menu-bright-gray: rgb(237, 237, 237);
+        --menu-dark-gray: rgb(225, 225, 225);
         --menu-black: rgb(0, 0, 0);
         --menu-white: rgb(255, 255, 255);
     }
@@ -24,8 +26,10 @@
     }
     
     .navbar {
-        overflow: hidden;
+        /* overflow: hidden; */
+        height: 65px;
         background-color: var(--menu-white);
+        text-align: center;
         border-width: 1px;
         border-style: solid;
         border-color: var(--menu-black);
@@ -34,7 +38,8 @@
     
     .navbar p {
         float: right;
-        font-size: 16px;
+        font-size: 20px;
+        padding-right: 25px;
         color: var(--menu-blue);
     }
     
@@ -42,8 +47,8 @@
         float: right;
         font-size: 14px;
         color: inherit;
-        text-align: center;
-        padding: 14px 16px;
+        padding-top: 22px;
+        padding-right: 25px;
         text-decoration: none;
     }
     
@@ -56,27 +61,37 @@
         font-size: 16px;
         background-color: var(--menu-white);
         color: var(--menu-black);
+        border-radius: 24px;
         border-style: solid;
         border-color: var(--menu-yello);
         outline: none;
-        padding: 14px 16px;
+        margin-top: 10px;
+        margin-left: 20px;
+        margin-right: 20px;
+        padding: 10px;
         font-family: inherit;
-        margin: 0;
+        position: relative;
+        z-index: 2;
     }
     
     .dropdown-content {
         display: none;
-        position: absolute;
-        /* padding: 12px 16px; */
+        position: relative;
+        top: -20px;
+        left: 20px;
+        border-radius: 15px;
+        width: 108px;
         z-index: 1;
     }
     
     .dropdown-content a {
         float: none;
         display: block;
-        background-color: var(--menu-white);
+        background-color: var(--menu-dark-gray);
         color: var(--menu-black);
         text-decoration: none;
+        padding-right: 5px;
+        padding-bottom: 10px;
     }
     
     .dropdown:hover .dropdown-content {
@@ -92,7 +107,7 @@
     }
     
     .dropdown-content a:hover {
-        background-color: var(--menu-gray);
+        background-color: var(--menu-bright-gray);
         color: var(--menu-black);
     }
 </style>
@@ -106,7 +121,9 @@
         <a href="#products">محصولات </a>
 
         <div class="dropdown">
-            <button class="dropdownbtn">ورود/ثبت نام<i class="fa fa-caret-down"></i></button>
+            <button class="dropdownbtn">ورود/ثبت نام
+                <i class="fa fa-chevron-down" style="display: none;"></i>
+            </button>
             <div class="dropdown-content">
                 <a href="#profile">پروفایل</a>
                 <a href="#logout">خروج از حساب</a>
