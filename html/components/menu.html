@@ -10,6 +10,14 @@
         src: url("iransans_medium.woff");
     }
     
+     :root {
+        --menu-blue: rgb(0, 255, 221);
+        --menu-yello: rgb(255, 200, 10);
+        --menu-gray: rgb(225, 225, 225);
+        --menu-black: rgb(0, 0, 0);
+        --menu-white: rgb(255, 255, 255);
+    }
+    
     body {
         font-family: iransans;
         margin: 0;
@@ -17,17 +25,17 @@
     
     .navbar {
         overflow: hidden;
-        background-color: rgb(255, 255, 255);
+        background-color: var(--menu-white);
         border-width: 1px;
         border-style: solid;
-        border-color: rgb(0, 0, 0);
+        border-color: var(--menu-black);
         z-index: 0;
     }
     
     .navbar p {
         float: right;
         font-size: 16px;
-        color: rgb(0, 255, 221);
+        color: var(--menu-blue);
     }
     
     .navbar a {
@@ -46,10 +54,10 @@
     
     .dropdown .dropdownbtn {
         font-size: 16px;
-        background-color: rgb(255, 255, 255);
-        color: rgb(0, 0, 0);
+        background-color: var(--menu-white);
+        color: var(--menu-black);
         border-style: solid;
-        border-color: rgb(255, 145, 0);
+        border-color: var(--menu-yello);
         outline: none;
         padding: 14px 16px;
         font-family: inherit;
@@ -59,16 +67,15 @@
     .dropdown-content {
         display: none;
         position: absolute;
-        left: 0;
-        padding: 12px 16px;
+        /* padding: 12px 16px; */
         z-index: 1;
     }
     
     .dropdown-content a {
         float: none;
         display: block;
-        background-color: rgb(209, 209, 209);
-        color: rgb(0, 0, 0);
+        background-color: var(--menu-white);
+        color: var(--menu-black);
         text-decoration: none;
     }
     
@@ -77,16 +84,16 @@
     }
     
     .navbar a:hover {
-        color: rgb(0, 255, 221);
+        color: var(--menu-blue);
     }
     
     .dropdown:hover .dropdownbtn {
-        background-color: rgb(255, 145, 0);
+        background-color: var(--menu-yello);
     }
     
     .dropdown-content a:hover {
-        background-color: rgb(110, 110, 110);
-        color: rgb(0, 0, 0);
+        background-color: var(--menu-gray);
+        color: var(--menu-black);
     }
 </style>
 
