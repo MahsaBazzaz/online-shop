@@ -79,6 +79,19 @@
         position: relative;
     }
 </style>
+<script>
+    window.onload = function() {
+        document.getElementById("best-seller").addEventListener("click", sortByBestSeller);
+        document.getElementById("price").addEventListener("click", sortByBestSeller);
+    }
+
+    function sortByBestSeller() {
+        document.getElementById("best-seller").classList.toggle('sorting-box-btn-active');
+        document.getElementById("best-seller").classList.toggle('sorting-box-btn-deactive');
+        document.getElementById("price").classList.toggle('sorting-box-btn-active');
+        document.getElementById("price").classList.toggle('sorting-box-btn-deactive');
+    }
+</script>
 
 <body>
     <div class="sorting-box-container">
@@ -87,10 +100,10 @@
                 <span>مرتب سازی بر اساس</span>
             </li>
             <li>
-                <button class="sorting-box-btn-active">بیشترین فروش</button>
+                <button class="sorting-box-btn-active" id="best-seller">بیشترین فروش</button>
             </li>
             <li>
-                <button class="sorting-box-btn-deactive">قیمت</button>
+                <button class="sorting-box-btn-deactive" id="price">قیمت</button>
             </li>
         </ul>
     </div>
