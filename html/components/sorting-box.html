@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>sorting-box component</title>
+    <title>filtering box</title>
     <link rel="stylesheet" href="../../assets/fonts/font awsome/css/font-awesome.css">
 </head>
 <style>
@@ -12,146 +12,17 @@
     }
     
      :root {
-        --sorting-box-gray: rgb(124, 131, 136);
-        --sorting-box-black: rgb(0, 0, 0);
-        --sorting-box-white: rgb(255, 255, 255);
-        --sorting-box-blue: rgb(68, 145, 224);
+        --footer-gray: rgb(124, 131, 136);
+        --footer-black: rgb(0, 0, 0);
     }
     
     body {
         margin: 0;
-        font-family: iransans;
-    }
-    
-    .container {
-        height: 100%;
-        width: 80%;
-    }
-    
-    .sorting-box {
-        float: right;
-        text-align: right;
-        width: 25%;
-        scroll-behavior: smooth;
-        -webkit-box-shadow: 0px 3px 11px -1px rgba(0, 0, 0, 0.67);
-        -moz-box-shadow: 0px 3px 11px -1px rgba(0, 0, 0, 0.67);
-        box-shadow: 0px 3px 11px -1px rgba(0, 0, 0, 0.67);
-    }
-    
-    #sorting-box-title {
-        font-size: 14px;
-        border-bottom-style: solid;
-        border-bottom-width: 1px;
-        border-bottom-color: var(--sorting-box-gray);
-        padding: 5px 15px;
-    }
-    
-    .checkbox-container {
-        width: 100%;
-        max-height: 120px;
-        overflow-y: auto;
-        overflow-x: hidden;
-    }
-    
-    .custom-checkbox {
-        position: relative;
-        margin-bottom: 10px;
-        margin-right: 15px;
-    }
-    
-    .custom-checkbox label {
-        background-color: var(--sorting-box-white);
-        border: 1px solid var(--sorting-box-gray);
-        border-radius: 50%;
-        cursor: pointer;
-        height: 25px;
-        right: 0;
-        position: absolute;
-        top: 0;
-        width: 25px;
-    }
-    
-    .custom-checkbox label:after {
-        border: 2px solid var(--sorting-box-white);
-        border-top: none;
-        border-right: none;
-        content: "";
-        height: 6px;
-        left: 7px;
-        opacity: 0;
-        position: absolute;
-        top: 8px;
-        transform: rotate(-45deg);
-        width: 12px;
-    }
-    
-    .custom-checkbox input[type="checkbox"] {
-        visibility: hidden;
-    }
-    
-    .custom-checkbox input[type="checkbox"]:checked+label {
-        background-color: var(--sorting-box-blue);
-    }
-    
-    .text {
-        position: relative;
-        font-size: 14px;
-        right: 40px;
-    }
-    /* custom scrollbar */
-    /* width */
-    
-     ::-webkit-scrollbar {
-        width: 15px;
-    }
-    /* Track */
-    
-     ::-webkit-scrollbar-track {
-        box-shadow: inset 0 0 5px grey;
-        border-radius: 10px;
-    }
-    /* Handle */
-    
-     ::-webkit-scrollbar-thumb {
-        background: var(--sorting-box-gray);
-        border-radius: 10px;
-    }
-    /* Handle on hover */
-    
-     ::-webkit-scrollbar-thumb:hover {
-        background: var(--sorting-box-gray);
     }
 </style>
 
 <body>
-    <div class="container">
-        <div class="sorting-box">
-            <p id="sorting-box-title">دسته بندی ها</p>
-            <div class="checkbox-container">
-                <div class="custom-checkbox">
-                    <input type="checkbox" id="checkbox0" />
-                    <label for="checkbox0"></label>
-                    <span class="text">دسته بندی 1</span>
-                </div>
-                <div class="custom-checkbox">
-                    <input type="checkbox" id="checkbox1" />
-                    <label for="checkbox1"></label>
-                    <span class="text">دسته بندی 2</span>
-                </div>
-                <div class="custom-checkbox">
-                    <input type="checkbox" id="checkbox2" />
-                    <label for="checkbox2"></label>
-                    <span class="text">دسته بندی 3</span>
-                </div>
-                <div class="custom-checkbox">
-                    <input type="checkbox" id="checkbox3" />
-                    <label for="checkbox3"></label>
-                    <span class="text">دسته بندی 4</span>
-                </div>
-            </div>
 
-        </div>
-    </div>
 </body>
 
 </html>
