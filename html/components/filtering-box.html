@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>sorting-box component</title>
+    <title>filtering-box component</title>
     <link rel="stylesheet" href="../../assets/fonts/font awsome/css/font-awesome.css">
 </head>
 <style>
@@ -12,6 +12,7 @@
     }
     
      :root {
+        --background-color: rgb(232, 233, 237);
         --sorting-box-gray: rgb(124, 131, 136);
         --sorting-box-black: rgb(0, 0, 0);
         --sorting-box-white: rgb(255, 255, 255);
@@ -21,6 +22,7 @@
     body {
         margin: 0;
         font-family: iransans;
+        background-color: var(--background-color);
     }
     
     .container {
@@ -33,6 +35,7 @@
         text-align: right;
         width: 25%;
         scroll-behavior: smooth;
+        background-color: var(--sorting-box-white);
         -webkit-box-shadow: 0px 3px 11px -1px rgba(0, 0, 0, 0.67);
         -moz-box-shadow: 0px 3px 11px -1px rgba(0, 0, 0, 0.67);
         box-shadow: 0px 3px 11px -1px rgba(0, 0, 0, 0.67);
