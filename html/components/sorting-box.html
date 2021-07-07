@@ -25,12 +25,17 @@
         background-color: var(--background-color);
     }
     
+    .sorting-box-container {
+        height: 50px;
+        background-color: var(--sorting-box-white);
+    }
+    
     ul {
+        height: 100%;
         list-style-type: none;
         margin: 0;
         padding: 0;
         overflow: hidden;
-        background-color: var(--sorting-box-white);
     }
     
     li {
@@ -38,25 +43,40 @@
     }
     
     li span {
+        display: inline-block;
         font-size: 14px;
-        padding: 15px;
+        color: var(--sorting-box-black);
+        padding-top: 15px;
+        padding-right: 15px;
+        padding-left: 15px;
     }
     
-    li .sorting-box-btn {
+    li .sorting-box-btn-active {
         font-size: 14px;
         background-color: var(--sorting-box-blue);
-        color: var(--sorting-box-black);
+        color: var(--sorting-box-white);
         outline: none;
-        margin-top: 10px;
-        margin-left: 20px;
-        margin-right: 20px;
-        padding: 10px;
+        border-style: none;
+        border-radius: 24px;
+        margin: 8px 20px;
+        padding: 8px;
         font-family: inherit;
         position: relative;
+        -webkit-box-shadow: 0px 3px 11px -1px var(--sorting-box-blue);
+        -moz-box-shadow: 0px 3px 11px -1px var(--sorting-box-blue);
+        box-shadow: 0px 3px 11px -1px var(--sorting-box-blue);
     }
     
-    li a:hover {
-        background-color: #111;
+    li .sorting-box-btn-deactive {
+        font-size: 14px;
+        background-color: var(--sorting-box-white);
+        color: var(--sorting-box-black);
+        outline: none;
+        border: none;
+        margin: 8px 20px;
+        padding: 8px;
+        font-family: inherit;
+        position: relative;
     }
 </style>
 
@@ -67,10 +87,10 @@
                 <span>مرتب سازی بر اساس</span>
             </li>
             <li>
-                <button class="sorting-box-btn">بیشترین فروش</button>
+                <button class="sorting-box-btn-active">بیشترین فروش</button>
             </li>
             <li>
-                <button class="sorting-box-btn">قیمت</button>
+                <button class="sorting-box-btn-deactive">قیمت</button>
             </li>
         </ul>
     </div>
