@@ -430,9 +430,8 @@ li .sorting-box-btn-deactive {
 
 .middle {
     position: relative;
-    left: 80px;
     margin: 30px 20px;
-    width: 70%;
+    width: 90%;
     max-width: 500px;
 }
 
