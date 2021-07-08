@@ -80,6 +80,8 @@
     background-color: var(--menu-white);
     text-align: center;
     z-index: 0;
+    position: relative;
+    top: 0px;
 }
 
 .navbar p {
@@ -99,7 +101,6 @@
 }
 
 .dropdown {
-    float: left;
     overflow: hidden;
 }
 
@@ -116,17 +117,19 @@
     margin-right: 20px;
     padding: 10px;
     font-family: inherit;
-    position: relative;
+    position: absolute;
+    top: 0px;
+    left: 0px;
     z-index: 2;
 }
 
 .dropdown-content {
     display: none;
-    position: relative;
-    top: -20px;
+    position: absolute;
+    top: 40px;
     left: 20px;
     border-radius: 15px;
-    width: 108px;
+    width: 112px;
     z-index: 1;
 }
 
@@ -156,12 +159,14 @@
     background-color: var(--menu-bright-gray);
     color: var(--menu-black);
 }
+
+
 /* menu */
 
 
 /* footer */
+
 .footer {
-    
     bottom: 0;
     max-width: 1280;
     width: 100%;
@@ -172,7 +177,10 @@
     color: var(--footer-gray);
     text-align: center;
 }
+
+
 /* footer */
+
 
 /* hero header */
 
@@ -216,13 +224,11 @@
     outline: none;
 }
 
-
-
-::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+::placeholder {
+    /* Chrome, Firefox, Opera, Safari 10.1+ */
     color: #c0c0c0;
     opacity: 1
 }
-
 
 .search-button-div {
     margin-top: 35px;
@@ -244,10 +250,10 @@
     border-width: 0px;
 }
 
-.search-button:hover{
-    -moz-box-shadow:    1px 1px 3px 1px #ffc80a;
+.search-button:hover {
+    -moz-box-shadow: 1px 1px 3px 1px #ffc80a;
     -webkit-box-shadow: 1px 1px 3px 1px #ffc80a;
-    box-shadow:         1px 1px 3px 1px #ffc80a;
+    box-shadow: 1px 1px 3px 1px #ffc80a;
 }
 
 .img-contaner {
@@ -256,10 +262,12 @@
     justify-content: center;
 }
 
+
 /* hero header */
 
 
 /* sorting box */
+
 .sorting-box-container {
     height: 50px;
     background-color: var(--sorting-box-white);
@@ -313,10 +321,13 @@ li .sorting-box-btn-deactive {
     font-family: inherit;
     position: relative;
 }
+
+
 /* sorting box */
 
 
 /* filtering box */
+
 .filtering-box-container {
     height: 100%;
     width: 100%;
@@ -391,34 +402,46 @@ li .sorting-box-btn-deactive {
     font-size: 14px;
     right: 10px;
 }
+
+
 /* custom scrollbar */
+
+
 /* width */
 
  ::-webkit-scrollbar {
     width: 15px;
 }
+
+
 /* Track */
 
  ::-webkit-scrollbar-track {
     box-shadow: inset 0 0 5px grey;
     border-radius: 10px;
 }
+
+
 /* Handle */
 
  ::-webkit-scrollbar-thumb {
     background: var(--filtering-box-gray);
     border-radius: 10px;
 }
+
+
 /* Handle on hover */
 
  ::-webkit-scrollbar-thumb:hover {
     background: var(--filtering-box-gray);
 }
+
+
 /* filtering box */
 
 
-
 /* price filter */
+
 .price-filter-box {
     background-color: var(--price-filter-white);
     z-index: 0;
@@ -492,6 +515,8 @@ li .sorting-box-btn-deactive {
     right: 25%;
     transform: translate(15px, -10px);
 }
+
+
 /* .slider>.thumb.hover {
     box-shadow: 0 0 0 20px rgba(98, 0, 238, .1);
     background-color: red;
@@ -521,13 +546,15 @@ input[type=range]::-webkit-slider-thumb {
     background-color: red;
     -webkit-appearance: none;
 }
+
+
 /* price filter */
 
 
-
 /* product box */
+
 .products-box {
-    background-color: gainsboro ;
+    background-color: gainsboro;
     color: black;
     direction: rtl;
     flex-wrap: wrap;
@@ -567,7 +594,7 @@ input[type=range]::-webkit-slider-thumb {
     color: black;
     direction: rtl;
     text-align: right;
-    margin-bottom: 30px;   
+    margin-bottom: 30px;
     justify-content: right;
 }
 
@@ -616,14 +643,16 @@ input[type=range]::-webkit-slider-thumb {
 }
 
 .buy-product-button:hover {
-    -moz-box-shadow:    1px 1px 3px 1px #0099ff;
+    -moz-box-shadow: 1px 1px 3px 1px #0099ff;
     -webkit-box-shadow: 1px 1px 3px 1px #0099ff;
-    box-shadow:         1px 1px 3px 1px #0099ff;
+    box-shadow: 1px 1px 3px 1px #0099ff;
 }
 
 hr {
-border: 0;
-height: 1px;
-background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
+    border: 0;
+    height: 1px;
+    background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
 }
+
+
 /* product box */
