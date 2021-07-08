@@ -298,7 +298,7 @@ li span {
 }
 
 li .sorting-box-btn-active {
-    font-size: 14px;
+    font-size: 13px;
     background-color: var(--sorting-box-blue);
     color: var(--sorting-box-white);
     outline: none;
@@ -308,13 +308,13 @@ li .sorting-box-btn-active {
     padding: 8px;
     font-family: inherit;
     position: relative;
-    -webkit-box-shadow: 0px 3px 11px -1px var(--sorting-box-blue);
-    -moz-box-shadow: 0px 3px 11px -1px var(--sorting-box-blue);
-    box-shadow: 0px 3px 11px -1px var(--sorting-box-blue);
+    -webkit-box-shadow: 2px 10px 6px -10px var(--sorting-box-blue);
+    -moz-box-shadow: 2px 10px 6px -10px var(--sorting-box-blue);
+    box-shadow: 2px 10px 6px -10px var(--sorting-box-blue);
 }
 
 li .sorting-box-btn-deactive {
-    font-size: 14px;
+    font-size: 13px;
     background-color: var(--sorting-box-white);
     color: var(--sorting-box-black);
     outline: none;
