@@ -105,7 +105,7 @@
 }
 
 .dropdown .dropdownbtn {
-    font-size: 16px;
+    font-size: 14px;
     background-color: var(--menu-white);
     color: var(--menu-black);
     border-radius: 24px;
@@ -115,7 +115,7 @@
     margin-top: 10px;
     margin-left: 20px;
     margin-right: 20px;
-    padding: 10px;
+    padding: 10px 20px;
     font-family: inherit;
     position: absolute;
     top: 0px;
@@ -127,11 +127,12 @@
     display: none;
     background-color: var(--menu-dark-gray);
     padding-top: 30px;
+    padding-bottom: 20px;
     position: absolute;
     top: 30px;
     left: 21px;
     border-radius: 15px;
-    width: 114px;
+    width: 122px;
     z-index: 1;
 }
 
@@ -141,7 +142,7 @@
     background-color: var(--menu-dark-gray);
     color: var(--menu-black);
     text-decoration: none;
-    padding: 10px 10px;
+    padding: 5px 5px;
 }
 
 .dropdown:hover .dropdown-content {
