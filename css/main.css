@@ -273,6 +273,7 @@
 .sorting-box-container {
     height: 50px;
     background-color: var(--sorting-box-white);
+    border-radius: 2px;
 }
 
 ul {
@@ -334,6 +335,7 @@ li .sorting-box-btn-deactive {
     height: 100%;
     width: 100%;
     margin: 15px 0px 0px 0px;
+    border-radius: 2px;
 }
 
 .filtering-box {
@@ -418,6 +420,7 @@ li .sorting-box-btn-deactive {
     position: relative;
     margin: 15px 0px 0px 0px;
     width: 100%;
+    border-radius: 2px;
 }
 
 #price-filter-title {
@@ -550,6 +553,7 @@ input[type=range]::-webkit-slider-thumb {
     flex-wrap: wrap;
     width: calc(33.3% - 42px);
     flex-grow: 1;
+    border-radius: 2px;
 }
 
 .product-image-box {
