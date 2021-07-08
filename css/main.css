@@ -115,7 +115,7 @@
     margin-top: 10px;
     margin-left: 20px;
     margin-right: 20px;
-    padding: 10px 20px;
+    padding: 5px 21px;
     font-family: inherit;
     position: absolute;
     top: 0px;
@@ -127,12 +127,12 @@
     display: none;
     background-color: var(--menu-dark-gray);
     padding-top: 30px;
-    padding-bottom: 20px;
+    padding-bottom: 15px;
     position: absolute;
-    top: 30px;
+    top: 18px;
     left: 21px;
     border-radius: 15px;
-    width: 122px;
+    width: 124px;
     z-index: 1;
 }
 
@@ -246,7 +246,7 @@
     text-align: center;
     justify-content: center;
     direction: rtl;
-    padding: 10px 25px 10px 25px;
+    padding: 10px 35px;
     border-radius: 24px;
     border-style: solid;
     border-width: 0px;
