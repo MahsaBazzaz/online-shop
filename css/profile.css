@@ -14,6 +14,10 @@
     --menu-white: rgb(255, 255, 255);
     --footer-gray: rgb(114, 120, 125);
     --footer-black: rgb(49, 52, 54);
+    --tab-dark-gray: rgb(232, 233, 237);
+    --tab-light-gray: rgb(218, 216, 216);
+    --tab-darkest-gray: rgb(161, 165, 169);
+    --tab-black: rgb(0, 0, 0);
 }
 
 body {
@@ -138,6 +142,56 @@ body {
 /* menu */
 
 
+/* credit info */
+
+.profile-section {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.flex-row {
+    width: auto;
+}
+
+.welcome {
+    font-family: iransans;
+    font-size: 22px;
+    padding: 0px 5px;
+}
+
+#your-credit {
+    font-family: iransans;
+    font-size: 14px;
+    padding: 5px 5px;
+}
+
+.credit-info {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-content: center;
+    align-items: stretch;
+    margin-bottom: 30px;
+}
+
+#increase-credit {
+    font-size: 13px;
+    color: rgb(0, 0, 0);
+    background-color: rgb(255, 200, 10);
+    border-radius: 24px;
+    border-style: none;
+    outline: none;
+    padding: 1px 20px;
+    font-family: iransans;
+    margin-right: 10px;
+}
+
+
+/* credit info */
+
+
 /* tabs  */
 
 .tab-container {
@@ -147,6 +201,7 @@ body {
     border-color: var(--tab-dark-gray);
     border-radius: 24px;
     text-align: center;
+    margin-bottom: 10px;
 }
 
 .tab {
@@ -196,34 +251,6 @@ body {
 
 
 /* tabs  */
-
-
-/* credit info */
-
-.credit-info {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    align-content: center;
-    align-items: stretch;
-    margin-bottom: 30px;
-}
-
-#welcome {}
-
-#increase-credit {
-    font-size: 13px;
-    color: rgb(0, 0, 0);
-    background-color: rgb(255, 200, 10);
-    border-radius: 24px;
-    border-style: none;
-    outline: none;
-    padding: 1px 10px;
-    font-family: iransans;
-}
-
-
-/* credit info */
 
 
 /* form */
@@ -329,6 +356,19 @@ body {
 
 
 /* form */
+
+#edit-profile {
+    font-size: 13px;
+    color: rgb(0, 0, 0);
+    background-color: rgb(255, 200, 10);
+    border-radius: 24px;
+    border-style: none;
+    outline: none;
+    padding: 5px 20px;
+    font-family: iransans;
+    font-size: 18px;
+    margin-right: 10px;
+}
 
 
 /* footer */
