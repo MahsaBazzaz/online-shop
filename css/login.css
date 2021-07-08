@@ -1,0 +1,227 @@
+@font-face {
+    font-family: iransans;
+    src: url("../assets/fonts/iran\ sans/iransans_medium.woff");
+}
+
+:root {
+    --input-label-color: rgb(14, 186, 197);
+    --background-color: rgb(232, 233, 237);
+    --menu-blue: rgb(14, 186, 197);
+    --menu-yello: rgb(255, 200, 10);
+    --menu-bright-gray: rgb(237, 237, 237);
+    --menu-dark-gray: rgb(225, 225, 225);
+    --menu-black: rgb(0, 0, 0);
+    --menu-white: rgb(255, 255, 255);
+    --footer-gray: rgb(114, 120, 125);
+    --footer-black: rgb(49, 52, 54);
+}
+
+body {
+    background-color: lightsteelblue;
+    direction: rtl;
+    margin: 0;
+    font-family: iransans;
+}
+
+.main-div {
+    width: 1280px;
+    margin: auto;
+    min-height: 100vh;
+    flex-direction: column;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    background-color: gainsboro;
+}
+
+.login-div {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    background-color: gainsboro;
+}
+
+.title-div {
+    font-size: 20px;
+    color: var(--input-label-color);
+    margin-bottom: 30px;
+}
+
+.form-div {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-items: stretch;
+    margin-bottom: 30px;
+}
+
+.submit-div {
+    justify-content: center;
+    text-align: center;
+}
+
+.submit-button {
+    font-family: iransans;
+    background-color: #ffc80a;
+    color: black;
+    text-align: center;
+    justify-content: center;
+    direction: rtl;
+    padding: 10px 50px 10px 50px;
+    border-radius: 24px;
+    border-style: solid;
+    border-width: 0px;
+    font-size: 14px;
+}
+
+
+/* menu */
+.navbar {
+    /* overflow: hidden; */
+    height: 65px;
+    background-color: var(--menu-white);
+    text-align: center;
+    z-index: 0;
+    position: relative;
+    top: 0px;
+}
+
+.navbar p {
+    float: right;
+    font-size: 20px;
+    padding-right: 25px;
+    color: var(--menu-blue);
+}
+
+.navbar a {
+    float: right;
+    font-size: 14px;
+    color: inherit;
+    padding-top: 22px;
+    padding-right: 25px;
+    text-decoration: none;
+}
+
+.dropdown {
+    overflow: hidden;
+}
+
+.dropdown .dropdownbtn {
+    font-size: 14px;
+    background-color: var(--menu-white);
+    color: var(--menu-black);
+    border-radius: 24px;
+    border-style: solid;
+    border-color: var(--menu-yello);
+    outline: none;
+    margin-top: 10px;
+    margin-left: 20px;
+    margin-right: 20px;
+    padding: 5px 21px;
+    font-family: inherit;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    z-index: 2;
+}
+
+.dropdown-content {
+    display: none;
+    background-color: var(--menu-dark-gray);
+    padding-top: 30px;
+    padding-bottom: 15px;
+    position: absolute;
+    top: 18px;
+    left: 21px;
+    border-radius: 15px;
+    width: 124px;
+    z-index: 1;
+}
+
+.dropdown-content a {
+    float: none;
+    display: block;
+    background-color: var(--menu-dark-gray);
+    color: var(--menu-black);
+    text-decoration: none;
+    padding: 5px 5px;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.navbar a:hover {
+    color: var(--menu-blue);
+}
+
+.dropdown:hover .dropdownbtn {
+    background-color: var(--menu-yello);
+}
+
+.dropdown-content a:hover {
+    background-color: var(--menu-bright-gray);
+    color: var(--menu-black);
+}
+/* menu */
+
+
+/* footer */
+.footer {
+    bottom: 0;
+    max-width: 1280;
+    width: 100%;
+    clear: both;
+    font-size: 14px;
+    font-family: iransans;
+    background-color: var(--footer-black);
+    color: var(--footer-gray);
+    text-align: center;
+}
+/* footer */
+
+
+
+/* input component */
+.input-container {
+    direction: rtl;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    margin: 10px 10px 10px 10px;
+}
+
+.input-label {
+    direction: rtl;
+    text-align: center;
+    font-family: iransans;
+    font-size: 14px;
+    width: 60px;
+    background-color: var(--input-label-color);
+    padding: 5px 10px 5px 10px;
+    border-radius: 0px 5px 5px 0px;
+    color: white;
+}
+
+.input-textbox {
+    direction: rtl;
+    text-align: start;
+    font-family: iransans;
+    font-size: 14px;
+    width: 200px;
+    background-color: white;
+    padding: 5px 10px 5px 10px;
+    border-radius: 5px 0px 0px 5px;
+    color: black;
+    border: none;
+    outline: none;
+}
+
+::placeholder {
+    color: lightgrey;
+}
+/* input component */
