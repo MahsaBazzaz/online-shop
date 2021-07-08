@@ -616,6 +616,7 @@ input[type=range]::-webkit-slider-thumb {
     border-radius: 24px;
     border-style: solid;
     border-width: 0px;
+    cursor: pointer;
 }
 
 .buy-product-button:hover {
