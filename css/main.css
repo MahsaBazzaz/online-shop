@@ -351,6 +351,7 @@ li .sorting-box-btn-deactive {
 }
 
 .checkbox-container {
+    direction: ltr;
     width: 100%;
     max-height: 200px;
     overflow-y: auto;
@@ -398,9 +399,9 @@ li .sorting-box-btn-deactive {
 }
 
 .filtering-text {
-    position: relative;
+    position: absolute;
     font-size: 14px;
-    right: 10px;
+    right: 35px;
 }
 
 
