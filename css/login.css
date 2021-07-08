@@ -75,6 +75,13 @@ body {
     border-style: solid;
     border-width: 0px;
     font-size: 14px;
+    cursor: pointer;
+}
+
+.submit-button:hover{
+    -moz-box-shadow:    1px 1px 3px 1px #ffc80a;
+    -webkit-box-shadow: 1px 1px 3px 1px #ffc80a;
+    box-shadow:         1px 1px 3px 1px #ffc80a;
 }
 
 
@@ -192,7 +199,7 @@ body {
     flex-direction: row;
     flex-wrap: nowrap;
     justify-content: flex-start;
-    margin: 10px 10px 10px 10px;
+    margin: 5px 10px 10px 10px;
 }
 
 .input-label {
@@ -200,7 +207,7 @@ body {
     text-align: center;
     font-family: iransans;
     font-size: 14px;
-    width: 60px;
+    width: 80px;
     background-color: var(--input-label-color);
     padding: 5px 10px 5px 10px;
     border-radius: 0px 5px 5px 0px;
@@ -211,7 +218,7 @@ body {
     direction: rtl;
     text-align: start;
     font-family: iransans;
-    font-size: 14px;
+    font-size: 13px;
     width: 200px;
     background-color: white;
     padding: 5px 10px 5px 10px;

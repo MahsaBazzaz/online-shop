@@ -53,7 +53,6 @@ body {
     display: flex;
     flex-direction: column;
     flex-wrap: nowrap;
-    justify-content: flex-start;
     align-items: stretch;
     margin-bottom: 30px;
 }
@@ -75,6 +74,13 @@ body {
     border-style: solid;
     border-width: 0px;
     font-size: 14px;
+    cursor: pointer;
+}
+
+.submit-button:hover{
+    -moz-box-shadow:    1px 1px 3px 1px #ffc80a;
+    -webkit-box-shadow: 1px 1px 3px 1px #ffc80a;
+    box-shadow:         1px 1px 3px 1px #ffc80a;
 }
 
 
@@ -208,7 +214,13 @@ body {
     justify-content: flex-start;
 }
 
-.row-three {}
+.row-three {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    direction: rtl;
+    align-items: stretch;
+}
 
 
 /* row one */
@@ -219,17 +231,24 @@ body {
 .input-container {
     direction: rtl;
     display: flex;
+    width: 100%;
+    height: 100%;
     flex-direction: row;
     flex-wrap: nowrap;
     justify-content: flex-start;
-    margin: 10px 10px 10px 10px;
+    margin: 5px 10px 5px 10px;
 }
 
 .input-label {
     direction: rtl;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-direction: column;
     text-align: center;
     font-family: iransans;
     font-size: 14px;
+    flex-grow: 0;
     width: 80px;
     background-color: var(--input-label-color);
     padding: 3px 3px;
@@ -241,7 +260,8 @@ body {
     direction: rtl;
     text-align: start;
     font-family: iransans;
-    font-size: 14px;
+    font-size: 13px;
+    flex-grow: 1;
     background-color: white;
     padding: 5px 10px 5px 10px;
     border-radius: 5px 0px 0px 5px;
@@ -254,13 +274,15 @@ body {
     direction: rtl;
     text-align: start;
     font-family: iransans;
-    font-size: 14px;
+    font-size: 13px;
+    flex-grow: 1;
     background-color: white;
     padding: 5px 10px 5px 10px;
     border-radius: 5px 0px 0px 5px;
     color: black;
     border: none;
     outline: none;
+    resize: none;
 }
 
 ::placeholder {
