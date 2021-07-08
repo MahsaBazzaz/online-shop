@@ -46,9 +46,6 @@
     align-items: flex-start;
 }
 
-.products {
-
-}
 
 /* menu */
 
@@ -536,7 +533,7 @@ input[type=range]::-webkit-slider-thumb {
     flex-direction: row;
     justify-content: start;
     text-align: start;
-    width: 100%;
+    width: 75%;
 }
 
 .products-box:after {
