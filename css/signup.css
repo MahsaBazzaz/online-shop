@@ -79,6 +79,7 @@ body {
 
 
 /* menu */
+
 .navbar {
     /* overflow: hidden; */
     height: 65px;
@@ -166,10 +167,13 @@ body {
     background-color: var(--menu-bright-gray);
     color: var(--menu-black);
 }
+
+
 /* menu */
 
 
 /* footer */
+
 .footer {
     bottom: 0;
     max-width: 1280;
@@ -181,11 +185,37 @@ body {
     color: var(--footer-gray);
     text-align: center;
 }
+
+
 /* footer */
 
 
+/* row one */
+
+.row-one {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    direction: rtl;
+    justify-content: flex-start;
+}
+
+.row-two {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    direction: rtl;
+    justify-content: flex-start;
+}
+
+.row-three {}
+
+
+/* row one */
+
 
 /* input component */
+
 .input-container {
     direction: rtl;
     display: flex;
@@ -200,9 +230,9 @@ body {
     text-align: center;
     font-family: iransans;
     font-size: 14px;
-    width: 60px;
+    width: 80px;
     background-color: var(--input-label-color);
-    padding: 5px 10px 5px 10px;
+    padding: 3px 3px;
     border-radius: 0px 5px 5px 0px;
     color: white;
 }
@@ -212,7 +242,19 @@ body {
     text-align: start;
     font-family: iransans;
     font-size: 14px;
-    width: 200px;
+    background-color: white;
+    padding: 5px 10px 5px 10px;
+    border-radius: 5px 0px 0px 5px;
+    color: black;
+    border: none;
+    outline: none;
+}
+
+.input-textarea {
+    direction: rtl;
+    text-align: start;
+    font-family: iransans;
+    font-size: 14px;
     background-color: white;
     padding: 5px 10px 5px 10px;
     border-radius: 5px 0px 0px 5px;
@@ -224,4 +266,6 @@ body {
 ::placeholder {
     color: lightgrey;
 }
+
+
 /* input component */
