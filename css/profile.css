@@ -38,15 +38,6 @@ body {
     background-color: gainsboro;
 }
 
-.profile-div {
-    display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap;
-    justify-content: center;
-    align-items: center;
-    background-color: gainsboro;
-}
-
 
 /* menu */
 
@@ -141,6 +132,23 @@ body {
 
 /* menu */
 
+.profile-div {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    background-color: gainsboro;
+}
+
+.visibale {
+    display: block !important;
+}
+
+.invisible {
+    display: none !important;
+}
+
 
 /* credit info */
 
@@ -149,10 +157,33 @@ body {
     align-items: center;
     flex-direction: column;
     justify-content: center;
+    flex-wrap: nowrap;
+}
+
+.reciepts-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: nowrap;
+    flex-direction: column;
+    width: 80%;
 }
 
 .flex-row {
-    width: auto;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    flex-wrap: nowrap;
+}
+
+.strech-row {
+    display: flex;
+    align-items: stretch;
+    flex-direction: column;
+    justify-content: center;
+    flex-wrap: nowrap;
 }
 
 .welcome {
@@ -215,7 +246,7 @@ body {
     padding: 6px 40px;
 }
 
-#right-tab {
+.right-tab {
     width: 50%;
     height: 100%;
     float: right;
@@ -223,7 +254,7 @@ body {
     border-bottom-right-radius: 24px;
 }
 
-#left-tab {
+.left-tab {
     width: 50%;
     height: 100%;
     float: left;
@@ -369,6 +400,41 @@ body {
     font-size: 18px;
     margin-right: 10px;
 }
+
+
+/* table */
+
+table {
+    font-family: iransans;
+    justify-content: center;
+    align-items: center;
+    font-size: 15px;
+    border-collapse: collapse;
+    width: 100%;
+    background-color: rgb(255, 255, 255);
+    direction: rtl;
+    color: rgb(218, 216, 216);
+    padding: 0px 50px;
+    border-radius: 5px;
+}
+
+th {
+    text-align: center;
+    padding: 10px 0px;
+}
+
+tr {
+    border-bottom: 1px solid #dddddd;
+    text-align: center;
+}
+
+td {
+    padding: 10px 0px;
+    color: rgb(66, 66, 66);
+}
+
+
+/* table */
 
 
 /* footer */
