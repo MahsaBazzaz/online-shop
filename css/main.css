@@ -335,7 +335,6 @@ li .sorting-box-btn-deactive {
     height: 100%;
     width: 100%;
     margin: 15px 0px 0px 0px;
-    border-radius: 2px;
 }
 
 .filtering-box {
@@ -344,6 +343,7 @@ li .sorting-box-btn-deactive {
     width: 100%;
     scroll-behavior: smooth;
     background-color: var(--filtering-box-white);
+    border-radius: 2px;
 }
 
 #filtering-box-title {
