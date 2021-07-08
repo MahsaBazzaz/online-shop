@@ -305,7 +305,7 @@ li .sorting-box-btn-active {
     border-style: none;
     border-radius: 24px;
     margin: 8px 20px;
-    padding: 8px;
+    padding: 8px 15px;
     font-family: inherit;
     position: relative;
     -webkit-box-shadow: 2px 10px 6px -10px var(--sorting-box-blue);
