@@ -195,6 +195,10 @@
     justify-content: center;
 }
 
+.slider-image {
+    display: none;
+}
+
 .title {
     font-family: iransans;
     padding-top: 80px;
