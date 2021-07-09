@@ -55,6 +55,25 @@ body {
 }
 
 
+.reciepts-div {
+    margin-top: 30px;
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    justify-content: center;
+    flex-wrap: nowrap;
+    width: 90%;
+}
+
+.strech-row {
+    display: flex;
+    align-items: stretch;
+    flex-direction: column;
+    justify-content: center;
+    flex-wrap: nowrap;
+    width: 100%;
+}
+
 
 /* menu */
 .navbar {
@@ -223,3 +242,48 @@ body {
     color: var(--tab-darkest-gray);
 }
 /* tripple tab */
+
+
+/* table */
+table {
+    table-layout: fixed;
+    font-family: iransans;
+    justify-content: center;
+    align-items: center;
+    border-collapse: separate;
+    border-spacing: 0 1em;
+    border: none;
+    width: 100%;
+    background-color: rgb(255, 255, 255);
+    direction: rtl;
+    color: rgb(218, 216, 216);
+    padding: 0px 50px;
+    border-radius: 5px;
+}
+
+th,
+td {
+    font-size: 13px;
+    text-align: right;
+    padding: 10px 2%;
+    border-bottom: 1px solid rgb(218, 216, 216);
+    border-collapse: collapse;
+}
+
+th {
+    color: rgb(218, 216, 216);
+}
+
+td {
+    color: black;
+}
+
+tr {
+    text-align: right;
+    padding: 10px 5px;
+}
+
+tr:last-child td {
+    border-bottom: none;
+}
+/* table */
