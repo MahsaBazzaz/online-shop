@@ -56,11 +56,12 @@ body {
 
 
 .reciepts-div {
-    margin-top: 30px;
+    margin-top: 40px;
     display: flex;
     align-items: flex-start;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
+    align-items: center;
     flex-wrap: nowrap;
     width: 90%;
 }
@@ -72,6 +73,7 @@ body {
     justify-content: center;
     flex-wrap: nowrap;
     width: 100%;
+    margin-top: 50px;
 }
 
 
@@ -287,3 +289,48 @@ tr:last-child td {
     border-bottom: none;
 }
 /* table */
+
+
+/* input component */
+.input-container {
+    direction: rtl;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    width: 50%;
+    justify-content: center;
+}
+
+.input-label {
+    direction: rtl;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    font-family: iransans;
+    font-size: 14px;
+    background-color: var(--input-label-color);
+    padding: 5px 10px 5px 10px;
+    border-radius: 0px 5px 5px 0px;
+    flex-grow: 1;
+    color: white;
+}
+
+.input-textbox {
+    direction: rtl;
+    text-align: start;
+    font-family: iransans;
+    font-size: 13px;
+    width: 200px;
+    flex-grow: 4;
+    background-color: white;
+    padding: 5px 10px 5px 10px;
+    border-radius: 5px 0px 0px 5px;
+    color: black;
+    border: none;
+    outline: none;
+}
+
+::placeholder {
+    color: lightgrey;
+}
+/* input component */
