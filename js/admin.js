@@ -10,6 +10,17 @@ window.onload = function() {
     document.getElementById(tabs[2]).addEventListener("click", function() {
         selectTab(tabs, tabDivs, 2, 0, 1);
     });
+    var buttonIds = "edit-gategory-";
+
+    var row = document.getElementById('categories-table').rows;
+    for (var i = 0; i < row.length; i++) {
+        var butid = buttonIds + i.toString();
+        var but = document.getElementById(butid);
+        if (but != null)
+            but.addEventListener('click', function() {
+                addEventToButton(this.id);
+            })
+    }
 }
 
 function selectTab(tabs, tabDivs, select, unselect1, unselect2) {
@@ -25,4 +36,16 @@ function selectTab(tabs, tabDivs, select, unselect1, unselect2) {
     document.getElementById(tabDivs[select]).style.display = "flex";
     document.getElementById(tabDivs[unselect1]).style.display = "none";
     document.getElementById(tabDivs[unselect2]).style.display = "none";
+}
+
+function addEventToButton(butt_id) {
+    const row_number = butt_id.split("edit-gategory-");
+    var previous_value = document.getElementById('categories-table').rows[row_number[1]].cells[0].getAttribute("contenteditable");
+    if (previous_value) {
+        document.getElementById('categories-table').rows[row_number[1]].cells[0].setAttribute('contenteditable', false);
+        document.getElementById(butt_id).innerHTML = "ویرایش دسته بندی";
+    } else {
+        document.getElementById('categories-table').rows[row_number[1]].cells[0].setAttribute('contenteditable', true);
+        document.getElementById(butt_id).innerHTML = "ذخیره تغییرات";
+    }
 }
