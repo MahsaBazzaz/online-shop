@@ -1,23 +1,40 @@
 window.onload = function() {
-    document.getElementsByClassName("right-tab")[0].addEventListener("click", Toggle);
-    document.getElementsByClassName("right-tab")[1].addEventListener("click", Toggle);
-    document.getElementsByClassName("left-tab")[0].addEventListener("click", Toggle);
-    document.getElementsByClassName("left-tab")[0].addEventListener("click", Toggle);
+    tabs = ["tab1", "tab2"];
+    classes = ["profile-section", "reciepts-section"]
+    document.getElementById(tabs[0]).addEventListener("click", function() {
+        makeProfileVisible();
+    });
+    document.getElementById(tabs[1]).addEventListener("click", function() {
+        makeRecieptVisible();
+    });
 }
 
-function Toggle() {
-    document.getElementById("profile-section").classList.toggle('visible');
-    document.getElementById("profile-section").classList.toggle('invisible');
-    document.getElementById("reciepts-section").classList.toggle('visible');
-    document.getElementById("reciepts-section").classList.toggle('invisible');
 
-    document.getElementsByClassName("right-tab")[0].classList.toggle('selected-tab');
-    document.getElementsByClassName("right-tab")[0].classList.toggle('un-selected-tab');
-    document.getElementsByClassName("right-tab")[1].classList.toggle('selected-tab');
-    document.getElementsByClassName("right-tab")[1].classList.toggle('un-selected-tab');
+function makeProfileVisible() {
+    document.getElementById("tab2").classList.remove('selected-tab');
+    document.getElementById("tab2").classList.add('un-selected-tab');
 
-    document.getElementsByClassName("left-tab")[0].classList.toggle('selected-tab');
-    document.getElementsByClassName("left-tab")[0].classList.toggle('un-selected-tab');
-    document.getElementsByClassName("left-tab")[1].classList.toggle('selected-tab');
-    document.getElementsByClassName("left-tab")[1].classList.toggle('un-selected-tab');
+    document.getElementById("tab1").classList.remove('un-selected-tab');
+    document.getElementById("tab1").classList.add('selected-tab');
+
+    document.getElementsByClassName("reciepts-section")[0].style.display = "none";
+    document.getElementsByClassName("profile-section")[0].style.display = "flex";
+    document.getElementsByClassName("credit-section")[0].style.display = "flex";
+
+
+
+}
+
+function makeRecieptVisible() {
+    document.getElementById("tab1").classList.remove('selected-tab');
+    document.getElementById("tab1").classList.add('un-selected-tab');
+
+    document.getElementById("tab2").classList.remove('un-selected-tab');
+    document.getElementById("tab2").classList.add('selected-tab');
+
+    document.getElementsByClassName("profile-section")[0].style.display = "none";
+    document.getElementsByClassName("credit-section")[0].style.display = "none";
+    document.getElementsByClassName("reciepts-section")[0].style.display = "flex";
+
+
 }

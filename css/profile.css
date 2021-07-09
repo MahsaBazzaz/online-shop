@@ -137,7 +137,8 @@ body {
     display: flex;
     flex-direction: column;
     flex-wrap: nowrap;
-    justify-content: center;
+    flex-grow: 1;
+    justify-content: flex-start;
     align-items: center;
     background-color: var(--back-color-light);
 }
@@ -153,22 +154,25 @@ body {
 
 /* credit info */
 
-#profile-section {
+.profile-section {
     display: flex;
     align-items: center;
     flex-direction: column;
     justify-content: center;
     flex-wrap: nowrap;
+}
+
+.reciepts-section {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: nowrap;
+    flex-direction: column;
     width: 80%;
 }
 
-#reciepts-section {
+.credit-section {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: nowrap;
-    flex-direction: column;
-    width: 80%;
 }
 
 .flex-row {
@@ -178,6 +182,7 @@ body {
     flex-direction: column;
     justify-content: center;
     flex-wrap: nowrap;
+    margin-bottom: 20px;
 }
 
 .strech-row {
@@ -207,13 +212,13 @@ body {
     padding: 5px 5px;
 }
 
-.credit-info {
+.title-div {
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
     align-content: center;
     align-items: stretch;
-    margin-bottom: 30px;
+    margin-top: 100px;
 }
 
 #increase-credit {
@@ -226,6 +231,7 @@ body {
     padding: 1px 15px;
     font-family: iransans;
     margin-right: 10px;
+    cursor: pointer;
 }
 
 #increase-credit:hover {
@@ -238,21 +244,25 @@ body {
 /* credit info */
 
 
-/* tabs  */
-
+/* tab */
 .tab-container {
-    width: 250px;
-    height: 40px;
+    direction: rtl;
     border-style: solid;
     border-color: gainsboro;
     border-radius: 24px;
+    margin-bottom: 30px;
+    margin-top: 30px;
     text-align: center;
-    margin-bottom: 10px;
+    display: inline-flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
 }
 
 .tab {
     font-family: iransans;
     font-size: 14px;
+    height: 100%;
 }
 
 .tab a {
@@ -262,43 +272,33 @@ body {
 }
 
 .right-tab {
-    width: 50%;
-    height: 100%;
-    float: right;
-    border-color: gainsboro;
     border-top-right-radius: 24px;
     border-bottom-right-radius: 24px;
 }
 
 .left-tab {
-    width: 50%;
-    height: 100%;
-    float: left;
-    border-color: gainsboro;
     border-top-left-radius: 24px;
     border-bottom-left-radius: 24px;
 }
 
-.un-selected-tab {
-    background-color: whitesmoke;
-    color: var(--tab-black);
-}
-
-.un-selected-tab a {
-    color: var(--tab-black);
-}
-
 .selected-tab {
     background-color: gainsboro;
-    color: var(--tab-darkest-gray);
+    color: var(--tab-black);
 }
 
 .selected-tab a {
+    color: var(--tab-black);
+}
+
+.un-selected-tab {
+    background-color: whitesmoke;
     color: var(--tab-darkest-gray);
 }
 
-
-/* tabs  */
+.un-selected-tab a {
+    color: var(--tab-darkest-gray);
+}
+/* tab */
 
 
 /* form */
@@ -406,7 +406,7 @@ body {
 /* form */
 
 #edit-profile {
-    font-size: 13px;
+    font-size: 12px;
     color: rgb(0, 0, 0);
     background-color: rgb(255, 200, 10);
     border-radius: 24px;
@@ -416,6 +416,7 @@ body {
     font-family: iransans;
     font-size: 18px;
     margin-right: 10px;
+    cursor: pointer;
 }
 
 #edit-profile:hover {
