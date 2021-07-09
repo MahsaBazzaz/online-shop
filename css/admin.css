@@ -57,7 +57,7 @@ body {
 
 .reciepts-div {
     margin-top: 40px;
-    display: flex;
+    display: none;
     align-items: flex-start;
     flex-direction: column;
     justify-content: flex-start;
@@ -76,6 +76,25 @@ body {
     margin-top: 50px;
 }
 
+.categories-div {
+    display: none;
+    align-items: flex-start;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: nowrap;
+    width: 60%;
+}
+
+.products-div {
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: nowrap;
+    width: 80%;
+}
 
 /* menu */
 .navbar {
@@ -263,10 +282,9 @@ table {
     border-radius: 5px;
 }
 
-th,
-td {
+th, td {
     font-size: 13px;
-    text-align: right;
+    text-align: center;
     padding: 10px 2%;
     border-bottom: 1px solid rgb(218, 216, 216);
     border-collapse: collapse;
@@ -305,11 +323,12 @@ tr:last-child td {
     direction: rtl;
     text-align: center;
     align-items: center;
+    align-content: center;
     justify-content: center;
     font-family: iransans;
     font-size: 14px;
     background-color: var(--input-label-color);
-    padding: 5px 10px 5px 10px;
+    padding: 10px 10px 10px 10px;
     border-radius: 0px 5px 5px 0px;
     flex-grow: 1;
     color: white;
@@ -334,3 +353,30 @@ tr:last-child td {
     color: lightgrey;
 }
 /* input component */
+
+
+/* categories operations */
+.operations-div {
+    direction: rtl;
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+}
+
+.operation-button {
+    font-family: iransans;
+    font-size: 12px;
+    outline: none;
+    border: none;
+    background: none;
+    color: black;
+    cursor: pointer;
+}
+
+.operation-button:hover {
+    color: var(--input-label-color);
+}
+
+/* categories operations */
