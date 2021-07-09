@@ -1,0 +1,225 @@
+@font-face {
+    font-family: iransans;
+    src: url("../assets/fonts/iran\ sans/iransans_medium.woff");
+}
+
+:root {
+    --input-label-color: rgb(14, 186, 197);
+    --background-color: rgb(232, 233, 237);
+    --menu-blue: rgb(14, 186, 197);
+    --menu-yello: rgb(255, 200, 10);
+    --menu-bright-gray: rgb(237, 237, 237);
+    --menu-dark-gray: rgb(225, 225, 225);
+    --menu-black: rgb(0, 0, 0);
+    --menu-white: rgb(255, 255, 255);
+    --footer-gray: rgb(114, 120, 125);
+    --footer-black: rgb(49, 52, 54);
+    --tab-dark-gray: rgb(238, 238, 238);
+    --tab-light-gray: rgb(255, 255, 255);
+    --tab-darkest-gray: rgb(161, 165, 169);
+    --tab-black: rgb(0, 0, 0);
+}
+
+body {
+    background-color: lightsteelblue;
+    direction: rtl;
+    margin: 0;
+    font-family: iransans;
+}
+
+.main-div {
+    width: 1280px;
+    margin: auto;
+    min-height: 100vh;
+    flex-direction: column;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    background-color: gainsboro;
+}
+
+.admin-div {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    flex-grow: 1;
+    justify-content: flex-start;
+    align-items: center;
+    background-color: gainsboro;
+}
+
+.title-div {
+    font-size: 20px;
+    color: black;
+    margin-top: 30px;
+}
+
+
+
+/* menu */
+.navbar {
+    /* overflow: hidden; */
+    height: 65px;
+    background-color: var(--menu-white);
+    text-align: center;
+    z-index: 0;
+    flex-grow: 0;
+    position: relative;
+    top: 0px;
+}
+
+.navbar p {
+    float: right;
+    font-size: 20px;
+    padding-right: 25px;
+    color: var(--menu-blue);
+}
+
+.navbar a {
+    float: right;
+    font-size: 14px;
+    color: inherit;
+    padding-top: 22px;
+    padding-right: 25px;
+    text-decoration: none;
+}
+
+.dropdown {
+    overflow: hidden;
+}
+
+.dropdown .dropdownbtn {
+    font-size: 14px;
+    background-color: var(--menu-white);
+    color: var(--menu-black);
+    border-radius: 24px;
+    border-style: solid;
+    border-color: var(--menu-yello);
+    outline: none;
+    margin-top: 10px;
+    margin-left: 20px;
+    margin-right: 20px;
+    padding: 5px 21px;
+    font-family: inherit;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    z-index: 2;
+}
+
+.dropdown-content {
+    display: none;
+    background-color: var(--menu-dark-gray);
+    padding-top: 30px;
+    padding-bottom: 15px;
+    position: absolute;
+    top: 18px;
+    left: 21px;
+    border-radius: 15px;
+    width: 124px;
+    z-index: 1;
+}
+
+.dropdown-content a {
+    float: none;
+    display: block;
+    background-color: var(--menu-dark-gray);
+    color: var(--menu-black);
+    text-decoration: none;
+    padding: 5px 5px;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.navbar a:hover {
+    color: var(--menu-blue);
+}
+
+.dropdown:hover .dropdownbtn {
+    background-color: var(--menu-yello);
+}
+
+.dropdown-content a:hover {
+    background-color: var(--menu-bright-gray);
+    color: var(--menu-black);
+}
+/* menu */
+
+
+/* footer */
+.footer {
+    bottom: 0;
+    max-width: 1280;
+    width: 100%;
+    clear: both;
+    font-size: 14px;
+    flex-grow: 0;
+    font-family: iransans;
+    background-color: var(--footer-black);
+    color: var(--footer-gray);
+    text-align: center;
+}
+/* footer */
+
+
+
+/* tripple-tab */
+.tripple-tab-container {
+    direction: rtl;
+    border-style: solid;
+    border-color: var(--tab-dark-gray);
+    border-radius: 24px;
+    margin-top: 30px;
+    text-align: center;
+    display: inline-flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+}
+
+.tab {
+    font-family: iransans;
+    font-size: 14px;
+    height: 100%;
+}
+
+.tab a {
+    text-decoration: none;
+    display: inline-block;
+    padding: 6px 40px;
+}
+
+.right-tab {
+    border-top-right-radius: 24px;
+    border-bottom-right-radius: 24px;
+}
+
+.center-tab {
+    border-radius: 0px;
+}
+
+.left-tab {
+    border-top-left-radius: 24px;
+    border-bottom-left-radius: 24px;
+}
+
+.selected-tab {
+    background-color: var(--tab-dark-gray);
+    color: var(--tab-black);
+}
+
+.selected-tab a {
+    color: var(--tab-black);
+}
+
+.un-selected-tab {
+    background-color: var(--tab-light-gray);
+    color: var(--tab-darkest-gray);
+}
+
+.un-selected-tab a {
+    color: var(--tab-darkest-gray);
+}
+/* tripple tab */
