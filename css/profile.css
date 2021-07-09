@@ -152,7 +152,7 @@ body {
 
 /* credit info */
 
-.profile-section {
+#profile-section {
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -160,7 +160,7 @@ body {
     flex-wrap: nowrap;
 }
 
-.reciepts-section {
+#reciepts-section {
     display: flex;
     justify-content: center;
     align-items: center;
