@@ -263,6 +263,29 @@
     box-shadow: 1px 1px 3px 1px #ffc80a;
 }
 
+.prev-button,
+.next-button {
+    border-style: none;
+    background-color: transparent;
+}
+
+.prev-button {
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+    float: left;
+}
+
+.next-button {
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+    float: right;
+}
+
+.prev-button:hover,
+.next-button:hover {
+    background-color: rgba(0, 0, 0, 0.212);
+}
+
 .img-contaner {
     margin-top: 40px;
     text-align: center;
