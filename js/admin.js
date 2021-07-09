@@ -22,7 +22,6 @@ function selectTab(tabs, tabDivs, select, unselect1, unselect2) {
     document.getElementById(tabs[unselect2]).classList.remove('selected-tab');
     document.getElementById(tabs[unselect2]).classList.add('un-selected-tab');
 
-    console.log(tabDivs[select]);
     document.getElementById(tabDivs[select]).style.display = "flex";
     document.getElementById(tabDivs[unselect1]).style.display = "none";
     document.getElementById(tabDivs[unselect2]).style.display = "none";
