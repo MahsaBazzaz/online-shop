@@ -226,6 +226,12 @@ body {
     margin-right: 10px;
 }
 
+#increase-credit:hover {
+    -moz-box-shadow: 1px 1px 3px 1px #ffc80a;
+    -webkit-box-shadow: 1px 1px 3px 1px #ffc80a;
+    box-shadow: 1px 1px 3px 1px #ffc80a;
+}
+
 
 /* credit info */
 
@@ -408,6 +414,12 @@ body {
     font-family: iransans;
     font-size: 18px;
     margin-right: 10px;
+}
+
+#edit-profile:hover {
+    -moz-box-shadow: 1px 1px 3px 1px #ffc80a;
+    -webkit-box-shadow: 1px 1px 3px 1px #ffc80a;
+    box-shadow: 1px 1px 3px 1px #ffc80a;
 }
 
 
