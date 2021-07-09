@@ -41,7 +41,7 @@ function selectTab(tabs, tabDivs, select, unselect1, unselect2) {
 function addEventToButton(butt_id) {
     const row_number = butt_id.split("edit-gategory-");
     var previous_value = document.getElementById('categories-table').rows[row_number[1]].cells[0].getAttribute("contenteditable");
-    if (previous_value) {
+    if (previous_value == "true") {
         document.getElementById('categories-table').rows[row_number[1]].cells[0].setAttribute('contenteditable', false);
         document.getElementById(butt_id).innerHTML = "ویرایش دسته بندی";
     } else {
