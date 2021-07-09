@@ -199,6 +199,12 @@ body {
     padding: 5px 5px;
 }
 
+.credit {
+    font-family: iransans;
+    font-size: 14px;
+    padding: 5px 5px;
+}
+
 .credit-info {
     display: flex;
     flex-direction: row;
@@ -215,7 +221,7 @@ body {
     border-radius: 24px;
     border-style: none;
     outline: none;
-    padding: 1px 20px;
+    padding: 1px 15px;
     font-family: iransans;
     margin-right: 10px;
 }
