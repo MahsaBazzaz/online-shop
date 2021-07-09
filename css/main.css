@@ -193,49 +193,7 @@
     width: 100%;
     text-align: center;
     justify-content: center;
-    position: relative;
 }
-
-.mySlides {
-    display: none;
-}
-
-
-/* Next & previous buttons */
-
-.prev,
-.next {
-    cursor: pointer;
-    position: absolute;
-    top: 50%;
-    margin-top: -22px;
-    padding: 16px;
-    width: auto;
-    color: white;
-    font-weight: bold;
-    font-size: 18px;
-    transition: 0.6s ease;
-    border-radius: 0 3px 3px 0;
-    user-select: none;
-}
-
-.prev {
-    right: 0;
-    border-radius: 3px 0 0 3px;
-}
-
-.next {
-    left: 0;
-    border-radius: 3px 0 0 3px;
-}
-
-.prev:hover,
-.next:hover {
-    background-color: rgba(0, 0, 0, 0.8);
-}
-
-
-/* Next & previous buttons */
 
 .title {
     font-family: iransans;
