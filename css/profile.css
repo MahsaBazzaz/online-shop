@@ -14,8 +14,8 @@
     --menu-white: rgb(255, 255, 255);
     --footer-gray: rgb(114, 120, 125);
     --footer-black: rgb(49, 52, 54);
-    --tab-dark-gray: rgb(232, 233, 237);
-    --tab-light-gray: rgb(218, 216, 216);
+    --tab-dark-gray: rgb(238, 238, 238);
+    --tab-light-gray: rgb(255, 255, 255);
     --tab-darkest-gray: rgb(161, 165, 169);
     --tab-black: rgb(0, 0, 0);
 }
@@ -158,6 +158,7 @@ body {
     flex-direction: column;
     justify-content: center;
     flex-wrap: nowrap;
+    width: 80%;
 }
 
 #reciepts-section {
@@ -262,21 +263,21 @@ body {
     border-bottom-left-radius: 24px;
 }
 
-.selected-tab {
+.un-selected-tab {
     background-color: var(--tab-dark-gray);
     color: var(--tab-black);
 }
 
-.selected-tab a {
+.un-selected-tab a {
     color: var(--tab-black);
 }
 
-.un-selected-tab {
+.selected-tab {
     background-color: var(--tab-light-gray);
     color: var(--tab-darkest-gray);
 }
 
-.un-selected-tab a {
+.selected-tab a {
     color: var(--tab-darkest-gray);
 }
 
@@ -419,18 +420,19 @@ table {
 }
 
 th {
-    text-align: center;
-    padding: 10px 0px;
+    text-align: right;
+    padding: 10px 7%;
 }
 
 tr {
     border-bottom: 1px solid #dddddd;
-    text-align: center;
+    text-align: right;
 }
 
 td {
     padding: 10px 0px;
     color: rgb(66, 66, 66);
+    padding-right: 7%;
 }
 
 
