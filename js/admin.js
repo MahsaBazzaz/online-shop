@@ -43,9 +43,11 @@ function addEventToButton(butt_id) {
     var previous_value = document.getElementById('categories-table').rows[row_number[1]].cells[0].getAttribute("contenteditable");
     if (previous_value == "true") {
         document.getElementById('categories-table').rows[row_number[1]].cells[0].setAttribute('contenteditable', false);
+        document.getElementById('categories-table').rows[row_number[1]].cells[0].style.boxShadow = "box-shadow: none";
         document.getElementById(butt_id).innerHTML = "ویرایش دسته بندی";
     } else {
         document.getElementById('categories-table').rows[row_number[1]].cells[0].setAttribute('contenteditable', true);
+        document.getElementById('categories-table').rows[row_number[1]].cells[0].focus();
         document.getElementById(butt_id).innerHTML = "ذخیره تغییرات";
     }
 }

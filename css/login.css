@@ -6,7 +6,7 @@
 :root {
     --input-label-color: rgb(14, 186, 197);
     --background-color: rgb(232, 233, 237);
-    --back-color-light: rgb(240,240,250);
+    --back-color-light: rgb(240, 240, 250);
     --menu-blue: rgb(14, 186, 197);
     --menu-yello: rgb(255, 200, 10);
     --menu-bright-gray: rgb(237, 237, 237);
@@ -79,14 +79,15 @@ body {
     cursor: pointer;
 }
 
-.submit-button:hover{
-    -moz-box-shadow:    1px 1px 3px 1px #ffc80a;
+.submit-button:hover {
+    -moz-box-shadow: 1px 1px 3px 1px #ffc80a;
     -webkit-box-shadow: 1px 1px 3px 1px #ffc80a;
-    box-shadow:         1px 1px 3px 1px #ffc80a;
+    box-shadow: 1px 1px 3px 1px #ffc80a;
 }
 
 
 /* menu */
+
 .navbar {
     /* overflow: hidden; */
     height: 65px;
@@ -174,10 +175,13 @@ body {
     background-color: var(--menu-bright-gray);
     color: var(--menu-black);
 }
+
+
 /* menu */
 
 
 /* footer */
+
 .footer {
     bottom: 0;
     max-width: 1280;
@@ -189,11 +193,13 @@ body {
     color: var(--footer-gray);
     text-align: center;
 }
+
+
 /* footer */
 
 
-
 /* input component */
+
 .input-container {
     direction: rtl;
     display: flex;
@@ -232,4 +238,6 @@ body {
 ::placeholder {
     color: lightgrey;
 }
+
+
 /* input component */
