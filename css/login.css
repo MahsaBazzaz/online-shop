@@ -6,6 +6,7 @@
 :root {
     --input-label-color: rgb(14, 186, 197);
     --background-color: rgb(232, 233, 237);
+    --back-color-light: rgb(240,240,250);
     --menu-blue: rgb(14, 186, 197);
     --menu-yello: rgb(255, 200, 10);
     --menu-bright-gray: rgb(237, 237, 237);
@@ -31,7 +32,7 @@ body {
     display: flex;
     flex-wrap: nowrap;
     justify-content: space-between;
-    background-color: gainsboro;
+    background-color: var(--back-color-light);
 }
 
 .login-div {
@@ -40,7 +41,7 @@ body {
     flex-wrap: nowrap;
     justify-content: center;
     align-items: center;
-    background-color: gainsboro;
+    background-color: var(--back-color-light);
 }
 
 .title-div {

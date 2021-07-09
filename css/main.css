@@ -22,12 +22,12 @@
 .boxes-div {
     margin: 0;
     padding: 15px 20px 15px 20px;
-    background-color: gainsboro;
+    background-color: var(--back-color-light);
 }
 
 .products-section-div {
     margin: 0;
-    background-color: gainsboro;
+    background-color: var(--back-color-light);
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
@@ -38,7 +38,7 @@
 .filters-section {
     width: 25%;
     margin: 0;
-    background-color: gainsboro;
+    background-color: var(--back-color-light);
     display: flex;
     flex-direction: column;
     flex-wrap: nowrap;
@@ -51,6 +51,7 @@
 
 :root {
     --background-color: rgb(232, 233, 237);
+    --back-color-light: rgb(240,240,250);
     --menu-blue: rgb(14, 186, 197);
     --menu-yello: rgb(255, 200, 10);
     --menu-bright-gray: rgb(237, 237, 237);
@@ -556,7 +557,7 @@ input[type=range]::-webkit-slider-thumb {
 /* product box */
 
 .products-box {
-    background-color: gainsboro;
+    background-color: var(--back-color-light);
     color: black;
     direction: rtl;
     flex-wrap: wrap;

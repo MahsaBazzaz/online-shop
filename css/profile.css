@@ -6,6 +6,7 @@
 :root {
     --input-label-color: rgb(14, 186, 197);
     --background-color: rgb(232, 233, 237);
+    --back-color-light: rgb(240,240,250);
     --menu-blue: rgb(14, 186, 197);
     --menu-yello: rgb(255, 200, 10);
     --menu-bright-gray: rgb(237, 237, 237);
@@ -35,7 +36,7 @@ body {
     display: flex;
     flex-wrap: nowrap;
     justify-content: space-between;
-    background-color: gainsboro;
+    background-color: var(--back-color-light);
 }
 
 
@@ -138,7 +139,7 @@ body {
     flex-wrap: nowrap;
     justify-content: center;
     align-items: center;
-    background-color: gainsboro;
+    background-color: var(--back-color-light);
 }
 
 .visibale {
@@ -243,7 +244,7 @@ body {
     width: 250px;
     height: 40px;
     border-style: solid;
-    border-color: var(--tab-dark-gray);
+    border-color: gainsboro;
     border-radius: 24px;
     text-align: center;
     margin-bottom: 10px;
@@ -264,7 +265,7 @@ body {
     width: 50%;
     height: 100%;
     float: right;
-    border-color: var(--tab-dark-gray);
+    border-color: gainsboro;
     border-top-right-radius: 24px;
     border-bottom-right-radius: 24px;
 }
@@ -273,13 +274,13 @@ body {
     width: 50%;
     height: 100%;
     float: left;
-    border-color: var(--tab-dark-gray);
+    border-color: gainsboro;
     border-top-left-radius: 24px;
     border-bottom-left-radius: 24px;
 }
 
 .un-selected-tab {
-    background-color: var(--tab-dark-gray);
+    background-color: whitesmoke;
     color: var(--tab-black);
 }
 
@@ -288,7 +289,7 @@ body {
 }
 
 .selected-tab {
-    background-color: var(--tab-light-gray);
+    background-color: gainsboro;
     color: var(--tab-darkest-gray);
 }
 
