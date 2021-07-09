@@ -409,7 +409,6 @@ table {
     font-family: iransans;
     justify-content: center;
     align-items: center;
-    font-size: 15px;
     border-collapse: collapse;
     width: 100%;
     background-color: rgb(255, 255, 255);
@@ -420,6 +419,7 @@ table {
 }
 
 th {
+    font-size: 13px;
     text-align: right;
     padding: 10px 7%;
 }
@@ -430,6 +430,7 @@ tr {
 }
 
 td {
+    font-size: 13px;
     padding: 10px 0px;
     color: rgb(66, 66, 66);
     padding-right: 7%;
