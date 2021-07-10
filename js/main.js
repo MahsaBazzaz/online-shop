@@ -32,12 +32,17 @@ function showSlide(index) {
 }
 
 // modal
-var modal = document.getElementsByClassName("modal")[0];
+var modal = document.getElementById("modal");
 var btn = document.getElementsByClassName("dropdownbtn")[0];
 var span = document.getElementsByClassName("close")[0];
 btn.onclick = function() {
     modal.style.display = "flex";
 }
 span.onclick = function() {
-    modal.style.display = "none";
-}
+        modal.style.display = "none";
+    }
+    // window.onclick = function(event) {
+    //     if (event.target.id != modal.id && event.target.id != btn.id) {
+    //         modal.style.display = "none";
+    //     }
+    // }
