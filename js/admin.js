@@ -31,6 +31,45 @@ window.onload = function() {
                 EditProductEvent(this.id);
             })
     }
+
+    document.getElementsByClassName('create-product-button')[0].addEventListener("click", function() {
+        var product_total_num = document.getElementsByClassName("main-product-box").length;
+        var container = document.getElementsByClassName('products-box')[0];
+        container.innerHTML +=
+            '<div id="product-with-id-' + product_total_num + '" class="main-product-box">' +
+            '<div class="product-image-box">' +
+            '<img src="../assets/img/product.jpg">' +
+            '</div>' +
+            '<div class="product-desc-box">' +
+            '<p contenteditable = true class="product-title">نام محصول</p>' +
+            '<p contenteditable = true class="product-category">دسته بندی</p>' +
+            '</div >' +
+            '<hr>' +
+            '<div class="product-price-box">' +
+            '<p contenteditable = true class="product-price">قیمت</p>' +
+            '<button id="save-product-with-id-' + product_total_num + '"class="buy-product-button">ذخیره</button>' +
+            '</div>' +
+            '<span contenteditable = true class="badge">?</span>' +
+            '</div>';
+        document.getElementById('save-product-with-id-' + product_total_num).addEventListener('click', function() {
+            var id = this.id.split('save-product-with-id-');
+            product_details = document.getElementById("product-with-id-" + id[1]).getElementsByTagName('p');
+            document.getElementById("product-with-id-" + id[1]).innerHTML =
+                '<div class="product-image-box">' +
+                '<img src="../assets/img/product.jpg">' +
+                '</div>' +
+                '<div class="product-desc-box">' +
+                '<p contenteditable = false class="product-title">' + product_details[0].innerHTML + '</p>' +
+                '<p contenteditable = false class="product-category">' + product_details[1].innerHTML + '</p>' +
+                '</div >' +
+                '<hr>' +
+                '<div class="product-price-box">' +
+                '<p contenteditable = false class="product-price">' + product_details[2].innerHTML + '</p>' +
+                '<button id="edit-product-with-id' + id[1] + '"class="buy-product-button">ویرایش محصول</button>' +
+                '<span contenteditable = false class="badge">' + document.getElementById("product-with-id-" + id[1]).getElementsByTagName('span')[0].innerHTML + '</span>' +
+                '</div>';
+        });
+    });
 }
 
 function selectTab(tabs, tabDivs, select, unselect1, unselect2) {
