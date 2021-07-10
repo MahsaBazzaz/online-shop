@@ -1,4 +1,6 @@
 window.onload = function() {
+    const productsInPage = 15;
+    
     tabs = ["tab1", "tab2", "tab3"];
     tabDivs = ["products", "categories", "reciepts"]
     document.getElementById(tabs[0]).addEventListener("click", function() {
@@ -10,6 +12,15 @@ window.onload = function() {
     document.getElementById(tabs[2]).addEventListener("click", function() {
         selectTab(tabs, tabDivs, 2, 0, 1);
     });
+
+    let products = fillProducts();
+    const pages = Math.ceil(products.length / productsInPage);
+    let currentPage = 1;
+    createPagination(pages, currentPage);
+    let partition = products.slice((currentPage-1)*productsInPage, Math.min(currentPage*productsInPage, products.length));
+    console.log(pages);
+    showProducts(partition);
+
     var edit_category_button_ids = "edit-gategory-";
 
     var row = document.getElementById('categories-table').rows;
@@ -113,4 +124,65 @@ function EditProductEvent(buttenID) {
             product_details[i].setAttribute('contenteditable', false);
         document.getElementById(buttenID).innerHTML = "ویرایش محصول";
     }
+}
+
+function fillProducts() {
+    const productsNumber = 40;
+    products = [];
+    for (let i=1; i<=productsNumber; i++) {
+        b = {"name": "محصول " + i, "category": "دسته بندی " + i, "price": i*1000};
+        products.push(b);
+    }
+
+    return products;
+}
+
+function showProducts(products) {
+    productsBox = document.getElementsByClassName("products-box")[0];
+    for (product of products) {
+        productsBox.appendChild(createProductBox(product));
+    }
+}
+
+function createProductBox(product) {
+    const newDiv = document.createElement("div");
+    newDiv.className = "main-product-box";
+    newDiv.innerHTML = '<div class="product-image-box">'+
+                            '<img src="../assets/img/product.jpg">'+
+                        '</div>'+
+                        '<div class="product-desc-box">'+
+                            '<p class="product-title">' + product.name +'</p>'+
+                            '<p class="product-category">' + product.category + '</p>'+
+                        '</div>'+
+                        '<hr>'+
+                        '<div class="product-price-box">'+
+                            '<p class="product-price">' + product.price + ' تومان</p>'+
+                            '<button id="edit-product-with-id-0" class="buy-product-button">ویرایش محصول</button>'+
+                        '</div>'+
+                        '<span class="badge">12</span>';
+
+    return newDiv;
+
+}
+
+function createPagination(pages, currentPage) {
+    const pagination = document.getElementsByClassName("pagination")[0];
+
+    const prev = document.createElement("a");
+    prev.innerHTML = '<i class="fa fa-angle-left" aria-hidden="true"></i>'
+
+    const next = document.createElement("a");
+    next.innerHTML = '<i class="fa fa-angle-right" aria-hidden="true"></i>'
+
+    pagination.appendChild(prev);
+    for(let i=1; i<=pages; i++){
+        const page = document.createElement("a");
+        page.innerHTML = i;
+        if (i == currentPage) {
+            page.className = "active";
+        }
+        pagination.appendChild(page);
+    }
+    pagination.appendChild(next);
+
 }
