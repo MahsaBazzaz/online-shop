@@ -6,7 +6,7 @@
 :root {
     --input-label-color: rgb(14, 186, 197);
     --background-color: rgb(232, 233, 237);
-    --back-color-light: rgb(240,240,250);
+    --back-color-light: rgb(240, 240, 250);
     --menu-blue: rgb(14, 186, 197);
     --menu-yello: rgb(255, 200, 10);
     --menu-bright-gray: rgb(237, 237, 237);
@@ -245,6 +245,7 @@ body {
 
 
 /* tab */
+
 .tab-container {
     direction: rtl;
     border-style: solid;
@@ -298,6 +299,8 @@ body {
 .un-selected-tab a {
     color: var(--tab-darkest-gray);
 }
+
+
 /* tab */
 
 

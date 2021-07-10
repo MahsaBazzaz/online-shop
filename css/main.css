@@ -51,7 +51,7 @@
 
 :root {
     --background-color: rgb(232, 233, 237);
-    --back-color-light: rgb(240,240,250);
+    --back-color-light: rgb(240, 240, 250);
     --menu-blue: rgb(14, 186, 197);
     --menu-yello: rgb(255, 200, 10);
     --menu-bright-gray: rgb(237, 237, 237);
@@ -73,6 +73,7 @@
     --price-filter-black: rgb(0, 0, 0);
     --price-filter-white: rgb(255, 255, 255);
     --price-filter-blue: rgb(0, 157, 255);
+    --input-label-color: rgb(14, 186, 197);
 }
 
 .navbar {
@@ -662,3 +663,200 @@ hr {
 
 
 /* product box */
+
+
+/* modal */
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 4;
+    top: 20%;
+    width: 100%;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    margin: auto;
+}
+
+.modal .close {
+    color: #aaa;
+    position: absolute;
+    right: 10px;
+    top: 0px;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.modal .close:hover,
+.modal .close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.modal .login-div {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: stretch;
+    align-items: center;
+    background-color: var(--back-color-light);
+    padding: 10px;
+}
+
+.modal .login-div .title-div {
+    font-size: 20px;
+    color: var(--input-label-color);
+    margin-bottom: 30px;
+}
+
+.modal .login-div .form-div {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-items: stretch;
+    margin-bottom: 30px;
+}
+
+.modal .login-div .submit-div {
+    justify-content: center;
+    text-align: center;
+}
+
+.modal .login-div .submit-button {
+    font-family: iransans;
+    background-color: #ffc80a;
+    color: black;
+    text-align: center;
+    justify-content: center;
+    direction: rtl;
+    padding: 10px 50px 10px 50px;
+    border-radius: 24px;
+    border-style: solid;
+    border-width: 0px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.modal .login-div .submit-button:hover {
+    -moz-box-shadow: 1px 1px 3px 1px #ffc80a;
+    -webkit-box-shadow: 1px 1px 3px 1px #ffc80a;
+    box-shadow: 1px 1px 3px 1px #ffc80a;
+}
+
+.modal .signup-div {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--back-color-light);
+    padding: 10px;
+}
+
+.modal .signup-div .title-div {
+    font-size: 20px;
+    color: var(--input-label-color);
+    margin-bottom: 30px;
+}
+
+.modal .signup-div .form-div {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: stretch;
+    margin-bottom: 30px;
+}
+
+.modal .signup-div .submit-div {
+    justify-content: center;
+    text-align: center;
+}
+
+.modal .signup-div .submit-button {
+    font-family: iransans;
+    background-color: #ffc80a;
+    color: black;
+    text-align: center;
+    justify-content: center;
+    direction: rtl;
+    padding: 10px 50px 10px 50px;
+    border-radius: 24px;
+    border-style: solid;
+    border-width: 0px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.modal .signup-div .submit-button:hover {
+    -moz-box-shadow: 1px 1px 3px 1px #ffc80a;
+    -webkit-box-shadow: 1px 1px 3px 1px #ffc80a;
+    box-shadow: 1px 1px 3px 1px #ffc80a;
+}
+
+
+/* input component */
+
+.modal .input-container {
+    direction: rtl;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    margin: 5px 10px 10px 10px;
+}
+
+.modal .input-label {
+    direction: rtl;
+    text-align: center;
+    font-family: iransans;
+    font-size: 14px;
+    width: 80px;
+    background-color: var(--input-label-color);
+    padding: 5px 10px 5px 10px;
+    border-radius: 0px 5px 5px 0px;
+    color: white;
+}
+
+.modal .input-textbox {
+    direction: rtl;
+    text-align: start;
+    font-family: iransans;
+    font-size: 13px;
+    width: 200px;
+    background-color: white;
+    padding: 5px 10px 5px 10px;
+    border-radius: 5px 0px 0px 5px;
+    color: black;
+    border: none;
+    outline: none;
+}
+
+.modal .input-textarea {
+    direction: rtl;
+    text-align: start;
+    font-family: iransans;
+    font-size: 13px;
+    flex-grow: 1;
+    background-color: white;
+    padding: 5px 10px 5px 10px;
+    border-radius: 5px 0px 0px 5px;
+    color: black;
+    border: none;
+    outline: none;
+    resize: none;
+}
+
+.modal ::placeholder {
+    color: lightgrey;
+}
+
+
+/* input component */
+
+
+/* modal */
