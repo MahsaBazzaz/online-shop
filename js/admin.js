@@ -1,6 +1,7 @@
 let currentPage = 1;
 let pages = 0;
 const productsInPage = 15;
+
 window.onload = function() {
     tabs = ["tab1", "tab2", "tab3"];
     tabDivs = ["products", "categories", "reciepts"]
@@ -170,7 +171,7 @@ function createPagination() {
 
     const prev = document.createElement("a");
     prev.id = "prev-btn";
-    prev.innerHTML = '<i class="fa fa-angle-left" aria-hidden="true"></i>'
+    prev.innerHTML ='صفحه قبل'
     prev.disabled = true;
     prev.addEventListener("click", function() {
         goToPage(Math.max(1, currentPage - 1), pages);
@@ -178,7 +179,7 @@ function createPagination() {
 
     const next = document.createElement("a");
     next.id = "next-btn";
-    next.innerHTML = '<i class="fa fa-angle-right" aria-hidden="true"></i>'
+    next.innerHTML = 'صفحه بعد'
     next.addEventListener("click", function() {
         goToPage(Math.min(currentPage + 1, pages), pages);
     });
