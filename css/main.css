@@ -671,12 +671,13 @@ hr {
     display: none;
     position: fixed;
     z-index: 4;
-    top: 20%;
-    left: 50%;
     flex-direction: column;
     flex-wrap: nowrap;
     justify-content: space-between;
     margin: auto;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
 }
 
 .modal .close {
@@ -703,8 +704,9 @@ hr {
     justify-content: stretch;
     align-items: center;
     background-color: var(--back-color-light);
-    padding: 10px;
+    padding: 10px 5px;
     border-radius: 24px;
+    max-width: 800px;
 }
 
 .modal .login-div .title-div {
@@ -720,6 +722,7 @@ hr {
     justify-content: flex-start;
     align-items: stretch;
     margin-bottom: 30px;
+    max-width: 800px;
 }
 
 .modal .login-div .submit-div {
@@ -756,8 +759,9 @@ hr {
     justify-content: center;
     align-items: center;
     background-color: var(--back-color-light);
-    padding: 10px;
+    padding: 10px 5px;
     border-radius: 24px;
+    max-width: 800px;
 }
 
 .modal .signup-div .title-div {
@@ -772,6 +776,7 @@ hr {
     flex-wrap: nowrap;
     align-items: stretch;
     margin-bottom: 30px;
+    max-width: 800px;
 }
 
 .modal .signup-div .submit-div {
@@ -845,7 +850,7 @@ hr {
     text-align: center;
     font-family: iransans;
     font-size: 14px;
-    width: 80px;
+    width: 70px;
     background-color: var(--input-label-color);
     padding: 5px 10px 5px 10px;
     border-radius: 0px 5px 5px 0px;
@@ -866,7 +871,7 @@ hr {
     outline: none;
 }
 
-.modal .row-three .input-textarea {
+.modal .input-textarea {
     direction: rtl;
     text-align: start;
     font-family: iransans;
