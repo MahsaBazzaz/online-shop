@@ -233,13 +233,13 @@
                     <div class="input-label">
                         ایمیل
                     </div>
-                    <input class="input-textbox" placeholder="ایمیل خود را وارد کنید">
+                    <input required class="input-textbox" type="text" placeholder="ایمیل خود را وارد کنید">
                 </div>
                 <div class="input-container">
                     <div class="input-label">
                         رمز عبور
                     </div>
-                    <input class="input-textbox" type="password" placeholder="رمز عبور خود را وارد کنید">
+                    <input required class="input-textbox" type="password" placeholder="رمز عبور خود را وارد کنید">
                 </div>
             </div>
 
@@ -260,13 +260,13 @@
                     <div class="input-container">
                         <div class="input-label">
                             نام </div>
-                        <input class="input-textbox" placeholder="نام خود را وارد کنید">
+                        <input required class="input-textbox" type="text" pattern="^[a-zA-Z]+$" placeholder="نام خود را وارد کنید">
                     </div>
 
                     <div class="input-container">
                         <div class="input-label">
                             نام خانوادگی </div>
-                        <input class="input-textbox" type="password" placeholder="نام خانوادگی خود را وارد کنید">
+                        <input required class="input-textbox" type="text" pattern="^[a-zA-Z]+$" placeholder="نام خانوادگی خود را وارد کنید">
                     </div>
                 </div>
 
@@ -275,14 +275,14 @@
                         <div class="input-label">
                             ایمیل
                         </div>
-                        <input class="input-textbox" type="email" placeholder="ایمیل خود را وارد کنید">
+                        <input required class="input-textbox" type="email" placeholder="ایمیل خود را وارد کنید">
                     </div>
 
                     <div class="input-container">
                         <div class="input-label">
                             رمز عبور
                         </div>
-                        <input class="input-textbox" type="password" minlength="6" placeholder="رمز عبور خود را وارد کنید">
+                        <input required class="input-textbox" type="password" minlength="6" placeholder="رمز عبور خود را وارد کنید">
                     </div>
                 </div>
 
@@ -291,7 +291,7 @@
                         <div class="input-label">
                             آدرس
                         </div>
-                        <textarea class="input-textarea" placeholder="آدرس خود را وارد کنید"></textarea>
+                        <textarea required class="input-textarea" placeholder="آدرس خود را وارد کنید"></textarea>
                     </div>
                 </div>
 

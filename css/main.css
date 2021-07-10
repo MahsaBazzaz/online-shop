@@ -682,6 +682,17 @@ hr {
     overflow-x: hidden;
 }
 
+#modal {
+    /* border-radius */
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    border-radius: 20px;
+    /* box-shadow */
+    -webkit-box-shadow: rgba(0, 0, 0, 0.8) 0px 0 10px;
+    -moz-box-shadow: rgba(0, 0, 0, 0.8) 0 0 10px;
+    box-shadow: rgba(0, 0, 0, 0.8) 0 0 10px;
+}
+
 #modal .close {
     color: #aaa;
     position: absolute;
@@ -897,3 +908,25 @@ hr {
 
 
 /* modal */
+
+
+/* validation */
+
+#modal input:invalid {
+    box-shadow: 0 0 2px 1px red;
+}
+
+#modal input:focus:invalid {
+    box-shadow: none;
+}
+
+#modal textarea:invalid {
+    box-shadow: 0 0 2px 1px red;
+}
+
+#modal textarea:focus:invalid {
+    box-shadow: none;
+}
+
+
+/* validation */
