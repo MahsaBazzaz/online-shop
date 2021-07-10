@@ -6,7 +6,7 @@
 :root {
     --input-label-color: rgb(14, 186, 197);
     --background-color: rgb(232, 233, 237);
-    --back-color-light: rgb(240,240,250);
+    --back-color-light: rgb(240, 240, 250);
     --menu-blue: rgb(14, 186, 197);
     --menu-yello: rgb(255, 200, 10);
     --menu-bright-gray: rgb(237, 237, 237);
@@ -78,10 +78,10 @@ body {
     cursor: pointer;
 }
 
-.submit-button:hover{
-    -moz-box-shadow:    1px 1px 3px 1px #ffc80a;
+.submit-button:hover {
+    -moz-box-shadow: 1px 1px 3px 1px #ffc80a;
     -webkit-box-shadow: 1px 1px 3px 1px #ffc80a;
-    box-shadow:         1px 1px 3px 1px #ffc80a;
+    box-shadow: 1px 1px 3px 1px #ffc80a;
 }
 
 
@@ -292,3 +292,25 @@ body {
 
 
 /* input component */
+
+
+/* validation */
+
+input:invalid {
+    box-shadow: 0 0 5px 1px red;
+}
+
+input:focus:invalid {
+    box-shadow: none;
+}
+
+textarea:invalid {
+    box-shadow: 0 0 5px 1px red;
+}
+
+textarea:focus:invalid {
+    box-shadow: none;
+}
+
+
+/* validation */
