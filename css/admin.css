@@ -550,6 +550,7 @@ hr {
     transition: background-color .2s;
     border-radius: 7px;
     margin: 0 4px;
+    cursor: pointer;
   }
   
   .pagination a.active {

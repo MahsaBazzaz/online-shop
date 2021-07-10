@@ -1,6 +1,7 @@
+let currentPage = 1;
+let pages = 0;
+const productsInPage = 15;
 window.onload = function() {
-    const productsInPage = 15;
-    
     tabs = ["tab1", "tab2", "tab3"];
     tabDivs = ["products", "categories", "reciepts"]
     document.getElementById(tabs[0]).addEventListener("click", function() {
@@ -14,12 +15,9 @@ window.onload = function() {
     });
 
     let products = fillProducts();
-    const pages = Math.ceil(products.length / productsInPage);
-    let currentPage = 1;
-    createPagination(pages, currentPage);
-    let partition = products.slice((currentPage-1)*productsInPage, Math.min(currentPage*productsInPage, products.length));
-    console.log(pages);
-    showProducts(partition);
+    pages = Math.ceil(products.length / productsInPage);
+    createPagination();
+    showPage();
 
     var edit_category_button_ids = "edit-gategory-";
 
@@ -139,6 +137,8 @@ function fillProducts() {
 
 function showProducts(products) {
     productsBox = document.getElementsByClassName("products-box")[0];
+    productsBox.innerHTML = "";
+    //productsBox.scrollTop = 0; we should use animation for this
     for (product of products) {
         productsBox.appendChild(createProductBox(product));
     }
@@ -165,24 +165,53 @@ function createProductBox(product) {
 
 }
 
-function createPagination(pages, currentPage) {
+function createPagination() {
     const pagination = document.getElementsByClassName("pagination")[0];
 
     const prev = document.createElement("a");
+    prev.id = "prev-btn";
     prev.innerHTML = '<i class="fa fa-angle-left" aria-hidden="true"></i>'
+    prev.disabled = true;
+    prev.addEventListener("click", function() {
+        goToPage(Math.max(1, currentPage - 1), pages);
+    });
 
     const next = document.createElement("a");
+    next.id = "next-btn";
     next.innerHTML = '<i class="fa fa-angle-right" aria-hidden="true"></i>'
+    next.addEventListener("click", function() {
+        goToPage(Math.min(currentPage + 1, pages), pages);
+    });
 
     pagination.appendChild(prev);
     for(let i=1; i<=pages; i++){
         const page = document.createElement("a");
+        page.id = "page" + i;
         page.innerHTML = i;
         if (i == currentPage) {
             page.className = "active";
         }
+        page.addEventListener("click", function() {
+            goToPage(i, pages);
+        });
         pagination.appendChild(page);
     }
     pagination.appendChild(next);
 
+}
+
+
+function goToPage(pageNumber) {
+    if (pageNumber != currentPage) {
+        document.getElementById("page" + currentPage).classList.remove("active");
+        document.getElementById("page" + pageNumber).classList.add("active");
+        currentPage = pageNumber;
+        showPage();
+    }
+    
+}
+
+function showPage() {
+    let partition = products.slice((currentPage-1)*productsInPage, Math.min(currentPage*productsInPage, products.length));
+    showProducts(partition);
 }
