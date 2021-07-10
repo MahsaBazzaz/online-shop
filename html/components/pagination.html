@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+</head>
+<style>
+
+@font-face {
+    font-family: iransans;
+    
+    src: url("../../assets/fonts/iran\ sans/iransans_medium.woff");
+}
+
+:root {
+    --input-label-color: rgb(14, 186, 197);
+    --menu-yello: rgb(255, 200, 10);
+    --back-color-light: rgb(240,240,250);
+
+}
+
+body {
+    background-color: var(--back-color-light);
+}
+
+
+.pagination {
+  display: inline-block;
+}
+
+.pagination a {
+  color: black;
+  background-color: gainsboro;
+  float: left;
+  padding: 8px 16px;
+  text-decoration: none;
+  transition: background-color .2s;
+  border-radius: 7px;
+  margin: 0 4px;
+}
+
+.pagination a.active {
+  background-color: var(--input-label-color);
+  color: white;
+  border-radius: 7px;
+}
+
+.pagination a:hover:not(.active) {
+    background-color: silver;
+}
+
+</style>
+</head>
+<body>
+
+
+  <div class="pagination">
+    <a href="#"><i class="fa fa-angle-left" aria-hidden="true"></i></a>
+    <a href="#">1</a>
+    <a href="#" class="active">2</a>
+    <a href="#">3</a>
+    <a href="#">4</a>
+    <a href="#">5</a>
+    <a href="#">6</a>
+    <a href="#"><i class="fa fa-angle-right" aria-hidden="true"></i></a>
+  </div>
+
+</body>
+</html>
