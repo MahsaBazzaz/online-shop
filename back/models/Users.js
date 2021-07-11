@@ -2,12 +2,6 @@ const Sequelize = require("sequelize");
 const db = require("../config/database");
 
 const User = db.define('users', {
-
-
-    id: {
-        type: Sequelize.I
-    },
-
     username: {
         type: Sequelize.STRING
     },
@@ -27,11 +21,9 @@ const User = db.define('users', {
     address: {
         type: Sequelize.STRING
     },
-
     credit: {
         type: Sequelize.INTEGER
-    },
-
+    }
 });
 
 module.exports = User;
