@@ -1,14 +1,17 @@
 const Sequelize = require("sequelize");
+const config = require('../config.json');
+const defaultConfig = config.dev;
 
-module.exports = new Sequelize('OnlineShop', 'postgres', 'admin', {
+console.log(defaultConfig.databaseUsername);
+module.exports = new Sequelize('OnlineShop', defaultConfig.databaseUsername, defaultConfig.databasasePassword, {
     host: 'localhost',
-    port: 4321,
+    port: defaultConfig.databasePort,
     dialect: 'postgres',
-  
+
     pool: {
-      max: 5,
-      min: 0,
-      acquire: 30000,
-      idle: 1000
+        max: 5,
+        min: 0,
+        acquire: 30000,
+        idle: 1000
     }
-  });
+});
