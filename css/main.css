@@ -913,7 +913,7 @@ hr {
 /* validation */
 
 #modal input:invalid {
-    box-shadow: 0 0 2px 1px red;
+    box-shadow: -1px 0px 8px -1px red;
 }
 
 #modal input:focus:invalid {
@@ -921,7 +921,7 @@ hr {
 }
 
 #modal textarea:invalid {
-    box-shadow: 0 0 2px 1px red;
+    box-shadow: -1px 0px 8px -1px red;
 }
 
 #modal textarea:focus:invalid {

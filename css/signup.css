@@ -297,7 +297,7 @@ body {
 /* validation */
 
 input:invalid {
-    box-shadow: 0 0 2px 1px red;
+    box-shadow: -1px 0px 8px -1px red;
 }
 
 input:focus:invalid {
@@ -305,7 +305,7 @@ input:focus:invalid {
 }
 
 textarea:invalid {
-    box-shadow: 0 0 2px 1px red;
+    box-shadow: -1px 0px 8px -1px red;
 }
 
 textarea:focus:invalid {
