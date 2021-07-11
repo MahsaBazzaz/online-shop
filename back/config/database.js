@@ -13,5 +13,10 @@ module.exports = new Sequelize('OnlineShop', defaultConfig.databaseUsername, def
         min: 0,
         acquire: 30000,
         idle: 1000
-    }
+    },
+    
+    define: {
+        "createdAt": "createdat",
+        "updatedAt": "updatedat"
+      }
 });

@@ -23,6 +23,14 @@ const User = db.define('users', {
     },
     credit: {
         type: Sequelize.INTEGER
+    },
+
+    createdat: {
+        type: Sequelize.DATE
+    },
+
+    updatedat: {
+        type: Sequelize.DATE
     }
 });
 
