@@ -14,7 +14,7 @@ const app = express();
 
 app.get('/', (req, res) => res.send("INDEX"));
 
-app.use("/users", require("./services/users"));
+app.use("/admin", require("./services/admin"));
 
 app.listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`)
