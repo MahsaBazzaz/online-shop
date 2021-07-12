@@ -18,8 +18,9 @@ const app = express();
 
 app.get('/', (req, res) => res.send("INDEX"));
 
-user.createUser({"firstname": "david", "lastname": "david zade", "credit": 100, "username": "davidd", "password": "123", "address": "LA"});
+//user.createUser({"firstname": "david", "lastname": "david zade", "credit": 100, "username": "davidd", "password": "123", "address": "LA"});
 
+user.editUser({"firstname": "amghezi"}, 3);
 
 app.use("/admin", require("./services/admin"));
 

@@ -18,5 +18,11 @@ const createUser = (newUser) => {
         .catch(err => console.log(err));
 }
 
+const editUser = (newFields, userId) => {
+    User.update(newFields, {where: {id: userId}})
+        .then((user) => { console.log(user) })
+        .catch(err => console.log(err));
+}
 
-module.exports = {router, createUser};
+
+module.exports = {router, createUser, editUser};
