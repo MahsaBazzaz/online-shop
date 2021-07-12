@@ -10,4 +10,10 @@ router.get('/', (req, res) => {
     res.sendStatus(200);
 });
 
-module.exports = router;
+async function createProduct(newProduct) {
+    return Product.create(newProduct);
+}
+async function editProduct(editedFields, productId) {
+    return Product.update(editedFields, { where: { id: productId } });
+}
+module.exports = { router, createProduct, editProduct };

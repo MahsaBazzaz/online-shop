@@ -10,4 +10,11 @@ router.get('/', (req, res) => {
     res.sendStatus(200);
 });
 
-module.exports = router;
+async function createCategory(newcategory) {
+    return Category.create(newcategory);
+}
+
+async function editCategory(editedFields, categoryId) {
+    return Category.update(editedFields, { where: { id: categoryId } });
+}
+module.exports = { router, createCategory, editCategory };

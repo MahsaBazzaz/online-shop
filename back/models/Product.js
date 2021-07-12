@@ -8,6 +8,9 @@ const Product = db.define('products', {
     category: {
         type: Sequelize.STRING
     },
+    price: {
+        type: Sequelize.INTEGER
+    },
     remaining: {
         type: Sequelize.INTEGER
     },
