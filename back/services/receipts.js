@@ -10,4 +10,12 @@ router.get('/', (req, res) => {
     res.sendStatus(200);
 });
 
-module.exports = router;
+
+const createReceipt = (newReceipt) => {
+    
+    Receipt.create(newReceipt)
+        .then((receipt) => { console.log(receipt) })
+        .catch(err => console.log(err));
+}
+
+module.exports = {router, createReceipt};
