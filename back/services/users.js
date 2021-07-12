@@ -10,4 +10,13 @@ router.get('/', (req, res) => {
     res.sendStatus(200);
 });
 
-module.exports = router;
+
+const createUser = (newUser) => {
+    
+    User.create(newUser)
+        .then((user) => { console.log(user) })
+        .catch(err => console.log(err));
+}
+
+
+module.exports = {router, createUser};
