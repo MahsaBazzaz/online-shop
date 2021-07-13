@@ -4,13 +4,14 @@ const db = require('../../config/database');
 const Category = require('../../models/Category');
 const Product = require('../../models/Product');
 
-router.get('/', (req, res) => {
-    Category.findAll()
-        .then((categories) => { console.log(categories) })
-        .catch(err => console.log(err));
-    res.sendStatus(200);
-});
-
+function getAllCategory() {
+    return Category.findAll()
+        .then((categories) => { return categories; })
+        .catch(err => {
+            console.log(err);
+            return null;
+        });
+}
 
 function createCategory(newcategory) {
     return Category.create(newcategory)
@@ -46,4 +47,4 @@ function truncateTable() {
         });
 
 }
-module.exports = { router, createCategory, editCategory, truncateTable };
+module.exports = { getAllCategory, createCategory, editCategory, truncateTable };
