@@ -15,14 +15,6 @@ const AdminService = require("../back/tests/adminService");
 // test database connection
 db.authenticate().then(() => console.log("Khoda bozorge")).catch(err => console.log("Ghalat kardam " + err.message));
 
-
-// userService.getAllProducts();
-// userService.getAllCategories();
-// userService.getProductsByCategory(1);
-// userService.getProductsByCategory(2);
-// userService.getProductsSortedByPrice("ASC");
-
-
 const app = express();
 
 //app.get('/', (req, res) => res.send("INDEX"));
