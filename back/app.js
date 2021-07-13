@@ -12,10 +12,10 @@ db.authenticate().then(() => console.log("Khoda bozorge")).catch(err => console.
 // test database services
 // truncate table before running
 // dbTest.testCreateCategory();
-// dbTest.testCreateProduct();
+dbTest.testCreateProduct();
 // dbTest.testEditCategory();
 // dbTest.testEditProduct();
-dbTest.testFindProductWithName();
+// dbTest.testFindProductWithName();
 
 const app = express();
 

@@ -2,79 +2,54 @@ const product = require("../services/products");
 const category = require("../services/categories");
 
 // create category
-function testCreateCategory() {
-    category.createCategory({ "name": "books" })
-        .then((createdCategory) => {
-            console.log("testCreateCategory() " + createdCategory);
-        })
-        .catch(err => console.log("testCreateCategory() " + err));
+async function testCreateCategory() {
+    await category.createCategory({ "name": "books" });
 }
-// create product
 
-function testCreateProduct() {
-    category.createCategory({ "name": "technology" })
-        .then((createdCategory) => {
-            product.createProduct({
-                "name": "keyboard",
-                "category": createdCategory.id,
-                "price": 1000,
-                "remaining": 20,
-                "sold": 0,
-            });
-        }).catch(err => console.log("testCreateProduct() " + err));
-}
-// edit category
-function testEditCategory() {
-    category.createCategory({
-        "name": "health"
-    }).then((createdCategory) => {
-        category.editCategory({
-            "name": "cosmetic"
-        }, createdCategory.id);
+// create product
+async function testCreateProduct() {
+    let createdCategory = await category.createCategory({ "name": "bags" });
+    console.log(createdCategory);
+    product.createProduct({
+        "name": "keyboard",
+        "category": createdCategory.dataValues.id,
+        "price": 1000,
+        "remaining": 20,
+        "sold": 0
     });
 }
+
+// edit category
+async function testEditCategory() {
+    let createdCategory = await category.createCategory({ "name": "health" });
+    category.editCategory({ "name": "cosmetic" }, createdCategory.dataValues.id);
+}
+
 // edit product
-function testEditProduct() {
-    category.createCategory({
-        "name": "clothes"
-    }).then((createdCategory) => {
-        product.createProduct({
-            "name": "scarf",
-            "category": createdCategory.id,
-            "price": 1000,
-            "remaining": 20,
-            "sold": 0,
-        }).then((createdProduct) => {
-            product.editProduct({
-                "price": 2000
-            }, createdProduct.id);
-        }).catch(err => console.log("testEditProduct() " + err));
-    }).catch(err => console.log("testEditProduct() " + err));
+async function testEditProduct() {
+    let createdCategory = await category.createCategory({ "name": "clothes" });
+    let createdProduct = await product.createProduct({
+        "name": "scarf",
+        "category": createdCategory.dataValues.id,
+        "price": 1000,
+        "remaining": 20,
+        "sold": 0,
+    });
+    product.editProduct({ "price": 2000 }, createdProduct.dataValues.id);
 }
 
 // find product with name
 function testFindProductWithName() {
-    category.truncateTable()
-        .then(() => {
-            category.createCategory({
-                "name": "clothes"
-            }).then((createdCategory) => {
-                product.createProduct({
-                    "name": "scarf",
-                    "category": createdCategory.id,
-                    "price": 1000,
-                    "remaining": 20,
-                    "sold": 0,
-                }).then((createdProduct) => {
-                    product.findProductWithName(createdProduct.name)
-                        .then((foundProduct) => {
-                            console.log(foundProduct);
-                        })
-                        .catch(err => console.log("testFindProductWithName() " + err));
-                }).catch(err => console.log("testFindProductWithName() " + err));
-            }).catch(err => console.log("testFindProductWithName() " + err));
-        })
-        .catch(err => console.log("testFindProductWithName() " + err))
+    let createdCategory = await category.createCategory({ "name": "clothes" });
+
+    let createdProduct = await product.createProduct({
+        "name": "scarf",
+        "category": createdCategory.dataValues.id,
+        "price": 1000,
+        "remaining": 20,
+        "sold": 0,
+    });
+    product.findProductWithName(createdProduct.dataValues.name);
 }
 
 module.exports = { testCreateCategory, testCreateProduct, testEditCategory, testEditProduct, testFindProductWithName };

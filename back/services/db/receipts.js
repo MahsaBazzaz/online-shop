@@ -12,10 +12,10 @@ router.get('/', (req, res) => {
 
 
 const createReceipt = (newReceipt) => {
-    
+
     Receipt.create(newReceipt)
         .then((receipt) => { console.log(receipt) })
         .catch(err => console.log(err));
 }
 
-module.exports = {router, createReceipt};
+module.exports = { router, createReceipt };
