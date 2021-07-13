@@ -29,16 +29,23 @@ async function getProductsSortedByPrice(order) {
     return products;   
 }
 
-function getProductsSortedBySold(order) {
-    
+async function getProductsSortedBySold(order) {
+    let products = await product.getProductsSortedBySold(order);
+    console.log(products);
+    return products;
 }
 
-function getProductsInPriceRange(range) {
-    
+async function getProductsInPriceRange(range) {
+    let products = await product.getProductsInPriceRange(range);
+    console.log(products);
+    return products;
 }
 
-function signup(userInfo) {
-    
+async function signup(userInfo) {
+    userInfo.credit = 0;
+    let createdUser = await user.createUser(userInfo);
+    console.log(createdUser);
+    return createdUser;
 }
 
 function login(userInfo) {
@@ -61,4 +68,11 @@ function chargeCredit(userId, chargeAmount) {
     
 }
 
-module.exports = {getAllProducts, getAllCategories, getProductsByCategory, getProductsSortedByPrice};
+module.exports = {
+    getAllProducts,
+    getAllCategories,
+    getProductsByCategory, 
+    getProductsSortedByPrice, 
+    getProductsSortedBySold, 
+    getProductsInPriceRange,
+    signup};
