@@ -57,6 +57,22 @@ function findProductsByCategory(categoryId) {
             return null;
         });
 }
+
+function getProductsSortedByPrice(descOrAsc) {
+    return Product.findAll({
+            order: [
+                ['price', descOrAsc]
+            ]
+        })
+        .then((foundProduct) => {
+            return foundProduct;
+        })
+        .catch(err => {
+            console.log(err);
+            return null;
+        });
+}
+
 // Truncate the table
 function truncateProductTable() {
     return Product.destroy({ truncate: true, cascade: true })
@@ -70,4 +86,4 @@ function truncateProductTable() {
         });
 }
 
-module.exports = { getAllProducts, createProduct, editProduct, findProductWithName, findProductsByCategory, truncateProductTable };
+module.exports = { getAllProducts, createProduct, editProduct, findProductWithName, findProductsByCategory, getProductsSortedByPrice, truncateProductTable };
