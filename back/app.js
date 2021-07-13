@@ -11,9 +11,10 @@ const dbTest = require("../back/tests/databaseServices");
 db.authenticate().then(() => console.log("Khoda bozorge")).catch(err => console.log("Ghalat kardam " + err.message));
 // test database services
 // truncate table before running
+dbTest.TestTruncate();
 // dbTest.testCreateCategory();
 // dbTest.testCreateProduct();
-// dbTest.testEditCategory();
+dbTest.testEditCategory();
 // dbTest.testEditProduct();
 // dbTest.testFindProductWithName();
 
