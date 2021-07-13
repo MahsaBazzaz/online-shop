@@ -4,7 +4,7 @@ const db = require('../../config/database');
 const Product = require('../../models/Product');
 
 function getAllProducts() {
-    return Product.findAll()
+    return Product.findAll({raw: true})
         .then((products) => { return products; })
         .catch(err => {
             console.log(err);

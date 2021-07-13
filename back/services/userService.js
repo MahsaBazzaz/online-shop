@@ -2,11 +2,13 @@ const user = require("../../back/services/db/users");
 const category = require("../../back/services/db/categories");
 const product = require("../../back/services/db/products");
 const receipt = require("../../back/services/db/receipts");
+const { response } = require("express");
 
 
-function getAllProducts() {
-    products = product.getAllProducts();
+async function getAllProducts() {
+    let products = await product.getAllProducts();
     console.log(products);
+    return products;
 }
 
 function getAllCategories() {
@@ -15,7 +17,7 @@ function getAllCategories() {
 }
 
 function getProductsByCategory(categoryId) {
-    
+
 }
 
 function getProductsSortedByPrice(order) {

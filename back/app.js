@@ -18,22 +18,17 @@ db.authenticate().then(() => console.log("Khoda bozorge")).catch(err => console.
 //dbTest.TestTruncate();
 // dbTest.testCreateCategory();
 // dbTest.testCreateProduct();
-<<<<<<< HEAD
 //dbTest.testEditCategory();
-=======
-// dbTest.testEditCategory();
->>>>>>> 5f9eed4116f31e2c40d0c331db7fa42e1c78e046
 // dbTest.testEditProduct();
 // dbTest.testFindProductWithName();
-dbTest.testSortProductWithPrice();
+//dbTest.testSortProductWithPrice();
 
 userService.getAllProducts();
 
 const app = express();
 
-app.get('/', (req, res) => res.send("INDEX"));
-
-app.use("/admin", require("./services/db/admin"));
+//app.get('/', (req, res) => res.send("INDEX"));
+//app.use("/admin", require("./services/db/admin"));
 
 app.listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`)
