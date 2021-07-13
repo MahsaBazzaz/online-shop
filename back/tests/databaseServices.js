@@ -51,4 +51,30 @@ function testEditProduct() {
         }).catch(err => console.log("testEditProduct() " + err));
     }).catch(err => console.log("testEditProduct() " + err));
 }
-module.exports = { testCreateCategory, testCreateProduct, testEditCategory, testEditProduct };
+
+// find product with name
+function testFindProductWithName() {
+    category.truncateTable()
+        .then(() => {
+            category.createCategory({
+                "name": "clothes"
+            }).then((createdCategory) => {
+                product.createProduct({
+                    "name": "scarf",
+                    "category": createdCategory.id,
+                    "price": 1000,
+                    "remaining": 20,
+                    "sold": 0,
+                }).then((createdProduct) => {
+                    product.findProductWithName(createdProduct.name)
+                        .then((foundProduct) => {
+                            console.log(foundProduct);
+                        })
+                        .catch(err => console.log("testFindProductWithName() " + err));
+                }).catch(err => console.log("testFindProductWithName() " + err));
+            }).catch(err => console.log("testFindProductWithName() " + err));
+        })
+        .catch(err => console.log("testFindProductWithName() " + err))
+}
+
+module.exports = { testCreateCategory, testCreateProduct, testEditCategory, testEditProduct, testFindProductWithName };

@@ -16,4 +16,19 @@ async function createProduct(newProduct) {
 async function editProduct(editedFields, productId) {
     return Product.update(editedFields, { where: { id: productId } });
 }
-module.exports = { router, createProduct, editProduct };
+async function findProductWithName(productname) {
+    return Product.findAll({
+        where: {
+            name: productname
+        }
+    });
+}
+
+// Truncate the table
+async function truncateProductTable() {
+    return Product.destroy({
+        truncate: true
+    });
+}
+
+module.exports = { router, createProduct, editProduct, findProductWithName, truncateProductTable };
