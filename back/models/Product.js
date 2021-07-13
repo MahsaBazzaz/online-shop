@@ -5,7 +5,7 @@ const Product = db.define('products', {
     name: {
         type: Sequelize.STRING
     },
-    category: {
+    category_id: {
         type: Sequelize.INTEGER
     },
     price: {

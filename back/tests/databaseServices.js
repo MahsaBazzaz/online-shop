@@ -17,7 +17,7 @@ async function testCreateProduct() {
     console.log(createdCategory);
     product.createProduct({
         "name": "keyboard",
-        "category": createdCategory.dataValues.id,
+        "category_id": createdCategory.dataValues.id,
         "price": 1000,
         "remaining": 20,
         "sold": 0
@@ -35,7 +35,7 @@ async function testEditProduct() {
     let createdCategory = await category.createCategory({ "name": "clothes" });
     let createdProduct = await product.createProduct({
         "name": "scarf",
-        "category": createdCategory.dataValues.id,
+        "category_id": createdCategory.dataValues.id,
         "price": 1000,
         "remaining": 20,
         "sold": 0,
@@ -49,7 +49,7 @@ async function testFindProductWithName() {
 
     let createdProduct = await product.createProduct({
         "name": "scarf",
-        "category": createdCategory.dataValues.id,
+        "category_id": createdCategory.dataValues.id,
         "price": 1000,
         "remaining": 20,
         "sold": 0,
@@ -57,4 +57,33 @@ async function testFindProductWithName() {
     product.findProductWithName(createdProduct.dataValues.name);
 }
 
-module.exports = { TestTruncate, testCreateCategory, testCreateProduct, testEditCategory, testEditProduct, testFindProductWithName };
+// order product by price
+async function testSortProductWithPrice() {
+    let createdCategory = await category.createCategory({ "name": "clothes" });
+    console.log(createdCategory);
+    await product.createProduct({
+        "name": "scarf",
+        "category_id": createdCategory.dataValues.id,
+        "price": 1000,
+        "remaining": 20,
+        "sold": 0,
+    });
+    await product.createProduct({
+        "name": "jacket",
+        "category_id": createdCategory.dataValues.id,
+        "price": 2000,
+        "remaining": 10,
+        "sold": 0,
+    });
+    let sortedProducts = await product.getProductsSortedByPrice('DESC');
+    console.log(sortedProducts.length);
+}
+module.exports = {
+    TestTruncate,
+    testCreateCategory,
+    testCreateProduct,
+    testEditCategory,
+    testEditProduct,
+    testFindProductWithName,
+    testSortProductWithPrice
+};

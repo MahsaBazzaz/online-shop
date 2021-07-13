@@ -48,7 +48,7 @@ function findProductWithName(productname) {
 }
 
 function findProductsByCategory(categoryId) {
-    return Product.findAll({ where: { category: categoryId } })
+    return Product.findAll({ where: { category_id: categoryId } })
         .then((foundProduct) => {
             return foundProduct;
         })
