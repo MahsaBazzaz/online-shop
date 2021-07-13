@@ -3,12 +3,14 @@ const router = express.Router();
 const db = require('../../config/database');
 const Product = require('../../models/Product');
 
-router.get('/', (req, res) => {
-    Product.findAll()
-        .then((products) => { console.log(products) })
-        .catch(err => console.log(err));
-    res.sendStatus(200);
-});
+function getAllProducts() {
+    return Product.findAll()
+        .then((products) => { return products; })
+        .catch(err => {
+            console.log(err);
+            return null;
+        });
+}
 
 function createProduct(newProduct) {
     return Product.create(newProduct)
@@ -58,4 +60,4 @@ function truncateProductTable() {
         });
 }
 
-module.exports = { router, createProduct, editProduct, findProductWithName, truncateProductTable };
+module.exports = { getAllProducts, createProduct, editProduct, findProductWithName, truncateProductTable };
