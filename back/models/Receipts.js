@@ -2,7 +2,7 @@ const Sequelize = require("sequelize");
 const db = require("../config/database");
 
 const Receipt = db.define('receipts', {
-    
+
     product_name: {
         type: Sequelize.INTEGER
     },
@@ -10,7 +10,9 @@ const Receipt = db.define('receipts', {
     product_count: {
         type: Sequelize.INTEGER
     },
-
+    user_id: {
+        type: Sequelize.STRING
+    },
     user_firstname: {
         type: Sequelize.STRING
     },

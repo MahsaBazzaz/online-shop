@@ -1,22 +1,21 @@
 const Category = require('./db/categories');
 const Product = require('./db/products');
+const Receipt = require('./db/receipts');
 
 
-function editProduct(productId, newFields) {
-
+async function editProduct(productId, newFields) {
+    await Product.editProduct(newFields, productId);
 }
 
-function getAllReceipts() {
-
+async function getAllReceipts() {
+    await Receipt.getAllReceipts();
 }
 
-function searchReceiptByTackingCode(trackingCode) {
-
+async function searchReceiptByTackingCode(trackingCode) {
+    await Receipt.findReceiptByTrackingCode(trackingCode);
 }
 
-function changeReceiptStatus(receiptId, newStatus) {
-
-}
+async function changeReceiptStatus(receiptId, newStatus) {}
 
 function createCategory(newCategory) {
 
