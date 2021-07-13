@@ -13,17 +13,14 @@ const userService = require("../back/services/userService");
 
 // test database connection
 db.authenticate().then(() => console.log("Khoda bozorge")).catch(err => console.log("Ghalat kardam " + err.message));
-// test database services
-// truncate table before running
-//dbTest.TestTruncate();
-// dbTest.testCreateCategory();
-// dbTest.testCreateProduct();
-//dbTest.testEditCategory();
-// dbTest.testEditProduct();
-// dbTest.testFindProductWithName();
-//dbTest.testSortProductWithPrice();
 
-userService.getAllProducts();
+
+// userService.getAllProducts();
+// userService.getAllCategories();
+// userService.getProductsByCategory(1);
+// userService.getProductsByCategory(2);
+// userService.getProductsSortedByPrice("ASC");
+
 
 const app = express();
 

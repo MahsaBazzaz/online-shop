@@ -11,17 +11,22 @@ async function getAllProducts() {
     return products;
 }
 
-function getAllCategories() {
-    categories = category.getAllCategories();
+async function getAllCategories() {
+    let categories = await category.getAllCategory();
     console.log(categories);
+    return categories;
 }
 
-function getProductsByCategory(categoryId) {
-
+async function getProductsByCategory(categoryId) {
+    let products = await product.findProductsByCategory(categoryId);
+    console.log(products);
+    return products;
 }
 
-function getProductsSortedByPrice(order) {
-    
+async function getProductsSortedByPrice(order) {
+    let products = await product.getProductsSortedByPrice(order);
+    console.log(products);
+    return products;   
 }
 
 function getProductsSortedBySold(order) {
@@ -56,4 +61,4 @@ function chargeCredit(userId, chargeAmount) {
     
 }
 
-module.exports = {getAllProducts, getAllCategories};
+module.exports = {getAllProducts, getAllCategories, getProductsByCategory, getProductsSortedByPrice};
