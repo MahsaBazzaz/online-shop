@@ -47,6 +47,16 @@ function findProductWithName(productname) {
         });
 }
 
+function findProductsByCategory(categoryId) {
+    return Product.findAll({ where: { category: categoryId } })
+        .then((foundProduct) => {
+            return foundProduct;
+        })
+        .catch(err => {
+            console.log(err);
+            return null;
+        });
+}
 // Truncate the table
 function truncateProductTable() {
     return Product.destroy({ truncate: true, cascade: true })
@@ -60,4 +70,4 @@ function truncateProductTable() {
         });
 }
 
-module.exports = { getAllProducts, createProduct, editProduct, findProductWithName, truncateProductTable };
+module.exports = { getAllProducts, createProduct, editProduct, findProductWithName, findProductsByCategory, truncateProductTable };
