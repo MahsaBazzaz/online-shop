@@ -1,5 +1,5 @@
-const product = require("../services/products");
-const category = require("../services/categories");
+const product = require("../services/db/products");
+const category = require("../services/db/categories");
 
 // create category
 async function testCreateCategory() {
@@ -39,7 +39,7 @@ async function testEditProduct() {
 }
 
 // find product with name
-function testFindProductWithName() {
+async function testFindProductWithName() {
     let createdCategory = await category.createCategory({ "name": "clothes" });
 
     let createdProduct = await product.createProduct({

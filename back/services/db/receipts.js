@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const db = require('../config/database');
-const Receipt = require('../models/Receipts');
+const db = require('../../config/database');
+const Receipt = require('../../models/Receipts');
 
 router.get('/', (req, res) => {
     Receipt.findAll()
@@ -11,11 +11,13 @@ router.get('/', (req, res) => {
 });
 
 
-const createReceipt = (newReceipt) => {
-
-    Receipt.create(newReceipt)
-        .then((receipt) => { console.log(receipt) })
-        .catch(err => console.log(err));
+function createReceipt(newReceipt) {
+    return Receipt.create(newReceipt)
+        .then((receipt) => { return receipt })
+        .catch(err => {
+            console.log(err);
+            return null;
+        });
 }
 
 module.exports = { router, createReceipt };

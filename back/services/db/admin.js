@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const db = require('../config/database');
-const Admin = require('../models/Admin');
+const db = require('../../config/database');
+const Admin = require('../../models/Admin');
 
 router.get('/', (req, res) => {
     Admin.findAll()

@@ -12,7 +12,7 @@ db.authenticate().then(() => console.log("Khoda bozorge")).catch(err => console.
 // test database services
 // truncate table before running
 // dbTest.testCreateCategory();
-dbTest.testCreateProduct();
+// dbTest.testCreateProduct();
 // dbTest.testEditCategory();
 // dbTest.testEditProduct();
 // dbTest.testFindProductWithName();
@@ -25,7 +25,7 @@ app.get('/', (req, res) => res.send("INDEX"));
 
 // user.editUser({"firstname": "amghezi"}, 3);
 
-app.use("/admin", require("./services/admin"));
+app.use("/admin", require("./services/db/admin"));
 
 app.listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`)

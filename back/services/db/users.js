@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const db = require('../config/database');
-const User = require('../models/Users');
+const db = require('../../config/database');
+const User = require('../../models/Users');
 
 router.get('/', (req, res) => {
     User.findAll()
@@ -11,18 +11,23 @@ router.get('/', (req, res) => {
 });
 
 
-const createUser = (newUser) => {
-    
-    User.create(newUser)
-        .then((user) => { console.log(user) })
-        .catch(err => console.log(err));
+function createUser(newUser) {
+    return User.create(newUser)
+        .then((user) => { return user; })
+        .catch(err => {
+            console.log(err);
+            return null;
+        });
 }
 
-const editUser = (newFields, userId) => {
-    User.update(newFields, {where: {id: userId}})
-        .then((user) => { console.log(user) })
-        .catch(err => console.log(err));
+function editUser(newFields, userId) {
+    return User.update(newFields, { where: { id: userId } })
+        .then((user) => { return user; })
+        .catch(err => {
+            console.log(err);
+            return null;
+        });
 }
 
 
-module.exports = {router, createUser, editUser};
+module.exports = { router, createUser, editUser };

@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const db = require('../config/database');
-const Category = require('../models/Category');
-const Product = require('../models/Product');
+const db = require('../../config/database');
+const Category = require('../../models/Category');
+const Product = require('../../models/Product');
 
 router.get('/', (req, res) => {
     Category.findAll()
