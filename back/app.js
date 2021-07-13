@@ -7,25 +7,31 @@ const port = 3000;
 const db = require("../back/config/database");
 // DB Test
 const dbTest = require("../back/tests/databaseServices");
+
+//services Test
+const userService = require("../back/services/userService");
+
 // test database connection
 db.authenticate().then(() => console.log("Khoda bozorge")).catch(err => console.log("Ghalat kardam " + err.message));
 // test database services
 // truncate table before running
-dbTest.TestTruncate();
+//dbTest.TestTruncate();
 // dbTest.testCreateCategory();
 // dbTest.testCreateProduct();
+<<<<<<< HEAD
+//dbTest.testEditCategory();
+=======
 // dbTest.testEditCategory();
+>>>>>>> 5f9eed4116f31e2c40d0c331db7fa42e1c78e046
 // dbTest.testEditProduct();
 // dbTest.testFindProductWithName();
 dbTest.testSortProductWithPrice();
 
+userService.getAllProducts();
+
 const app = express();
 
 app.get('/', (req, res) => res.send("INDEX"));
-
-//user.createUser({"firstname": "david", "lastname": "david zade", "credit": 100, "username": "davidd", "password": "123", "address": "LA"});
-
-// user.editUser({"firstname": "amghezi"}, 3);
 
 app.use("/admin", require("./services/db/admin"));
 
