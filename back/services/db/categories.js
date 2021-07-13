@@ -35,6 +35,17 @@ function editCategory(editedFields, categoryId) {
         });
 }
 
+function deleteCategory(categoryId) {
+    return Category.destroy({ where: { firstName: "Jane" } })
+        .then((editedCategory) => {
+            return editedCategory;
+        })
+        .catch(err => {
+            console.log(err);
+            return null;
+        });
+}
+
 // Truncate the table
 function truncateTable() {
     return Category.destroy({ truncate: true, cascade: true })
@@ -47,4 +58,4 @@ function truncateTable() {
         });
 
 }
-module.exports = { getAllCategory, createCategory, editCategory, truncateTable };
+module.exports = { getAllCategory, createCategory, editCategory, truncateTable, deleteCategory };

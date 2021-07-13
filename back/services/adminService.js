@@ -15,16 +15,18 @@ async function searchReceiptByTackingCode(trackingCode) {
     await Receipt.findReceiptByTrackingCode(trackingCode);
 }
 
-async function changeReceiptStatus(receiptId, newStatus) {}
-
-function createCategory(newCategory) {
-
+async function changeReceiptStatus(receiptId, newStatus) {
+    await Receipt.editReceipt({ "status": newStatus }, receiptId);
 }
 
-function editCategory(categoryId, newFields) {
-
+async function createCategory(newCategory) {
+    await Category.createCategory(newCategory);
 }
 
-function deleteCategory(categoryId) {
+async function editCategory(categoryId, newFields) {
+    await Category.editCategory(newFields, categoryId);
+}
 
+async function deleteCategory(categoryId) {
+    await Category.deleteCategory(categoryId);
 }
