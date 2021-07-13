@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>tab component</title>
+</head>
+<style>
+    @font-face {
+        font-family: iransans;
+        src: url("../../assets/fonts/iran\ sans/iransans_medium.woff");
+    }
+    
+     :root {
+        --tab-dark-gray: rgb(238, 238, 238);
+        --tab-light-gray: rgb(255, 255, 255);
+        --tab-darkest-gray: rgb(161, 165, 169);
+        --tab-black: rgb(0, 0, 0);
+    }
+    
+    body {
+        margin: 0;
+    }
+    
+    .tripple-tab-container {
+        direction: rtl;
+        border-style: solid;
+        border-color: var(--tab-dark-gray);
+        border-radius: 24px;
+        text-align: center;
+        display: inline-flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+    }
+    
+    .tab {
+        font-family: iransans;
+        font-size: 14px;
+        height: 100%;
+    }
+    
+    .tab a {
+        text-decoration: none;
+        display: inline-block;
+        padding: 6px 40px;
+    }
+    
+    .right-tab {
+        border-top-right-radius: 24px;
+        border-bottom-right-radius: 24px;
+    }
+
+    .center-tab {
+        border-radius: 0px;
+    }
+    
+    .left-tab {
+        border-top-left-radius: 24px;
+        border-bottom-left-radius: 24px;
+    }
+    
+    .selected-tab {
+        background-color: var(--tab-dark-gray);
+        color: var(--tab-black);
+    }
+    
+    .selected-tab a {
+        color: var(--tab-black);
+    }
+    
+    .un-selected-tab {
+        background-color: var(--tab-light-gray);
+        color: var(--tab-darkest-gray);
+    }
+    
+    .un-selected-tab a {
+        color: var(--tab-darkest-gray);
+    }
+</style>
+<script>
+    window.onload = function() {
+        tabs = ["tab1", "tab2", "tab3"];
+        document.getElementById(tabs[0]).addEventListener("click", function() {
+            selectTab(tabs, 0, 1, 2);
+        });
+        document.getElementById(tabs[1]).addEventListener("click", function() {
+            selectTab(tabs, 1, 0, 2);
+        });
+        document.getElementById(tabs[2]).addEventListener("click", function() {
+            selectTab(tabs, 2, 0, 1);
+        });
+    }
+
+    function selectTab(tabs, select, unselect1, unselect2) {
+        document.getElementById(tabs[select]).classList.remove('un-selected-tab');
+        document.getElementById(tabs[select]).classList.add('selected-tab');
+
+        document.getElementById(tabs[unselect1]).classList.remove('selected-tab');
+        document.getElementById(tabs[unselect1]).classList.add('un-selected-tab');
+
+        document.getElementById(tabs[unselect2]).classList.remove('selected-tab');
+        document.getElementById(tabs[unselect2]).classList.add('un-selected-tab');
+    }
+
+</script>
+
+<body>
+    <div class="tripple-tab-container">
+        <div id="tab1" class="right-tab tab selected-tab">
+            <a href="#profile">لیست کالا ها</a>
+        </div>
+        <div id="tab2" class="center-tab tab un-selected-tab">
+            <a href="#profile">لیست دسته ها</a>
+        </div>
+        <div id="tab3" class="left-tab tab un-selected-tab">
+            <a href="#receipts">رسیدها</a>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html>
+
+<head title="Homepage">
+    <!-- <link rel="stylesheet" href="../../assets/fonts/fontawsome/css/font-awesome.css"> -->
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+    <link rel="stylesheet" href="../css/main.css">
+</head>
+
+<style>
+
+</style>
+
+<body class="main-body">
+    <div class="main-div">
+
+        <div class="navbar">
+            <p>فروشگاه</p>
+            <a href="#home">صفحه اصلی</a>
+            <a href="#contact">تماس با ما</a>
+            <a href="#support">پشتیبانی</a>
+            <a href="#products">محصولات </a>
+
+            <div class="dropdown">
+                <button class="dropdownbtn">ورود / ثبت نام
+                        <i class="fa fa-chevron-down" style="display: none;"></i>
+                    </button>
+                <div class="dropdown-content">
+                    <a href="#profile">پروفایل</a>
+                    <a href="#logout">خروج از حساب</a>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="main-box">
+            <div class="title">
+                در محصولات سایت جستجو کنید..
+            </div>
+            <div class="search-box-div">
+                <input placeholder="نام محصول خود را وارد کنید..." type="text" class="search-box">
+            </div>
+            <div class="search-button-div">
+                <button class="prev-button"><i class="fa fa-angle-left" aria-hidden="true"></i></button>
+                <button class="search-button">جستجو کنید</button>
+                <button class="next-button"><i class="fa fa-angle-right" aria-hidden="true"></i></i></button>
+            </div>
+
+            <div class="img-contaner">
+                <img class="slider-image" src="../assets/img/clock.png">
+                <img class="slider-image" src="../assets/img/cloud.png">
+                <img class="slider-image" src="../assets/img/esi.png">
+            </div>
+
+        </div>
+
+        <div class="boxes-div">
+
+            <div class="sorting-box-container">
+                <ul>
+                    <li>
+                        <span>مرتب سازی بر اساس</span>
+                    </li>
+                    <li>
+                        <button class="sorting-box-btn-active" id="best-seller">بیشترین فروش</button>
+                    </li>
+                    <li>
+                        <button class="sorting-box-btn-deactive" id="price">قیمت</button>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="products-section-div">
+                <div class="filters-section">
+
+                    <div class="filtering-box-container">
+                        <div class="filtering-box">
+                            <p id="filtering-box-title">دسته بندی ها</p>
+                            <!-- <hr> -->
+                            <div class="checkbox-container">
+                                <div class="custom-checkbox">
+                                    <input type="checkbox" id="checkbox0" />
+                                    <label for="checkbox0"></label>
+                                    <span class="filtering-text">دسته بندی یک</span>
+                                </div>
+                                <div class="custom-checkbox">
+                                    <input type="checkbox" id="checkbox1" />
+                                    <label for="checkbox1"></label>
+                                    <span class="filtering-text">دسته بندی دو</span>
+                                </div>
+                                <div class="custom-checkbox">
+                                    <input type="checkbox" id="checkbox2" />
+                                    <label for="checkbox2"></label>
+                                    <span class="filtering-text">دسته بندی سه</span>
+                                </div>
+                                <div class="custom-checkbox">
+                                    <input type="checkbox" id="checkbox3" />
+                                    <label for="checkbox3"></label>
+                                    <span class="filtering-text">دسته بندی چهار</span>
+                                </div>
+                                <div class="custom-checkbox">
+                                    <input type="checkbox" id="checkbox4" />
+                                    <label for="checkbox4"></label>
+                                    <span class="filtering-text">دسته بندی پنج</span>
+                                </div>
+                                <div class="custom-checkbox">
+                                    <input type="checkbox" id="checkbox5" />
+                                    <label for="checkbox5"></label>
+                                    <span class="filtering-text">دسته بندی شش</span>
+                                </div>
+                                <div class="custom-checkbox">
+                                    <input type="checkbox" id="checkbox6" />
+                                    <label for="checkbox6"></label>
+                                    <span class="filtering-text">دسته بندی هفت</span>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="price-filter-box">
+                        <p id="price-filter-title">تنظیم قیمت کالا</p>
+                        <div class="middle">
+                            <div class="multi-range-slider">
+                                <input type="range" id="input-left" min="0" max="100" value="25">
+                                <input type="range" id="input-right" min="0" max="100" value="75">
+
+                                <div class="slider">
+                                    <div class="track"></div>
+                                    <div class="range"></div>
+                                    <div class="thumb left"></div>
+                                    <div class="thumb right"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="products-box">
+
+                    <div class="main-product-box">
+                        <div class="product-image-box">
+                            <img src="../assets/img/product.jpg">
+                        </div>
+                        <div class="product-desc-box">
+                            <p class="product-title">گوشی موبایل سامسونگ</p>
+                            <p class="product-category">دسته بندی یک</p>
+
+                        </div>
+                        <hr>
+                        <div class="product-price-box">
+                            <p class="product-price">10.000 تومان</p>
+                            <button class="buy-product-button">خرید محصول</button>
+                        </div>
+                    </div>
+
+
+                    <div class="main-product-box">
+                        <div class="product-image-box">
+                            <img src="../assets/img/product2.jpg">
+                        </div>
+                        <div class="product-desc-box">
+                            <p class="product-title">دوربین عکاسی کانن</p>
+                            <p class="product-category">دسته بندی دو</p>
+
+                        </div>
+                        <hr>
+                        <div class="product-price-box">
+                            <p class="product-price">10.000 تومان</p>
+                            <button class="buy-product-button">خرید محصول</button>
+                        </div>
+                    </div>
+
+                    <div class="main-product-box">
+                        <div class="product-image-box">
+                            <img src="../assets/img/product3.jpg">
+                        </div>
+                        <div class="product-desc-box">
+                            <p class="product-title">لپ تاپ ایسوس</p>
+                            <p class="product-category">دسته بندی سه</p>
+
+                        </div>
+                        <hr>
+                        <div class="product-price-box">
+                            <p class="product-price">10.000 تومان</p>
+                            <button class="buy-product-button">خرید محصول</button>
+                        </div>
+                    </div>
+
+
+                    <div class="main-product-box">
+                        <div class="product-image-box">
+                            <img src="../assets/img/product4.jpg">
+                        </div>
+                        <div class="product-desc-box">
+                            <p class="product-title">لپ تاپ اپل</p>
+                            <p class="product-category">دسته بندی سه</p>
+
+                        </div>
+                        <hr>
+                        <div class="product-price-box">
+                            <p class="product-price">10.000 تومان</p>
+                            <button class="buy-product-button">خرید محصول</button>
+                        </div>
+                    </div>
+
+
+                </div>
+
+
+
+            </div>
+
+
+        </div>
+
+        <div class="footer">
+            <p>تمامی حقوق برای توسعه دهندگان (بزاز-نادری) محفوظ است</p>
+        </div>
+
+    </div>
+    <div id="modal">
+        <span class="close">&times;</span>
+        <!-- login -->
+        <div class="login-div" style="display: none;">
+            <div class="title-div">
+                فروشگاه - ورود
+            </div>
+
+            <div class="form-div">
+                <div class="input-container">
+                    <div class="input-label">
+                        ایمیل
+                    </div>
+                    <input required class="input-textbox" type="text" placeholder="ایمیل خود را وارد کنید">
+                </div>
+                <div class="input-container">
+                    <div class="input-label">
+                        رمز عبور
+                    </div>
+                    <input required class="input-textbox" type="password" placeholder="رمز عبور خود را وارد کنید">
+                </div>
+            </div>
+
+            <div class="submit-div">
+                <button class="submit-button">ورود</button>
+            </div>
+
+        </div>
+        <!-- sign up -->
+        <div class="signup-div">
+            <div class="title-div">
+                فروشگاه - ثبت نام
+            </div>
+
+            <div class="form-div">
+
+                <div class="row-one">
+                    <div class="input-container">
+                        <div class="input-label">
+                            نام </div>
+                        <input required class="input-textbox" type="text" placeholder="نام خود را وارد کنید">
+                    </div>
+
+                    <div class="input-container">
+                        <div class="input-label">
+                            نام خانوادگی </div>
+                        <input required class="input-textbox" type="text" placeholder="نام خانوادگی خود را وارد کنید">
+                    </div>
+                </div>
+
+                <div class="row-two">
+                    <div class="input-container">
+                        <div class="input-label">
+                            ایمیل
+                        </div>
+                        <input required class="input-textbox" type="email" placeholder="ایمیل خود را وارد کنید">
+                    </div>
+
+                    <div class="input-container">
+                        <div class="input-label">
+                            رمز عبور
+                        </div>
+                        <input required class="input-textbox" type="password" minlength="6" placeholder="رمز عبور خود را وارد کنید">
+                    </div>
+                </div>
+
+                <div class="row-three">
+                    <div class="input-container">
+                        <div class="input-label">
+                            آدرس
+                        </div>
+                        <textarea required class="input-textarea" placeholder="آدرس خود را وارد کنید"></textarea>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="submit-div">
+                <button class="submit-button" type="submit">ثبت نام</button>
+            </div>
+
+        </div>
+
+    </div>
+</body>
+<script src="../js/main.js"></script>
+
+</html>

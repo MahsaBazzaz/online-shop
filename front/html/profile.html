@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- <link rel="stylesheet" href="../../assets/fonts/fontawsome/css/font-awesome.css"> -->
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+    <script src="../js/profile.js"></script>
+    <link rel="stylesheet" href="../css/profile.css">
+</head>
+
+<style>
+
+</style>
+
+<body class="main-body">
+
+    <div class="main-div">
+        <div class="navbar">
+            <p>فروشگاه</p>
+            <a href="#home">صفحه اصلی</a>
+            <a href="#contact">تماس با ما</a>
+            <a href="#support">پشتیبانی</a>
+            <a href="#products">محصولات </a>
+
+            <div class="dropdown">
+                <button class="dropdownbtn">ورود / ثبت نام
+                            <i class="fa fa-chevron-down" style="display: none;"></i>
+                        </button>
+                <div class="dropdown-content">
+                    <a href="#profile">پروفایل</a>
+                    <a href="#logout">خروج از حساب</a>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="profile-div">
+
+
+            <div class="title-div">
+                <span class="welcome">هادی عزیز خوش آمدید</span>
+                <div class="credit-section">
+                    <span class="welcome">|</span>
+                    <span id="your-credit">موجودی حساب شما:</span>
+                    <span class="credit">10000</span>
+                    <input id="increase-credit" type="button" value="افزایش موجودی">
+                </div>
+            </div>
+
+            <div class="tab-container">
+                <div id="tab1" class="right-tab tab selected-tab">
+                    <a href="#profile">پروفایل</a>
+                </div>
+                <div id="tab2" class="left-tab tab un-selected-tab">
+                    <a href="#receipts">رسیدها</a>
+                </div>
+            </div>
+
+            <!-- <div class="profile-items"> -->
+
+            <div class="profile-section">
+                <div class="form-div">
+                    <div class="row-one">
+                        <div class="input-container">
+                            <div class="input-label">
+                                نام </div>
+                            <input class="input-textbox" placeholder="نام خود را وارد کنید">
+                        </div>
+
+                        <div class="input-container">
+                            <div class="input-label">
+                                نام خانوادگی </div>
+                            <input class="input-textbox" type="password" placeholder="نام خانوادگی خود را وارد کنید">
+                        </div>
+                    </div>
+
+                    <div class="row-two">
+                        <div class="input-container">
+                            <div class="input-label">
+                                رمز عبور
+                            </div>
+                            <input class="input-textbox" type="password" minlength="6" placeholder="رمز عبور خود را وارد کنید">
+                        </div>
+                    </div>
+
+                    <div class="row-three">
+                        <div class="input-container">
+                            <div class="input-label">
+                                آدرس
+                            </div>
+                            <textarea class="input-textarea" placeholder="آدرس خود را وارد کنید"></textarea>
+                        </div>
+                    </div>
+
+                </div>
+                <input id="edit-profile" type="button" value="ویرایش اطلاعات">
+            </div>
+            <!-- </div> -->
+
+            <div class="reciepts-section">
+
+                <div class="strech-row">
+                    <table>
+                        <tr>
+                            <th>کد پیگیری</th>
+                            <th>کالا</th>
+                            <th>قیمت پرداخت شده</th>
+                            <th>آدرس ارسال شده</th>
+                        </tr>
+                        <tr>
+                            <td>SHOP102030</td>
+                            <td>موس گیمینگ ریزر</td>
+                            <td>تومان 10000</td>
+                            <td>تهران، تهران، امیرکبیر</td>
+                        </tr>
+                        <tr>
+                            <td>SHOP102030</td>
+                            <td>موس گیمینگ ریزر</td>
+                            <td>تومان 10000</td>
+                            <td>تهران، تهران، امیرکبیر</td>
+                        </tr>
+                        <tr>
+                            <td>SHOP102030</td>
+                            <td>موس گیمینگ ریزر</td>
+                            <td>تومان 10000</td>
+                            <td>تهران، تهران، امیرکبیر</td>
+                        </tr>
+                        <tr>
+                            <td>SHOP102030</td>
+                            <td>موس گیمینگ ریزر</td>
+                            <td>تومان 10000</td>
+                            <td>تهران، تهران، امیرکبیر</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>تمامی حقوق برای توسعه دهندگان (بزاز-نادری) محفوظ است</p>
+        </div>
+
+    </div>
+
+</body>
+
+</html>
