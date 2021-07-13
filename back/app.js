@@ -14,9 +14,10 @@ db.authenticate().then(() => console.log("Khoda bozorge")).catch(err => console.
 dbTest.TestTruncate();
 // dbTest.testCreateCategory();
 // dbTest.testCreateProduct();
-dbTest.testEditCategory();
+// dbTest.testEditCategory();
 // dbTest.testEditProduct();
 // dbTest.testFindProductWithName();
+dbTest.testSortProductWithPrice();
 
 const app = express();
 
