@@ -20,4 +20,23 @@ function createReceipt(newReceipt) {
         });
 }
 
-module.exports = { router, createReceipt };
+function editReceipt(newFields, receiptId) {
+    return Receipt.update(newFields, { where: { id: receiptId } })
+        .then((editedReceipt) => { return editedReceipt; })
+        .catch(err => {
+            console.log(err);
+            return null;
+        });
+}
+
+function findReceiptByTrackingCode(trackingCode) {
+    return Receipt.findAll({ where: { tracking_code: trackingCode } })
+        .then((foundreceipt) => {
+            return foundreceipt;
+        })
+        .catch(err => {
+            console.log(err);
+            return null;
+        });
+}
+module.exports = { router, createReceipt, editReceipt, findReceiptByTrackingCode };

@@ -1,6 +1,11 @@
 const product = require("../services/db/products");
 const category = require("../services/db/categories");
 
+//truncate database 
+async function TestTruncate() {
+    await product.truncateProductTable();
+    await category.truncateTable();
+}
 // create category
 async function testCreateCategory() {
     await category.createCategory({ "name": "books" });
@@ -52,4 +57,4 @@ async function testFindProductWithName() {
     product.findProductWithName(createdProduct.dataValues.name);
 }
 
-module.exports = { testCreateCategory, testCreateProduct, testEditCategory, testEditProduct, testFindProductWithName };
+module.exports = { TestTruncate, testCreateCategory, testCreateProduct, testEditCategory, testEditProduct, testFindProductWithName };
