@@ -5,9 +5,7 @@ const Admin = require("../services/adminService");
 const User = require("../services/db/users");
 
 async function testGetAllReceipts() {
-    let user = await User.createUser({ "firstname": "david", "lastname": "david zade", "credit": 100, "username": "davidd", "password": "123", "address": "LA" });
-    console.log(user);
-    let receipts = await Admin.getAllReceipts(user.id);
+    let receipts = await Admin.getAllReceipts(user.dataValues.id);
     console.log(receipts.length);
 }
 

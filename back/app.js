@@ -15,9 +15,6 @@ const AdminService = require("../back/tests/adminService");
 // test database connection
 db.authenticate().then(() => console.log("Khoda bozorge")).catch(err => console.log("Ghalat kardam " + err.message));
 
-
-userService.signup({username: "mhnaderi99@gmail.com", firstname: "Mohammadhossein", lastname: "Naderi", password: "123456", address: "Tehran"});
-
 const app = express();
 
 //app.get('/', (req, res) => res.send("INDEX"));

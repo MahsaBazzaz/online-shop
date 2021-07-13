@@ -7,8 +7,8 @@ async function editProduct(productId, newFields) {
     return await Product.editProduct(newFields, productId);
 }
 
-async function getAllReceipts() {
-    return await Receipt.getAllReceipts();
+async function getAllReceipts(userId) {
+    return await Receipt.getAllReceipts(userId);
 }
 
 async function searchReceiptByTackingCode(trackingCode) {
