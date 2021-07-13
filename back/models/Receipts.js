@@ -11,7 +11,7 @@ const Receipt = db.define('receipts', {
         type: Sequelize.INTEGER
     },
     user_id: {
-        type: Sequelize.STRING
+        type: Sequelize.INTEGER
     },
     user_firstname: {
         type: Sequelize.STRING
