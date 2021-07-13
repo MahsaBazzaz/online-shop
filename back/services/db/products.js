@@ -58,6 +58,17 @@ function findProductsByCategory(categoryId) {
         });
 }
 
+function getProductById(productId) {
+    return Product.findByPk(productId)
+        .then((foundProduct) => {
+            return foundProduct;
+        })
+        .catch(err => {
+            console.log(err);
+            return null;
+        });
+}
+
 function getProductsInPriceRange(range) {
     const {Op} = require('sequelize')
     return Product.findAll({ where: { price:{ [Op.between]: [range.min, range.max]}}})
@@ -113,4 +124,4 @@ function truncateProductTable() {
         });
 }
 
-module.exports = { getAllProducts, createProduct, editProduct, findProductWithName, findProductsByCategory, getProductsSortedByPrice, getProductsInPriceRange, getProductsSortedBySold, truncateProductTable };
+module.exports = { getAllProducts, createProduct, editProduct, findProductWithName, findProductsByCategory, getProductsSortedByPrice, getProductsInPriceRange, getProductsSortedBySold, truncateProductTable, getProductById };

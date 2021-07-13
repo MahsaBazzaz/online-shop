@@ -30,7 +30,8 @@ const Receipt = db.define('receipts', {
     },
 
     purchase_date: {
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.NOW
     },
 
     tracking_code: {

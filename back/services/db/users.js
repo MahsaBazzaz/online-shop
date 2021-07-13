@@ -20,6 +20,17 @@ function createUser(newUser) {
         });
 }
 
+function getUserById(userId) {
+    return User.findByPk(userId)
+        .then((foundUser) => {
+            return foundUser;
+        })
+        .catch(err => {
+            console.log(err);
+            return null;
+        });
+}
+
 function editUser(newFields, userId) {
     return User.update(newFields, { where: { id: userId } })
         .then((user) => { return user; })
@@ -30,4 +41,4 @@ function editUser(newFields, userId) {
 }
 
 
-module.exports = { router, createUser, editUser };
+module.exports = { router, createUser, editUser, getUserById };
