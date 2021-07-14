@@ -12,7 +12,6 @@ const dbTest = require("../back/tests/databaseServices");
 //services Test
 const userService = require("../back/services/userService");
 const AdminService = require("../back/tests/adminService");
-userService.purchase(9, 33, 4);
 // test database connection
 db.authenticate().then(() => console.log("Khoda bozorge")).catch(err => console.log("Ghalat kardam " + err.message));
 
@@ -24,6 +23,12 @@ app.get('/', (req, res) => res.send("INDEX"));
 app.get('/getAllProducts', async(req, res) => {
     console.log(req.query);
     const allProducts = await userService.getAllProducts(req.query.page, req.query.productsInPage);
+    res.send(allProducts);
+});
+// get sorted products
+app.get('/getSortedProducts', async(req, res) => {
+    console.log(req.query);
+    const allProducts = await userService.getProductsSortedByPrice(req.query.order, req.query.page, req.query.productsInPage);
     res.send(allProducts);
 });
 // get allcategories

@@ -26,14 +26,17 @@ async function getProductsByCategory(categoryId) {
     return products;
 }
 
-async function getProductsSortedByPrice(order) {
-    let products = await product.getProductsSortedByPrice(order);
+async function getProductsSortedByPrice(order, page, productsInPage) {
+    let products = await product.getProductsSortedByPrice(order, page, productsInPage);
     console.log(products);
     return products;
 }
 
 async function getProductsSortedBySold(order) {
     let products = await product.getProductsSortedBySold(order);
+    for (pro of products) {
+        pro.category = await category.mapCategoryIdToCategoryName(pro.category_id);
+    }
     console.log(products);
     return products;
 }

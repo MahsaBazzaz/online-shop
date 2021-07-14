@@ -38,9 +38,12 @@ function showSlide(index) {
 // sorting box
 //
 window.onload = function() {
-    document.getElementById("best-seller").addEventListener("click", sortByBestSeller);
-    document.getElementById("price").addEventListener("click", sortByBestSeller);
-
+    document.getElementById("best-seller").addEventListener("click", changeSortMethod);
+    document.getElementById("price").addEventListener("click", changeSortMethod);
+    document.getElementById("price").addEventListener("click", function() {
+        console.log("sort by price");
+        getSortedProducts(1);
+    });
     //ajax request for getting products list
     getAllProducts(1);
 
@@ -49,7 +52,6 @@ window.onload = function() {
 
     getAllCategories();
     //ajax request for getting products list sorted by price
-
 
     //ajax rquest for getting products list sorted by sold
 
@@ -85,6 +87,25 @@ function getAllProducts(pageNumber) {
     //products in page
     var xhttp = new XMLHttpRequest();
     xhttp.open("GET", `http://localhost:3000/getAllProducts?page=${pageNumber}&productsInPage=${productsInPage}`, true);
+    xhttp.send();
+
+    xhttp.onreadystatechange = (e) => {
+        if (xhttp.readyState == 4 && xhttp.status == 200) {
+            if (xhttp.responseText) {
+                //put your code here 
+                console.log(xhttp.responseText);
+                products = JSON.parse(xhttp.responseText);
+                showProducts(products);
+            }
+        }
+    }
+
+}
+
+function getSortedProducts(pageNumber) {
+    //products in page
+    var xhttp = new XMLHttpRequest();
+    xhttp.open("GET", `http://localhost:3000/getSortedProducts?order=ASC&page=${pageNumber}&productsInPage=${productsInPage}`, true);
     xhttp.send();
 
     xhttp.onreadystatechange = (e) => {
@@ -165,7 +186,7 @@ function createCategoryBox(category) {
     return newDiv;
 }
 
-function sortByBestSeller() {
+function changeSortMethod() {
     document.getElementById("best-seller").classList.toggle('sorting-box-btn-active');
     document.getElementById("best-seller").classList.toggle('sorting-box-btn-deactive');
     document.getElementById("price").classList.toggle('sorting-box-btn-active');

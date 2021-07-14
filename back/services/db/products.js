@@ -4,9 +4,9 @@ const db = require('../../config/database');
 const Product = require('../../models/Product');
 
 function getAllProducts(page, productsInPage) {
-    const offset = productsInPage*(page-1);
+    const offset = productsInPage * (page - 1);
     const limit = productsInPage;
-    return Product.findAll({offset: offset, limit: limit})
+    return Product.findAll({ offset: offset, limit: limit })
         .then((products) => { return products; })
         .catch(err => {
             console.log(err);
@@ -74,8 +74,14 @@ function getProductById(productId) {
 }
 
 function getProductsInPriceRange(range) {
-    const {Op} = require('sequelize')
-    return Product.findAll({ where: { price:{ [Op.between]: [range.min, range.max]}}})
+    const { Op } = require('sequelize')
+    return Product.findAll({
+            where: {
+                price: {
+                    [Op.between]: [range.min, range.max]
+                }
+            }
+        })
         .then((foundProduct) => {
             return foundProduct;
         })
@@ -85,8 +91,12 @@ function getProductsInPriceRange(range) {
         });
 }
 
-function getProductsSortedByPrice(descOrAsc) {
+function getProductsSortedByPrice(descOrAsc, page, productsInPage) {
+    const offset = productsInPage * (page - 1);
+    const limit = productsInPage;
     return Product.findAll({
+            offset: offset,
+            limit: limit,
             order: [
                 ['price', descOrAsc]
             ]
