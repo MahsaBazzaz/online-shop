@@ -62,6 +62,15 @@ async function getProductsInPriceRange(order, page, productsInPage, range) {
     return products;
 }
 
+async function searchProductByName(productName, page, productsInPage) {
+    let products = await product.findProductWithName(productName, page, productsInPage);
+    for (pro of products) {
+        pro.category = await category.mapCategoryIdToCategoryName(pro.category_id);
+    }
+    console.log(products);
+    return products;
+}
+
 async function signup(userInfo) {
     userInfo.credit = 0;
     let createdUser = await user.createUser(userInfo);
@@ -154,6 +163,7 @@ module.exports = {
     getProductsSortedBySold,
     getProductsSortedByCreationDate,
     getProductsInPriceRange,
+    searchProductByName,
     signup,
     editProfile,
     getReceipts,

@@ -68,11 +68,14 @@ window.onload = function() {
     //ajax request for getting products by category
 
 
-    //ajax request for getting products in price range
+    //ajax request for getting products in price range -> DONE but //FIXME: the ui does not work
 
 
-    //ajax request for getting products by name
-
+    document.getElementsByClassName('search-button')[0].addEventListener("click", function() {
+        //ajax request for getting products by name
+        console.log("search product by name");
+        searchProductByName(document.getElementsByClassName('search-box')[0].value, 1);
+    });
 
     //ajax request for purchasing products
 
@@ -286,6 +289,23 @@ function changeSortMethod() {
     document.getElementById("best-seller").classList.toggle('sorting-box-btn-deactive');
     document.getElementById("price").classList.toggle('sorting-box-btn-active');
     document.getElementById("price").classList.toggle('sorting-box-btn-deactive');
+}
+
+function searchProductByName(productName, pageNumber) {
+    var xhttp = new XMLHttpRequest();
+    xhttp.open("GET", `http://localhost:3000/searchProductByName?page=${pageNumber}&productsInPage=${productsInPage}&productName=${productName}`, true);
+    xhttp.send();
+
+    xhttp.onreadystatechange = (e) => {
+        if (xhttp.readyState == 4 && xhttp.status == 200) {
+            if (xhttp.responseText) {
+                //put your code here 
+                console.log(xhttp.responseText);
+                products = JSON.parse(xhttp.responseText);
+                showProducts(products);
+            }
+        }
+    }
 }
 //
 // modal

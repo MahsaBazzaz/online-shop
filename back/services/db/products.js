@@ -40,8 +40,14 @@ function editProduct(editedFields, productId) {
         });
 }
 
-function findProductWithName(productname) {
-    return Product.findAll({ where: { name: productname } })
+function findProductWithName(productname, page, productsInPage) {
+    const offset = productsInPage * (page - 1);
+    const limit = productsInPage;
+    return Product.findAll({
+            offset: offset,
+            limit: limit,
+            where: { name: productname }
+        })
         .then((foundProduct) => {
             return foundProduct;
         })
