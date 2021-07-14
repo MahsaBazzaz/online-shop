@@ -3,7 +3,7 @@ const category = require("../../back/services/db/categories");
 const product = require("../../back/services/db/products");
 const receipt = require("../../back/services/db/receipts");
 const { response } = require("express");
-
+var randomstring = require("randomstring");
 
 async function getAllProducts(page, productsInPage) {
     let products = await product.getAllProducts(page, productsInPage);
@@ -29,7 +29,7 @@ async function getProductsByCategory(categoryId) {
 async function getProductsSortedByPrice(order) {
     let products = await product.getProductsSortedByPrice(order);
     console.log(products);
-    return products;   
+    return products;
 }
 
 async function getProductsSortedBySold(order) {
@@ -52,7 +52,7 @@ async function signup(userInfo) {
 }
 
 function login(userInfo) {
-    
+
 }
 
 async function editProfile(userId, newFields) {
@@ -78,7 +78,7 @@ async function purchase(userId, productId, count) {
     }
     //check if credit is enough
     let buyerUser = await user.getUserById(userId);
-    totalCost = count*purchasedProduct.price;
+    totalCost = count * purchasedProduct.price;
     if (totalCost > buyerUser.credit) {
         return console.error("Not enough credit");
     }
@@ -92,7 +92,10 @@ async function purchase(userId, productId, count) {
     newReceipt.user_lastname = buyerUser.lastname;
     newReceipt.user_address = buyerUser.address;
     newReceipt.total_cost = totalCost;
-    newReceipt.tracking_code = ""; //must be generated uniqely for each receipt
+    newReceipt.tracking_code = randomstring.generate({
+        length: 10,
+        charset: 'alphanumeric'
+    });; //must be generated uniqely for each receipt
     newReceipt.status = "در حال انجام";
 
 
@@ -102,14 +105,14 @@ async function purchase(userId, productId, count) {
 
     //update user credit
     newCredit = buyerUser.credit - totalCost;
-    let buyerUserAfterPurchase = await user.editUser({credit: newCredit}, userId);
+    let buyerUserAfterPurchase = await user.editUser({ credit: newCredit }, userId);
 
     //update remaining products
     newRemaining = purchasedProduct.remaining - count;
     newSold = purchasedProduct.sold + count;
-    let purchasedProductAfterPurchase = await product.editProduct({remaining: newRemaining, sold: newSold}, productId);
-    
-    
+    let purchasedProductAfterPurchase = await product.editProduct({ remaining: newRemaining, sold: newSold }, productId);
+
+
     console.log(buyerUserAfterPurchase);
 }
 
@@ -119,7 +122,7 @@ async function chargeCredit(userId, chargeAmount) {
     }
     let userToBeCharged = await user.getUserById(userId);
     newCredit = userToBeCharged.credit + chargeAmount;
-    let editedUser = await user.editUser({credit: newCredit}, userId);
+    let editedUser = await user.editUser({ credit: newCredit }, userId);
 
     console.log(editedUser);
     return editedUser;
@@ -128,12 +131,13 @@ async function chargeCredit(userId, chargeAmount) {
 module.exports = {
     getAllProducts,
     getAllCategories,
-    getProductsByCategory, 
-    getProductsSortedByPrice, 
-    getProductsSortedBySold, 
+    getProductsByCategory,
+    getProductsSortedByPrice,
+    getProductsSortedBySold,
     getProductsInPriceRange,
     signup,
     editProfile,
     getReceipts,
     purchase,
-    chargeCredit};
+    chargeCredit
+};
