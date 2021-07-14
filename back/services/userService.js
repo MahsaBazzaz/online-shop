@@ -28,12 +28,15 @@ async function getProductsByCategory(categoryId) {
 
 async function getProductsSortedByPrice(order, page, productsInPage) {
     let products = await product.getProductsSortedByPrice(order, page, productsInPage);
+    for (pro of products) {
+        pro.category = await category.mapCategoryIdToCategoryName(pro.category_id);
+    }
     console.log(products);
     return products;
 }
 
-async function getProductsSortedBySold(order) {
-    let products = await product.getProductsSortedBySold(order);
+async function getProductsSortedBySold(order, page, productsInPage) {
+    let products = await product.getProductsSortedBySold(order, page, productsInPage);
     for (pro of products) {
         pro.category = await category.mapCategoryIdToCategoryName(pro.category_id);
     }

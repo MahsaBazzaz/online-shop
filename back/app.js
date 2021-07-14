@@ -25,10 +25,16 @@ app.get('/getAllProducts', async(req, res) => {
     const allProducts = await userService.getAllProducts(req.query.page, req.query.productsInPage);
     res.send(allProducts);
 });
-// get sorted products
-app.get('/getSortedProducts', async(req, res) => {
+// get sorted products by price
+app.get('/getSortedProductsByPrice', async(req, res) => {
     console.log(req.query);
     const allProducts = await userService.getProductsSortedByPrice(req.query.order, req.query.page, req.query.productsInPage);
+    res.send(allProducts);
+});
+// get sorted products by sells
+app.get('/getSortedProductsBySells', async(req, res) => {
+    console.log(req.query);
+    const allProducts = await userService.getProductsSortedBySold(req.query.order, req.query.page, req.query.productsInPage);
     res.send(allProducts);
 });
 // get allcategories

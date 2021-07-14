@@ -39,22 +39,23 @@ function showSlide(index) {
 //
 window.onload = function() {
     document.getElementById("best-seller").addEventListener("click", changeSortMethod);
+    document.getElementById("best-seller").addEventListener("click", function() {
+        //ajax rquest for getting products list sorted by sold
+        console.log("sort by sells");
+        getSortedProductsBySells(1);
+    });
     document.getElementById("price").addEventListener("click", changeSortMethod);
     document.getElementById("price").addEventListener("click", function() {
+        //ajax request for getting products list sorted by price
         console.log("sort by price");
-        getSortedProducts(1);
+        getSortedProductsByPrice(1);
     });
     //ajax request for getting products list
     getAllProducts(1);
 
 
     //ajax request for getting categories list
-
     getAllCategories();
-    //ajax request for getting products list sorted by price
-
-    //ajax rquest for getting products list sorted by sold
-
 
     //ajax request for getting products list sorted by creation date
 
@@ -102,10 +103,10 @@ function getAllProducts(pageNumber) {
 
 }
 
-function getSortedProducts(pageNumber) {
+function getSortedProductsByPrice(pageNumber) {
     //products in page
     var xhttp = new XMLHttpRequest();
-    xhttp.open("GET", `http://localhost:3000/getSortedProducts?order=ASC&page=${pageNumber}&productsInPage=${productsInPage}`, true);
+    xhttp.open("GET", `http://localhost:3000/getSortedProductsByPrice?order=ASC&page=${pageNumber}&productsInPage=${productsInPage}`, true);
     xhttp.send();
 
     xhttp.onreadystatechange = (e) => {
@@ -118,7 +119,24 @@ function getSortedProducts(pageNumber) {
             }
         }
     }
+}
 
+function getSortedProductsBySells(pageNumber) {
+    //products in page
+    var xhttp = new XMLHttpRequest();
+    xhttp.open("GET", `http://localhost:3000/getSortedProductsBySells?order=ASC&page=${pageNumber}&productsInPage=${productsInPage}`, true);
+    xhttp.send();
+
+    xhttp.onreadystatechange = (e) => {
+        if (xhttp.readyState == 4 && xhttp.status == 200) {
+            if (xhttp.responseText) {
+                //put your code here 
+                console.log(xhttp.responseText);
+                products = JSON.parse(xhttp.responseText);
+                showProducts(products);
+            }
+        }
+    }
 }
 
 function showProducts(products) {

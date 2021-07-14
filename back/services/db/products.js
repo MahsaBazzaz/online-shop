@@ -110,8 +110,12 @@ function getProductsSortedByPrice(descOrAsc, page, productsInPage) {
         });
 }
 
-function getProductsSortedBySold(descOrAsc) {
+function getProductsSortedBySold(descOrAsc, page, productsInPage) {
+    const offset = productsInPage * (page - 1);
+    const limit = productsInPage;
     return Product.findAll({
+            offset: offset,
+            limit: limit,
             order: [
                 ['sold', descOrAsc]
             ]
