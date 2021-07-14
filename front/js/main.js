@@ -123,7 +123,7 @@ function createProductBox(product) {
         '<hr>' +
         '<div class="product-price-box">' +
         '<p class="product-price">' + product.price + ' تومان</p>' +
-        '<button id="edit-product-with-id-0" class="buy-product-button">ویرایش محصول</button>' +
+        '<button id="buy-product-with-id-' + product.id + '"class="buy-product-button">خرید محصول</button>' +
         '</div>';
 
     return newDiv;
