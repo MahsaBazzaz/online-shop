@@ -129,6 +129,26 @@ function getProductsSortedBySold(descOrAsc, page, productsInPage) {
         });
 }
 
+function getProductsSortedByCreationDate(descOrAsc, page, productsInPage) {
+    const offset = productsInPage * (page - 1);
+    const limit = productsInPage;
+    return Product.findAll({
+            offset: offset,
+            limit: limit,
+            order: [
+                ['createdat', descOrAsc]
+            ]
+        })
+        .then((foundProduct) => {
+            return foundProduct;
+        })
+        .catch(err => {
+            console.log(err);
+            return null;
+        });
+}
+
+
 // Truncate the table
 function truncateProductTable() {
     return Product.destroy({ truncate: true, cascade: true })
@@ -142,4 +162,16 @@ function truncateProductTable() {
         });
 }
 
-module.exports = { getAllProducts, createProduct, editProduct, findProductWithName, findProductsByCategory, getProductsSortedByPrice, getProductsInPriceRange, getProductsSortedBySold, truncateProductTable, getProductById };
+module.exports = {
+    getAllProducts,
+    createProduct,
+    editProduct,
+    findProductWithName,
+    findProductsByCategory,
+    getProductsSortedByPrice,
+    getProductsInPriceRange,
+    getProductsSortedBySold,
+    getProductsSortedByCreationDate,
+    truncateProductTable,
+    getProductById
+};

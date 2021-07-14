@@ -37,6 +37,12 @@ app.get('/getSortedProductsBySells', async(req, res) => {
     const allProducts = await userService.getProductsSortedBySold(req.query.order, req.query.page, req.query.productsInPage);
     res.send(allProducts);
 });
+// get sorted products by creation date
+app.get('/getSortedProductsByCreationDate', async(req, res) => {
+    console.log(req.query);
+    const allProducts = await userService.getProductsSortedBySold(req.query.order, req.query.page, req.query.productsInPage);
+    res.send(allProducts);
+});
 // get allcategories
 app.get('/getAllCategories', async(req, res) => {
     console.log(req.query);

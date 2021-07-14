@@ -139,6 +139,24 @@ function getSortedProductsBySells(pageNumber) {
     }
 }
 
+function getSortedProductsByCreationDate(pageNumber) {
+    //products in page
+    var xhttp = new XMLHttpRequest();
+    xhttp.open("GET", `http://localhost:3000/getSortedProductsByCreationDate?order=ASC&page=${pageNumber}&productsInPage=${productsInPage}`, true);
+    xhttp.send();
+
+    xhttp.onreadystatechange = (e) => {
+        if (xhttp.readyState == 4 && xhttp.status == 200) {
+            if (xhttp.responseText) {
+                //put your code here 
+                console.log(xhttp.responseText);
+                products = JSON.parse(xhttp.responseText);
+                showProducts(products);
+            }
+        }
+    }
+}
+
 function showProducts(products) {
     productsBox = document.getElementsByClassName("products-box")[0];
     productsBox.innerHTML = "";

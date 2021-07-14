@@ -44,6 +44,15 @@ async function getProductsSortedBySold(order, page, productsInPage) {
     return products;
 }
 
+async function getProductsSortedByCreationDate(order, page, productsInPage) {
+    let products = await product.getProductsSortedByCreationDate(order, page, productsInPage);
+    for (pro of products) {
+        pro.category = await category.mapCategoryIdToCategoryName(pro.category_id);
+    }
+    console.log(products);
+    return products;
+}
+
 async function getProductsInPriceRange(range) {
     let products = await product.getProductsInPriceRange(range);
     console.log(products);
@@ -140,6 +149,7 @@ module.exports = {
     getProductsByCategory,
     getProductsSortedByPrice,
     getProductsSortedBySold,
+    getProductsSortedByCreationDate,
     getProductsInPriceRange,
     signup,
     editProfile,
