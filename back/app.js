@@ -12,13 +12,15 @@ const dbTest = require("../back/tests/databaseServices");
 //services Test
 const userService = require("../back/services/userService");
 const AdminService = require("../back/tests/adminService");
-userService.purchase(9, 33, 4);
+
 // test database connection
 db.authenticate().then(() => console.log("Khoda bozorge")).catch(err => console.log("Ghalat kardam " + err.message));
 
 const app = express();
 
 app.use(cors());
+app.use(bodyParser.json());
+
 app.get('/', (req, res) => res.send("INDEX"));
 // get all products
 app.get('/getAllProducts', async(req, res) => {
@@ -32,6 +34,15 @@ app.get('/getAllCategories', async(req, res) => {
     const allCategories = await userService.getAllCategories();
     res.send(allCategories);
 });
+
+//get products by category
+app.post('/getProductsByCategory', async(req, res) => {
+    body = req.body;
+    const products = await userService.getProductsByCategory(body, req.query.page, req.query.productsInPage);
+    res.send(products);
+});
+
+
 //app.use("/admin", require("./services/db/admin"));
 
 app.listen(port, () => {

@@ -51,8 +51,10 @@ function findProductWithName(productname) {
         });
 }
 
-function findProductsByCategory(categoryId) {
-    return Product.findAll({ where: { category_id: categoryId } })
+function findProductsByCategory(categoryIds, page, productsInPage) {
+    const offset = productsInPage*(page-1);
+    const limit = productsInPage;
+    return Product.findAll({offset: offset, limit: limit, where: { category_id: categoryIds } })
         .then((foundProduct) => {
             return foundProduct;
         })

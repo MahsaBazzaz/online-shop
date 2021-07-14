@@ -20,11 +20,28 @@ async function getAllCategories() {
     return categories;
 }
 
-async function getProductsByCategory(categoryId) {
-    let products = await product.findProductsByCategory(categoryId);
-    console.log(products);
-    return products;
+async function getProductsByCategory(categoryStates, page, productsInPage) {
+    let trueCategories = [];
+    for (let cat in categoryStates) {
+        if (categoryStates[cat]) {
+            trueCategories.push(cat);
+        }
+    }
+
+    if (trueCategories.length == 0) {
+        return await getAllProducts(page, productsInPage);
+    } else {
+        let products = await product.findProductsByCategory(trueCategories, page, productsInPage);
+        for (pro of products) {
+            pro.category = await category.mapCategoryIdToCategoryName(pro.category_id);
+        }
+
+        console.log(products);
+        return products;
+    }
+
 }
+
 
 async function getProductsSortedByPrice(order) {
     let products = await product.getProductsSortedByPrice(order);

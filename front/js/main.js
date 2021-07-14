@@ -3,6 +3,8 @@
 //
 var slideIndex = 0;
 var slides = document.getElementsByClassName("slider-image");
+let category_states = {};
+
 const productsInPage = 15;
 
 showSlide(0);
@@ -141,6 +143,9 @@ function getAllCategories() {
                 //put your code here 
                 console.log(xhttp.responseText);
                 categories = JSON.parse(xhttp.responseText);
+                for (category of categories) {
+                    category_states[category.id] = false;
+                }
                 showCategories(categories);
             }
         }
@@ -159,10 +164,37 @@ function createCategoryBox(category) {
     const newDiv = document.createElement("div");
     newDiv.className = "custom-checkbox";
     newDiv.innerHTML =
-        '<input type="checkbox" id=checkbox' + category.id + '" />' +
+        '<input type="checkbox" onclick="checkboxHandler(' + category.id + ')" id=checkbox' + category.id + '" />' +
         '<label for=checkbox' + category.id + '"></label>' +
         '<span class="filtering-text">' + category.name + '</span>';
     return newDiv;
+}
+
+
+function checkboxHandler(category_id) {
+    const checkboxe = document.getElementById("checkbox" + category_id);
+    category_states[category_id] = !category_states[category_id];
+    getProductsByCategoryState(1);
+    console.log(category_states);
+}
+
+function getProductsByCategoryState(pageNumber) {
+    var xhttp = new XMLHttpRequest();
+    xhttp.open("POST", `http://localhost:3000/getProductsByCategory?page=${pageNumber}&productsInPage=${productsInPage}`, true);
+    xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    xhttp.setRequestHeader("Accept", "application/json");
+    jsonObject = JSON.stringify(category_states);
+    xhttp.send(jsonObject);
+
+    xhttp.onreadystatechange = (e) => {
+        if (xhttp.readyState == 4 && xhttp.status == 200) {
+            if (xhttp.responseText) {
+                console.log(xhttp.responseText);
+                products = JSON.parse(xhttp.responseText);
+                showProducts(products);
+            }
+        }
+    }
 }
 
 function sortByBestSeller() {
