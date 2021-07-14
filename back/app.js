@@ -43,6 +43,17 @@ app.get('/getSortedProductsByCreationDate', async(req, res) => {
     const allProducts = await userService.getProductsSortedBySold(req.query.order, req.query.page, req.query.productsInPage);
     res.send(allProducts);
 });
+
+// get products in price range
+app.get('/getProductsInPriceRange', async(req, res) => {
+    console.log(req.query);
+    var rangeObject = Object.create({});
+    rangeObject.min = req.query.minPrice;
+    rangeObject.max = req.query.maxPrice;
+    const allProducts = await userService.getProductsInPriceRange(req.query.order, req.query.page, req.query.productsInPage, rangeObject);
+    res.send(allProducts);
+});
+
 // get allcategories
 app.get('/getAllCategories', async(req, res) => {
     console.log(req.query);

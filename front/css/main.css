@@ -521,8 +521,7 @@ li .sorting-box-btn-deactive {
     transform: translate(15px, -10px);
 }
 
-
-/* .slider>.thumb.hover {
+.slider>.thumb.hover {
     box-shadow: 0 0 0 20px rgba(98, 0, 238, .1);
     background-color: red;
 }
@@ -530,7 +529,7 @@ li .sorting-box-btn-deactive {
 .slider>.thumb.active {
     box-shadow: 0 0 0 40px rgba(98, 0, 238, .2);
     background-color: yellow;
-} */
+}
 
 input[type=range] {
     position: absolute;

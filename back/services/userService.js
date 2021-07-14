@@ -53,8 +53,11 @@ async function getProductsSortedByCreationDate(order, page, productsInPage) {
     return products;
 }
 
-async function getProductsInPriceRange(range) {
-    let products = await product.getProductsInPriceRange(range);
+async function getProductsInPriceRange(order, page, productsInPage, range) {
+    let products = await product.getProductsInPriceRange(order, page, productsInPage, range);
+    for (pro of products) {
+        pro.category = await category.mapCategoryIdToCategoryName(pro.category_id);
+    }
     console.log(products);
     return products;
 }

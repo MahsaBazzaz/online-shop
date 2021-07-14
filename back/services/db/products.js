@@ -73,9 +73,13 @@ function getProductById(productId) {
         });
 }
 
-function getProductsInPriceRange(range) {
-    const { Op } = require('sequelize')
+function getProductsInPriceRange(order, page, productsInPage, range) {
+    const { Op } = require('sequelize');
+    const offset = productsInPage * (page - 1);
+    const limit = productsInPage;
     return Product.findAll({
+            offset: offset,
+            limit: limit,
             where: {
                 price: {
                     [Op.between]: [range.min, range.max]
