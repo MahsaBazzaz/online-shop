@@ -11,7 +11,7 @@ const Receipt = db.define('receipts', {
         type: Sequelize.INTEGER
     },
     user_id: {
-        type: Sequelize.STRING
+        type: Sequelize.INTEGER
     },
     user_firstname: {
         type: Sequelize.STRING
@@ -30,7 +30,8 @@ const Receipt = db.define('receipts', {
     },
 
     purchase_date: {
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.NOW
     },
 
     tracking_code: {

@@ -8,6 +8,10 @@ module.exports = new Sequelize('OnlineShop', defaultConfig.databaseUsername, def
     port: defaultConfig.databasePort,
     dialect: 'postgres',
 
+    query: {
+        raw: true
+    },
+
     pool: {
         max: 5,
         min: 0,

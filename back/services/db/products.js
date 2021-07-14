@@ -3,8 +3,10 @@ const router = express.Router();
 const db = require('../../config/database');
 const Product = require('../../models/Product');
 
-function getAllProducts() {
-    return Product.findAll()
+function getAllProducts(page, productsInPage) {
+    const offset = productsInPage*(page-1);
+    const limit = productsInPage;
+    return Product.findAll({offset: offset, limit: limit})
         .then((products) => { return products; })
         .catch(err => {
             console.log(err);
@@ -23,6 +25,8 @@ function createProduct(newProduct) {
             return null;
         });
 }
+
+
 
 function editProduct(editedFields, productId) {
     return Product.update(editedFields, { where: { id: productId } })
@@ -58,10 +62,48 @@ function findProductsByCategory(categoryId) {
         });
 }
 
+function getProductById(productId) {
+    return Product.findByPk(productId)
+        .then((foundProduct) => {
+            return foundProduct;
+        })
+        .catch(err => {
+            console.log(err);
+            return null;
+        });
+}
+
+function getProductsInPriceRange(range) {
+    const {Op} = require('sequelize')
+    return Product.findAll({ where: { price:{ [Op.between]: [range.min, range.max]}}})
+        .then((foundProduct) => {
+            return foundProduct;
+        })
+        .catch(err => {
+            console.log(err);
+            return null;
+        });
+}
+
 function getProductsSortedByPrice(descOrAsc) {
     return Product.findAll({
             order: [
                 ['price', descOrAsc]
+            ]
+        })
+        .then((foundProduct) => {
+            return foundProduct;
+        })
+        .catch(err => {
+            console.log(err);
+            return null;
+        });
+}
+
+function getProductsSortedBySold(descOrAsc) {
+    return Product.findAll({
+            order: [
+                ['sold', descOrAsc]
             ]
         })
         .then((foundProduct) => {
@@ -86,4 +128,4 @@ function truncateProductTable() {
         });
 }
 
-module.exports = { getAllProducts, createProduct, editProduct, findProductWithName, findProductsByCategory, getProductsSortedByPrice, truncateProductTable };
+module.exports = { getAllProducts, createProduct, editProduct, findProductWithName, findProductsByCategory, getProductsSortedByPrice, getProductsInPriceRange, getProductsSortedBySold, truncateProductTable, getProductById };

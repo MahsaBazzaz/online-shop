@@ -4,27 +4,39 @@ const Receipt = require('./db/receipts');
 
 
 async function editProduct(productId, newFields) {
-    await Product.editProduct(newFields, productId);
+    return await Product.editProduct(newFields, productId);
 }
 
-async function getAllReceipts() {
-    await Receipt.getAllReceipts();
+async function getAllReceipts(userId) {
+    return await Receipt.getAllReceipts(userId);
 }
 
 async function searchReceiptByTackingCode(trackingCode) {
-    await Receipt.findReceiptByTrackingCode(trackingCode);
+    return await Receipt.findReceiptByTrackingCode(trackingCode);
 }
 
-async function changeReceiptStatus(receiptId, newStatus) {}
-
-function createCategory(newCategory) {
-
+async function changeReceiptStatus(receiptId, newStatus) {
+    return await Receipt.editReceipt({ "status": newStatus }, receiptId);
 }
 
-function editCategory(categoryId, newFields) {
-
+async function createCategory(newCategory) {
+    return await Category.createCategory(newCategory);
 }
 
-function deleteCategory(categoryId) {
-
+async function editCategory(categoryId, newFields) {
+    return await Category.editCategory(newFields, categoryId);
 }
+
+async function deleteCategory(categoryId) {
+    return await Category.deleteCategory(categoryId);
+}
+
+module.exports = {
+    editProduct,
+    getAllReceipts,
+    searchReceiptByTackingCode,
+    changeReceiptStatus,
+    createCategory,
+    editCategory,
+    deleteCategory
+};
