@@ -3,8 +3,10 @@ const router = express.Router();
 const db = require('../../config/database');
 const Product = require('../../models/Product');
 
-function getAllProducts() {
-    return Product.findAll()
+function getAllProducts(page, productsInPage) {
+    const offset = productsInPage*(page-1);
+    const limit = productsInPage;
+    return Product.findAll({offset: offset, limit: limit})
         .then((products) => { return products; })
         .catch(err => {
             console.log(err);
@@ -23,6 +25,8 @@ function createProduct(newProduct) {
             return null;
         });
 }
+
+
 
 function editProduct(editedFields, productId) {
     return Product.update(editedFields, { where: { id: productId } })

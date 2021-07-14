@@ -5,8 +5,11 @@ const receipt = require("../../back/services/db/receipts");
 const { response } = require("express");
 
 
-async function getAllProducts() {
-    let products = await product.getAllProducts();
+async function getAllProducts(page, productsInPage) {
+    let products = await product.getAllProducts(page, productsInPage);
+    for (pro of products) {
+        pro.category = await category.mapCategoryIdToCategoryName(pro.category_id);
+    }
     console.log(products);
     return products;
 }

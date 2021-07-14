@@ -3,6 +3,8 @@
 //
 var slideIndex = 0;
 var slides = document.getElementsByClassName("slider-image");
+const productsInPage = 15;
+
 showSlide(0);
 
 window.setInterval(function() {
@@ -38,6 +40,94 @@ function showSlide(index) {
 window.onload = function() {
     document.getElementById("best-seller").addEventListener("click", sortByBestSeller);
     document.getElementById("price").addEventListener("click", sortByBestSeller);
+
+    //ajax request for getting products list
+    getAllProducts(1);
+
+
+    //ajax request for getting categories list
+
+
+    //ajax request for getting products list sorted by price
+
+
+    //ajax rquest for getting products list sorted by sold
+
+
+    //ajax request for getting products list sorted by creation date
+
+
+    //ajax request for getting products by category
+
+    
+    //ajax request for getting products in price range
+
+
+    //ajax request for getting products by name
+
+
+    //ajax request for purchasing products
+
+
+    //ajax request for login
+
+
+    //ajax request for signup
+
+
+
+}
+
+
+
+
+function getAllProducts(pageNumber) {
+    //products in page
+    var xhttp = new XMLHttpRequest();
+    xhttp.open("GET", `http://localhost:3000/getAllProducts?page=${pageNumber}&productsInPage=${productsInPage}`, true);
+    xhttp.send();
+    
+    xhttp.onreadystatechange=(e) => {
+        if (xhttp.readyState == 4 && xhttp.status == 200) {
+            if (xhttp.responseText) {
+                //put your code here 
+                console.log(xhttp.responseText);
+                products = JSON.parse(xhttp.responseText);
+                showProducts(products);
+            }
+        }
+    }
+
+}
+
+function showProducts(products) {
+    productsBox = document.getElementsByClassName("products-box")[0];
+    productsBox.innerHTML = "";
+    //productsBox.scrollTop = 0; we should use animation for this
+    for (product of products) {
+        productsBox.appendChild(createProductBox(product));
+    }
+}
+
+function createProductBox(product) {
+    const newDiv = document.createElement("div");
+    newDiv.className = "main-product-box";
+    newDiv.id = "product" + product.id;
+    newDiv.innerHTML = '<div class="product-image-box">'+
+                            '<img src="../assets/img/product.jpg">'+
+                        '</div>'+
+                        '<div class="product-desc-box">'+
+                            '<p class="product-title">' + product.name +'</p>'+
+                            '<p class="product-category">' + product.category + '</p>'+
+                        '</div>'+
+                        '<hr>'+
+                        '<div class="product-price-box">'+
+                            '<p class="product-price">' + product.price + ' تومان</p>'+
+                            '<button id="edit-product-with-id-0" class="buy-product-button">ویرایش محصول</button>'+
+                        '</div>';
+
+    return newDiv;
+
 }
 
 function sortByBestSeller() {

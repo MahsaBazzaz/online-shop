@@ -1,4 +1,5 @@
 const express = require("express");
+const cors = require('cors')
 //const exphbs = require("express-handlebars");
 const bodyParser = require("body-parser");
 const path = require("path");
@@ -17,7 +18,13 @@ db.authenticate().then(() => console.log("Khoda bozorge")).catch(err => console.
 
 const app = express();
 
-//app.get('/', (req, res) => res.send("INDEX"));
+app.use(cors());
+app.get('/', (req, res) => res.send("INDEX"));
+app.get('/getAllProducts', async (req, res) => {
+    console.log(req.query);
+    const allProducts = await userService.getAllProducts(req.query.page, req.query.productsInPage);
+    res.send(allProducts);
+});
 //app.use("/admin", require("./services/db/admin"));
 
 app.listen(port, () => {
