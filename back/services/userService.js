@@ -42,21 +42,47 @@ async function getProductsByCategory(categoryStates, page, productsInPage) {
 
 }
 
-
-async function getProductsSortedByPrice(order) {
-    let products = await product.getProductsSortedByPrice(order);
+async function getProductsSortedByPrice(order, page, productsInPage) {
+    let products = await product.getProductsSortedByPrice(order, page, productsInPage);
+    for (pro of products) {
+        pro.category = await category.mapCategoryIdToCategoryName(pro.category_id);
+    }
     console.log(products);
     return products;
 }
 
-async function getProductsSortedBySold(order) {
-    let products = await product.getProductsSortedBySold(order);
+async function getProductsSortedBySold(order, page, productsInPage) {
+    let products = await product.getProductsSortedBySold(order, page, productsInPage);
+    for (pro of products) {
+        pro.category = await category.mapCategoryIdToCategoryName(pro.category_id);
+    }
     console.log(products);
     return products;
 }
 
-async function getProductsInPriceRange(range) {
-    let products = await product.getProductsInPriceRange(range);
+async function getProductsSortedByCreationDate(order, page, productsInPage) {
+    let products = await product.getProductsSortedByCreationDate(order, page, productsInPage);
+    for (pro of products) {
+        pro.category = await category.mapCategoryIdToCategoryName(pro.category_id);
+    }
+    console.log(products);
+    return products;
+}
+
+async function getProductsInPriceRange(order, page, productsInPage, range) {
+    let products = await product.getProductsInPriceRange(order, page, productsInPage, range);
+    for (pro of products) {
+        pro.category = await category.mapCategoryIdToCategoryName(pro.category_id);
+    }
+    console.log(products);
+    return products;
+}
+
+async function searchProductByName(productName, page, productsInPage) {
+    let products = await product.findProductWithName(productName, page, productsInPage);
+    for (pro of products) {
+        pro.category = await category.mapCategoryIdToCategoryName(pro.category_id);
+    }
     console.log(products);
     return products;
 }
@@ -151,7 +177,9 @@ module.exports = {
     getProductsByCategory,
     getProductsSortedByPrice,
     getProductsSortedBySold,
+    getProductsSortedByCreationDate,
     getProductsInPriceRange,
+    searchProductByName,
     signup,
     editProfile,
     getReceipts,

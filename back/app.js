@@ -12,7 +12,6 @@ const dbTest = require("../back/tests/databaseServices");
 //services Test
 const userService = require("../back/services/userService");
 const AdminService = require("../back/tests/adminService");
-
 // test database connection
 db.authenticate().then(() => console.log("Khoda bozorge")).catch(err => console.log("Ghalat kardam " + err.message));
 
@@ -28,6 +27,41 @@ app.get('/getAllProducts', async(req, res) => {
     const allProducts = await userService.getAllProducts(req.query.page, req.query.productsInPage);
     res.send(allProducts);
 });
+// get sorted products by price
+app.get('/getSortedProductsByPrice', async(req, res) => {
+    console.log(req.query);
+    const allProducts = await userService.getProductsSortedByPrice(req.query.order, req.query.page, req.query.productsInPage);
+    res.send(allProducts);
+});
+// get sorted products by sells
+app.get('/getSortedProductsBySells', async(req, res) => {
+    console.log(req.query);
+    const allProducts = await userService.getProductsSortedBySold(req.query.order, req.query.page, req.query.productsInPage);
+    res.send(allProducts);
+});
+// get sorted products by creation date
+app.get('/getSortedProductsByCreationDate', async(req, res) => {
+    console.log(req.query);
+    const allProducts = await userService.getProductsSortedBySold(req.query.order, req.query.page, req.query.productsInPage);
+    res.send(allProducts);
+});
+// search product by name
+app.get('/searchProductByName', async(req, res) => {
+    console.log(req.query);
+    const allProducts = await userService.searchProductByName(req.query.productName, req.query.page, req.query.productsInPage);
+    res.send(allProducts);
+});
+
+// get products in price range
+app.get('/getProductsInPriceRange', async(req, res) => {
+    console.log(req.query);
+    var rangeObject = Object.create({});
+    rangeObject.min = req.query.minPrice;
+    rangeObject.max = req.query.maxPrice;
+    const allProducts = await userService.getProductsInPriceRange(req.query.order, req.query.page, req.query.productsInPage, rangeObject);
+    res.send(allProducts);
+});
+
 // get allcategories
 app.get('/getAllCategories', async(req, res) => {
     console.log(req.query);

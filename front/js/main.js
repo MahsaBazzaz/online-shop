@@ -39,34 +39,45 @@ function showSlide(index) {
 //
 // sorting box
 //
+var pricefilter_inputLeft;
+var pricefilter_inputRight;
+var pricefilter_thumbLeft;
+var pricefilter_thumbRight;
+var pricefilter_range;
 window.onload = function() {
-    document.getElementById("best-seller").addEventListener("click", sortByBestSeller);
-    document.getElementById("price").addEventListener("click", sortByBestSeller);
-
+    document.getElementById("best-seller").addEventListener("click", changeSortMethod);
+    document.getElementById("best-seller").addEventListener("click", function() {
+        //ajax rquest for getting products list sorted by sold
+        console.log("sort by sells");
+        getSortedProductsBySells(1);
+    });
+    document.getElementById("price").addEventListener("click", changeSortMethod);
+    document.getElementById("price").addEventListener("click", function() {
+        //ajax request for getting products list sorted by price
+        console.log("sort by price");
+        getSortedProductsByPrice(1);
+    });
     //ajax request for getting products list
     getAllProducts(1);
 
 
     //ajax request for getting categories list
-
     getAllCategories();
-    //ajax request for getting products list sorted by price
 
-
-    //ajax rquest for getting products list sorted by sold
-
-
-    //ajax request for getting products list sorted by creation date
+    //ajax request for getting products list sorted by creation date -> DONE
 
 
     //ajax request for getting products by category
 
 
-    //ajax request for getting products in price range
+    //ajax request for getting products in price range -> DONE but //FIXME: the ui does not work
 
 
-    //ajax request for getting products by name
-
+    document.getElementsByClassName('search-button')[0].addEventListener("click", function() {
+        //ajax request for getting products by name
+        console.log("search product by name");
+        searchProductByName(document.getElementsByClassName('search-box')[0].value, 1);
+    });
 
     //ajax request for purchasing products
 
@@ -77,7 +88,43 @@ window.onload = function() {
     //ajax request for signup
 
 
+    // price filter scripts
+    pricefilter_inputLeft = document.getElementById("input-left");
+    pricefilter_inputRight = document.getElementById("input-right");
 
+    pricefilter_thumbLeft = document.querySelector(".slider > .thumb.left");
+    pricefilter_thumbRight = document.querySelector(".slider > .thumb.right");
+    pricefilter_range = document.querySelector(".slider > .range");
+    pricefilter_inputLeft.addEventListener("input", setLeftValue);
+    pricefilter_inputRight.addEventListener("input", setRightValue);
+
+    pricefilter_inputLeft.addEventListener("mouseover", function() {
+        pricefilter_thumbLeft.classList.add("hover");
+    });
+    pricefilter_inputLeft.addEventListener("mouseout", function() {
+        pricefilter_thumbLeft.classList.remove("hover");
+    });
+    pricefilter_inputLeft.addEventListener("mousedown", function() {
+        pricefilter_thumbLeft.classList.add("active");
+    });
+    pricefilter_inputLeft.addEventListener("mouseup", function() {
+        pricefilter_thumbLeft.classList.remove("active");
+    });
+
+    pricefilter_inputRight.addEventListener("mouseover", function() {
+        pricefilter_thumbRight.classList.add("hover");
+    });
+    pricefilter_inputRight.addEventListener("mouseout", function() {
+        pricefilter_thumbRight.classList.remove("hover");
+    });
+    pricefilter_inputRight.addEventListener("mousedown", function() {
+        pricefilter_thumbRight.classList.add("active");
+    });
+    pricefilter_inputRight.addEventListener("mouseup", function() {
+        pricefilter_thumbRight.classList.remove("active");
+    });
+    setLeftValue();
+    setRightValue();
 }
 
 
@@ -100,6 +147,78 @@ function getAllProducts(pageNumber) {
         }
     }
 
+}
+
+function getSortedProductsByPrice(pageNumber) {
+    //products in page
+    var xhttp = new XMLHttpRequest();
+    xhttp.open("GET", `http://localhost:3000/getSortedProductsByPrice?order=ASC&page=${pageNumber}&productsInPage=${productsInPage}`, true);
+    xhttp.send();
+
+    xhttp.onreadystatechange = (e) => {
+        if (xhttp.readyState == 4 && xhttp.status == 200) {
+            if (xhttp.responseText) {
+                //put your code here 
+                console.log(xhttp.responseText);
+                products = JSON.parse(xhttp.responseText);
+                showProducts(products);
+            }
+        }
+    }
+}
+
+function getSortedProductsBySells(pageNumber) {
+    //products in page
+    var xhttp = new XMLHttpRequest();
+    xhttp.open("GET", `http://localhost:3000/getSortedProductsBySells?order=ASC&page=${pageNumber}&productsInPage=${productsInPage}`, true);
+    xhttp.send();
+
+    xhttp.onreadystatechange = (e) => {
+        if (xhttp.readyState == 4 && xhttp.status == 200) {
+            if (xhttp.responseText) {
+                //put your code here 
+                console.log(xhttp.responseText);
+                products = JSON.parse(xhttp.responseText);
+                showProducts(products);
+            }
+        }
+    }
+}
+
+function getSortedProductsByCreationDate(pageNumber) {
+    //products in page
+    var xhttp = new XMLHttpRequest();
+    xhttp.open("GET", `http://localhost:3000/getSortedProductsByCreationDate?order=ASC&page=${pageNumber}&productsInPage=${productsInPage}`, true);
+    xhttp.send();
+
+    xhttp.onreadystatechange = (e) => {
+        if (xhttp.readyState == 4 && xhttp.status == 200) {
+            if (xhttp.responseText) {
+                //put your code here 
+                console.log(xhttp.responseText);
+                products = JSON.parse(xhttp.responseText);
+                showProducts(products);
+            }
+        }
+    }
+}
+
+function getProductsInPriceRange(pageNumber, minPrice, maxPrice) {
+    //products in page
+    var xhttp = new XMLHttpRequest();
+    xhttp.open("GET", `http://localhost:3000/getProductsInPriceRange?order=ASC&page=${pageNumber}&productsInPage=${productsInPage}&minPrice=${minPrice}&maxPrice=${maxPrice}`, true);
+    xhttp.send();
+
+    xhttp.onreadystatechange = (e) => {
+        if (xhttp.readyState == 4 && xhttp.status == 200) {
+            if (xhttp.responseText) {
+                //put your code here 
+                console.log(xhttp.responseText);
+                products = JSON.parse(xhttp.responseText);
+                showProducts(products);
+            }
+        }
+    }
 }
 
 function showProducts(products) {
@@ -197,11 +316,28 @@ function getProductsByCategoryState(pageNumber) {
     }
 }
 
-function sortByBestSeller() {
+function changeSortMethod() {
     document.getElementById("best-seller").classList.toggle('sorting-box-btn-active');
     document.getElementById("best-seller").classList.toggle('sorting-box-btn-deactive');
     document.getElementById("price").classList.toggle('sorting-box-btn-active');
     document.getElementById("price").classList.toggle('sorting-box-btn-deactive');
+}
+
+function searchProductByName(productName, pageNumber) {
+    var xhttp = new XMLHttpRequest();
+    xhttp.open("GET", `http://localhost:3000/searchProductByName?page=${pageNumber}&productsInPage=${productsInPage}&productName=${productName}`, true);
+    xhttp.send();
+
+    xhttp.onreadystatechange = (e) => {
+        if (xhttp.readyState == 4 && xhttp.status == 200) {
+            if (xhttp.responseText) {
+                //put your code here 
+                console.log(xhttp.responseText);
+                products = JSON.parse(xhttp.responseText);
+                showProducts(products);
+            }
+        }
+    }
 }
 //
 // modal
@@ -221,3 +357,30 @@ span.onclick = function() {
     //         modal.style.display = "none";
     //     }
     // }
+
+// price filter scripts
+function setLeftValue() {
+    var _this = pricefilter_inputLeft,
+        min = parseInt(_this.min),
+        max = parseInt(_this.max);
+
+    _this.value = Math.min(parseInt(_this.value), parseInt(pricefilter_inputRight.value) - 1);
+
+    var percent = ((_this.value - min) / (max - min)) * 100;
+
+    pricefilter_thumbLeft.style.left = percent + "%";
+    pricefilter_range.style.left = percent + "%";
+}
+
+function setRightValue() {
+    var _this = pricefilter_inputRight,
+        min = parseInt(_this.min),
+        max = parseInt(_this.max);
+
+    _this.value = Math.max(parseInt(_this.value), parseInt(pricefilter_inputLeft.value) + 1);
+
+    var percent = ((_this.value - min) / (max - min)) * 100;
+
+    pricefilter_thumbRight.style.right = (100 - percent) + "%";
+    pricefilter_range.style.right = (100 - percent) + "%";
+}

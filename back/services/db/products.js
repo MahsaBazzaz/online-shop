@@ -4,9 +4,9 @@ const db = require('../../config/database');
 const Product = require('../../models/Product');
 
 function getAllProducts(page, productsInPage) {
-    const offset = productsInPage*(page-1);
+    const offset = productsInPage * (page - 1);
     const limit = productsInPage;
-    return Product.findAll({offset: offset, limit: limit})
+    return Product.findAll({ offset: offset, limit: limit })
         .then((products) => { return products; })
         .catch(err => {
             console.log(err);
@@ -40,8 +40,14 @@ function editProduct(editedFields, productId) {
         });
 }
 
-function findProductWithName(productname) {
-    return Product.findAll({ where: { name: productname } })
+function findProductWithName(productname, page, productsInPage) {
+    const offset = productsInPage * (page - 1);
+    const limit = productsInPage;
+    return Product.findAll({
+            offset: offset,
+            limit: limit,
+            where: { name: productname }
+        })
         .then((foundProduct) => {
             return foundProduct;
         })
@@ -75,9 +81,19 @@ function getProductById(productId) {
         });
 }
 
-function getProductsInPriceRange(range) {
-    const {Op} = require('sequelize')
-    return Product.findAll({ where: { price:{ [Op.between]: [range.min, range.max]}}})
+function getProductsInPriceRange(order, page, productsInPage, range) {
+    const { Op } = require('sequelize');
+    const offset = productsInPage * (page - 1);
+    const limit = productsInPage;
+    return Product.findAll({
+            offset: offset,
+            limit: limit,
+            where: {
+                price: {
+                    [Op.between]: [range.min, range.max]
+                }
+            }
+        })
         .then((foundProduct) => {
             return foundProduct;
         })
@@ -87,8 +103,12 @@ function getProductsInPriceRange(range) {
         });
 }
 
-function getProductsSortedByPrice(descOrAsc) {
+function getProductsSortedByPrice(descOrAsc, page, productsInPage) {
+    const offset = productsInPage * (page - 1);
+    const limit = productsInPage;
     return Product.findAll({
+            offset: offset,
+            limit: limit,
             order: [
                 ['price', descOrAsc]
             ]
@@ -102,8 +122,12 @@ function getProductsSortedByPrice(descOrAsc) {
         });
 }
 
-function getProductsSortedBySold(descOrAsc) {
+function getProductsSortedBySold(descOrAsc, page, productsInPage) {
+    const offset = productsInPage * (page - 1);
+    const limit = productsInPage;
     return Product.findAll({
+            offset: offset,
+            limit: limit,
             order: [
                 ['sold', descOrAsc]
             ]
@@ -116,6 +140,26 @@ function getProductsSortedBySold(descOrAsc) {
             return null;
         });
 }
+
+function getProductsSortedByCreationDate(descOrAsc, page, productsInPage) {
+    const offset = productsInPage * (page - 1);
+    const limit = productsInPage;
+    return Product.findAll({
+            offset: offset,
+            limit: limit,
+            order: [
+                ['createdat', descOrAsc]
+            ]
+        })
+        .then((foundProduct) => {
+            return foundProduct;
+        })
+        .catch(err => {
+            console.log(err);
+            return null;
+        });
+}
+
 
 // Truncate the table
 function truncateProductTable() {
@@ -130,4 +174,16 @@ function truncateProductTable() {
         });
 }
 
-module.exports = { getAllProducts, createProduct, editProduct, findProductWithName, findProductsByCategory, getProductsSortedByPrice, getProductsInPriceRange, getProductsSortedBySold, truncateProductTable, getProductById };
+module.exports = {
+    getAllProducts,
+    createProduct,
+    editProduct,
+    findProductWithName,
+    findProductsByCategory,
+    getProductsSortedByPrice,
+    getProductsInPriceRange,
+    getProductsSortedBySold,
+    getProductsSortedByCreationDate,
+    truncateProductTable,
+    getProductById
+};
