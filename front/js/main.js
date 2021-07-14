@@ -47,7 +47,7 @@ window.onload = function() {
 
     //ajax request for getting categories list
 
-
+    getAllCategories();
     //ajax request for getting products list sorted by price
 
 
@@ -59,7 +59,7 @@ window.onload = function() {
 
     //ajax request for getting products by category
 
-    
+
     //ajax request for getting products in price range
 
 
@@ -86,8 +86,8 @@ function getAllProducts(pageNumber) {
     var xhttp = new XMLHttpRequest();
     xhttp.open("GET", `http://localhost:3000/getAllProducts?page=${pageNumber}&productsInPage=${productsInPage}`, true);
     xhttp.send();
-    
-    xhttp.onreadystatechange=(e) => {
+
+    xhttp.onreadystatechange = (e) => {
         if (xhttp.readyState == 4 && xhttp.status == 200) {
             if (xhttp.responseText) {
                 //put your code here 
@@ -113,21 +113,56 @@ function createProductBox(product) {
     const newDiv = document.createElement("div");
     newDiv.className = "main-product-box";
     newDiv.id = "product" + product.id;
-    newDiv.innerHTML = '<div class="product-image-box">'+
-                            '<img src="../assets/img/product.jpg">'+
-                        '</div>'+
-                        '<div class="product-desc-box">'+
-                            '<p class="product-title">' + product.name +'</p>'+
-                            '<p class="product-category">' + product.category + '</p>'+
-                        '</div>'+
-                        '<hr>'+
-                        '<div class="product-price-box">'+
-                            '<p class="product-price">' + product.price + ' تومان</p>'+
-                            '<button id="edit-product-with-id-0" class="buy-product-button">ویرایش محصول</button>'+
-                        '</div>';
+    newDiv.innerHTML = '<div class="product-image-box">' +
+        '<img src="../assets/img/product.jpg">' +
+        '</div>' +
+        '<div class="product-desc-box">' +
+        '<p class="product-title">' + product.name + '</p>' +
+        '<p class="product-category">' + product.category + '</p>' +
+        '</div>' +
+        '<hr>' +
+        '<div class="product-price-box">' +
+        '<p class="product-price">' + product.price + ' تومان</p>' +
+        '<button id="edit-product-with-id-0" class="buy-product-button">ویرایش محصول</button>' +
+        '</div>';
 
     return newDiv;
 
+}
+
+function getAllCategories() {
+    var xhttp = new XMLHttpRequest();
+    xhttp.open("GET", `http://localhost:3000/getAllCategories`, true);
+    xhttp.send();
+
+    xhttp.onreadystatechange = (e) => {
+        if (xhttp.readyState == 4 && xhttp.status == 200) {
+            if (xhttp.responseText) {
+                //put your code here 
+                console.log(xhttp.responseText);
+                categories = JSON.parse(xhttp.responseText);
+                showCategories(categories);
+            }
+        }
+    }
+}
+
+function showCategories(categories) {
+    let checkboxContainer = document.getElementsByClassName('checkbox-container')[0];
+    checkboxContainer.innerHTML = "";
+    for (category of categories) {
+        checkboxContainer.append(createCategoryBox(category));
+    }
+}
+
+function createCategoryBox(category) {
+    const newDiv = document.createElement("div");
+    newDiv.className = "custom-checkbox";
+    newDiv.innerHTML =
+        '<input type="checkbox" id=checkbox' + category.id + '" />' +
+        '<label for=checkbox' + category.id + '"></label>' +
+        '<span class="filtering-text">' + category.name + '</span>';
+    return newDiv;
 }
 
 function sortByBestSeller() {

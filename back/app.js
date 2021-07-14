@@ -1,6 +1,6 @@
 const express = require("express");
 const cors = require('cors')
-//const exphbs = require("express-handlebars");
+    //const exphbs = require("express-handlebars");
 const bodyParser = require("body-parser");
 const path = require("path");
 const port = 3000;
@@ -20,10 +20,17 @@ const app = express();
 
 app.use(cors());
 app.get('/', (req, res) => res.send("INDEX"));
-app.get('/getAllProducts', async (req, res) => {
+// get all products
+app.get('/getAllProducts', async(req, res) => {
     console.log(req.query);
     const allProducts = await userService.getAllProducts(req.query.page, req.query.productsInPage);
     res.send(allProducts);
+});
+// get allcategories
+app.get('/getAllCategories', async(req, res) => {
+    console.log(req.query);
+    const allCategories = await userService.getAllCategories();
+    res.send(allCategories);
 });
 //app.use("/admin", require("./services/db/admin"));
 
