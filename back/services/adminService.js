@@ -11,6 +11,10 @@ async function getAllReceipts(userId) {
     return await Receipt.getAllReceipts(userId);
 }
 
+async function getAllReceiptsForAdmin() {
+    return await Receipt.getAllReceiptsForAdmin();
+}
+
 async function searchReceiptByTackingCode(trackingCode) {
     return await Receipt.findReceiptByTrackingCode(trackingCode);
 }
@@ -38,5 +42,6 @@ module.exports = {
     changeReceiptStatus,
     createCategory,
     editCategory,
-    deleteCategory
+    deleteCategory,
+    getAllReceiptsForAdmin
 };

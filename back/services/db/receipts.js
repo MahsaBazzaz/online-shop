@@ -3,6 +3,18 @@ const router = express.Router();
 const db = require('../../config/database');
 const Receipt = require('../../models/Receipts');
 
+
+function getAllReceiptsForAdmin() {
+    return Receipt.findAll()
+        .then((foundreceipt) => {
+            return foundreceipt;
+        })
+        .catch(err => {
+            console.log(err);
+            return null;
+        });
+}
+
 function getAllReceipts(userId) {
     return Receipt.findAll({ where: { user_id: userId } })
         .then((foundreceipt) => {
@@ -42,4 +54,4 @@ function findReceiptByTrackingCode(trackingCode) {
             return null;
         });
 }
-module.exports = { getAllReceipts, createReceipt, editReceipt, findReceiptByTrackingCode };
+module.exports = { getAllReceipts, createReceipt, editReceipt, findReceiptByTrackingCode, getAllReceiptsForAdmin };

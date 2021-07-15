@@ -148,7 +148,7 @@ window.onload = function() {
 // This function gets products given filtering, sorting, searching, and pagination conditions
 function getProducts() {
     var xhttp = new XMLHttpRequest();
-    xhttp.open("POST", `http://localhost:3000/getProducts`, true);
+    xhttp.open("POST", `http://localhost:3000/user/getProducts`, true);
     xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     xhttp.setRequestHeader("Accept", "application/json");
     jsonObject = JSON.stringify(getState());
@@ -204,7 +204,7 @@ function createProductBox(product) {
 
 function getAllCategories() {
     var xhttp = new XMLHttpRequest();
-    xhttp.open("GET", `http://localhost:3000/getAllCategories`, true);
+    xhttp.open("GET", `http://localhost:3000/user/getAllCategories`, true);
     xhttp.send();
 
     xhttp.onreadystatechange = (e) => {

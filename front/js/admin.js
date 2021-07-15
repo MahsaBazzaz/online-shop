@@ -7,12 +7,17 @@ window.onload = function() {
     tabDivs = ["products", "categories", "reciepts"]
     document.getElementById(tabs[0]).addEventListener("click", function() {
         selectTab(tabs, tabDivs, 0, 1, 2);
+
     });
     document.getElementById(tabs[1]).addEventListener("click", function() {
         selectTab(tabs, tabDivs, 1, 0, 2);
     });
     document.getElementById(tabs[2]).addEventListener("click", function() {
         selectTab(tabs, tabDivs, 2, 0, 1);
+        //receipts selected
+        const response = getAllReceipts();
+        console.log(response);
+
     });
 
     let products = fillProducts();
@@ -80,6 +85,26 @@ window.onload = function() {
                 '</div>';
         });
     });
+}
+
+function getAllReceipts() {
+    var xhttp = new XMLHttpRequest();
+    xhttp.open("POST", `http://localhost:3000/admin/getAllReceipts`, true);
+    xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    xhttp.setRequestHeader("Accept", "application/json");
+    xhttp.setRequestHeader("Authorization", "Basic " + btoa(window.localStorage.getItem("username") +
+                                                        ":" + window.localStorage.getItem("password")));
+
+    xhttp.send(jsonObject);
+
+    xhttp.onreadystatechange = (e) => {
+        if (xhttp.readyState == 4 && xhttp.status == 200) {
+            if (xhttp.responseText) {
+
+                console.log(xhttp.responseText);
+            }
+        }
+    }
 }
 
 function selectTab(tabs, tabDivs, select, unselect1, unselect2) {
