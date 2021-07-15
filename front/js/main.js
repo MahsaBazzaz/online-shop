@@ -61,6 +61,12 @@ var pricefilter_thumbLeft;
 var pricefilter_thumbRight;
 var pricefilter_range;
 window.onload = function() {
+    // check if cookie is set or not
+    var authCookie = getCookie("Authorization");
+    if (authCookie != null) {
+        console.log(authCookie);
+        getUserFirstName(authCookie);
+    } else {}
     // transition between login and signup
     document.getElementById("go-to-signup").addEventListener("click", function() {
             console.log("click");
@@ -352,6 +358,24 @@ function login(email, password) {
         }
     }
 }
+
+function getUserFirstName(cookie) {
+
+    console.log(getCookie("Authorization"));
+    var xhttp = new XMLHttpRequest();
+    xhttp.open("GET", `http://localhost:3000/user/getFirstname`, true);
+    xhttp.setRequestHeader("Authorization", cookie);
+    xhttp.send();
+
+    xhttp.onreadystatechange = (e) => {
+        if (xhttp.readyState == 4 && xhttp.status == 200) {
+            if (xhttp.responseText) {
+                console.log(xhttp.responseText);
+                // console.log(xhttp.getResponseHeader());
+            }
+        }
+    }
+}
 //
 // modal
 //
@@ -444,4 +468,23 @@ function goToPage(pageNumber) {
         getProducts();
     }
 
+}
+
+function getCookie(name) {
+    var dc = document.cookie;
+    var prefix = name + "=";
+    var begin = dc.indexOf("; " + prefix);
+    if (begin == -1) {
+        begin = dc.indexOf(prefix);
+        if (begin != 0) return null;
+    } else {
+        begin += 2;
+        var end = document.cookie.indexOf(";", begin);
+        if (end == -1) {
+            end = dc.length;
+        }
+    }
+    // because unescape has been deprecated, replaced with decodeURI
+    //return unescape(dc.substring(begin + prefix.length, end));
+    return decodeURI(dc.substring(begin + prefix.length, end));
 }

@@ -41,16 +41,16 @@ app.use('/login', async(req, res, next) => {
     if (login && password && login === auth.login && password === auth.password) {
         // Admin Access granted...
         // route to admin panel;
-        const header = "Basic " + btoa(auth.username + ":" + auth.password);
+        const header = "Basic " + btoa(auth.login + ":" + auth.password);
         cookie = "Authorization=" + header;
         res.send({ result: true, cookie: cookie, url: "admin.html" });
     } else {
         authResult = await authService.userAuth(login, password);
 
         console.log(authResult);
-        if (authResult.length == 1) {
+        if (authResult != null && authResult.length == 1) {
             //User Access granted
-            const header = "Basic " + btoa(auth.username + ":" + auth.password);
+            const header = "Basic " + btoa(authResult[0].username + ":" + authResult[0].password);
             cookie = "Authorization=" + header;
             res.send({ result: true, cookie: cookie, url: "profile.html" });
 
@@ -65,6 +65,8 @@ app.use('/login', async(req, res, next) => {
 
 
 app.use('/admin', (req, res, next) => {
+    console.log(req.headers.authorization);
+
     const auth = { login: 'admin', password: 'password' };
     const b64auth = (req.headers.authorization || '').split(' ')[1] || '';
     const [login, password] = Buffer.from(b64auth, 'base64').toString().split(':');
@@ -80,12 +82,44 @@ app.use('/admin', (req, res, next) => {
     res.status(401).send('Authentication required.'); // custom message
 });
 
+app.use('/user', async(req, res, next) => {
+
+    console.log(req.headers);
+    const b64auth = (req.headers.authorization || '').split(' ')[1] || '';
+    const [login, password] = Buffer.from(b64auth, 'base64').toString().split(':');
+    console.log(login + "..........." + password);
+    const authResult = await authService.userAuth(login, password);
+    // Verify login and password are set and correct
+    if (authResult != null && authResult.length == 1) {
+        if (login && password && login === authResult[0].username && password === authResult[0].password) {
+            // Access granted...
+            res.header('firstname', authResult[0].firstname);
+            console.log("hi");
+            console.log(authResult[0]);
+            return next();
+            // res.send(authResult[0].firstname);
+
+        }
+
+    } else {
+        // Access denied...
+        res.set('WWW-Authenticate', 'Basic realm="401"'); // change this
+        res.status(401).send('Authentication required.'); // custom message
+    }
+
+});
+
 app.post('/user/getProducts', async(req, res) => {
     body = req.body;
     console.log(body);
     const response = await userService.getProducts(body);
     res.send(response);
 
+});
+
+app.get('/user/getFirstname', async(req, res) => {
+    console.log("dfhvgdfskghkdfshbkhdfbgngfbnukfgnbukgfnbkubgk");
+    res.sendStatus(200);
 });
 
 app.get('/admin/getAllReceipts', async(req, res) => {

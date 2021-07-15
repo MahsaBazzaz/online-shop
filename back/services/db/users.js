@@ -21,9 +21,9 @@ function createUser(newUser) {
 }
 
 function auth(username, password) {
-    return User.findAll({where: {username: username, password: password}})
+    return User.findAll({ where: { username: username, password: password } })
         .then((user) => {
-            console.log(user);
+            // console.log(user);
             return user;
         })
         .catch(err => {

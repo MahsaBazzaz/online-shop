@@ -17,7 +17,7 @@ const Sequelize = require("sequelize");
 
 async function getAllCategories() {
     let categories = await category.getAllCategory();
-    console.log(categories);
+    // console.log(categories);
     return categories;
 }
 
