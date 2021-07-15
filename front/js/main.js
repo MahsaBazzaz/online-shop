@@ -4,7 +4,7 @@
 var slideIndex = 0;
 var slides = document.getElementsByClassName("slider-image");
 let category_states = {};
-let sortingState = {by: "sold", order: "DESC"};
+let sortingState = { by: "sold", order: "DESC" };
 let searchedTerm = ""
 let currentPage = 1;
 let pages = 6;
@@ -12,12 +12,14 @@ let priceRange = {min: 0, max: 100};
 const productsInPage = 15;
 
 function getState() {
-    return {category_states: category_states,
-            order: sortingState,
-            searched_term: searchedTerm,
-            price_range: priceRange,
-            page_number: currentPage,
-            products_in_page: productsInPage};
+    return {
+        category_states: category_states,
+        order: sortingState,
+        searched_term: searchedTerm,
+        price_range: priceRange,
+        page_number: currentPage,
+        products_in_page: productsInPage
+    };
 }
 
 showSlide(0);
@@ -58,10 +60,11 @@ var pricefilter_thumbLeft;
 var pricefilter_thumbRight;
 var pricefilter_range;
 window.onload = function() {
-    
+
     document.getElementById("best-seller").addEventListener("click", sortBySold);
     document.getElementById("price").addEventListener("click", sortByPrice);
-
+    document.getElementById("creation-date").addEventListener("click", sortByCreationDate);
+    document.getElementById("order-checkbox").addEventListener("click", changeSortOrder);
     //ajax request for getting categories list
     getAllCategories();
 
@@ -246,12 +249,15 @@ function checkboxHandler(category_id) {
 
 
 function sortBySold() {
-    if (! document.getElementById("best-seller").classList.contains("sorting-box-btn-active")) {
+    if (!document.getElementById("best-seller").classList.contains("sorting-box-btn-active")) {
         document.getElementById("best-seller").classList.remove("sorting-box-btn-deactive");
         document.getElementById("best-seller").classList.add("sorting-box-btn-active");
 
         document.getElementById("price").classList.remove("sorting-box-btn-active");
         document.getElementById("price").classList.add("sorting-box-btn-deactive");
+
+        document.getElementById("creation-date").classList.remove("sorting-box-btn-active");
+        document.getElementById("creation-date").classList.add("sorting-box-btn-deactive");
 
         sortingState.by = "sold";
         console.log(getState());
@@ -261,12 +267,15 @@ function sortBySold() {
 }
 
 function sortByPrice() {
-    if (! document.getElementById("price").classList.contains("sorting-box-btn-active")) {
+    if (!document.getElementById("price").classList.contains("sorting-box-btn-active")) {
         document.getElementById("price").classList.remove("sorting-box-btn-deactive");
         document.getElementById("price").classList.add("sorting-box-btn-active");
 
         document.getElementById("best-seller").classList.remove("sorting-box-btn-active");
         document.getElementById("best-seller").classList.add("sorting-box-btn-deactive");
+
+        document.getElementById("creation-date").classList.remove("sorting-box-btn-active");
+        document.getElementById("creation-date").classList.add("sorting-box-btn-deactive");
 
         sortingState.by = "price";
         console.log(getState());
@@ -275,7 +284,34 @@ function sortByPrice() {
     }
 }
 
+function sortByCreationDate() {
+    if (!document.getElementById("creation-date").classList.contains("sorting-box-btn-active")) {
+        document.getElementById("creation-date").classList.remove("sorting-box-btn-deactive");
+        document.getElementById("creation-date").classList.add("sorting-box-btn-active");
 
+        document.getElementById("best-seller").classList.remove("sorting-box-btn-active");
+        document.getElementById("best-seller").classList.add("sorting-box-btn-deactive");
+
+
+        document.getElementById("price").classList.remove("sorting-box-btn-active");
+        document.getElementById("price").classList.add("sorting-box-btn-deactive");
+
+        sortingState.by = "createdat";
+        console.log(getState());
+        getProducts();
+    }
+}
+
+function changeSortOrder() {
+    var val = document.getElementById("order-checkbox").checked;
+    console.log(val);
+    if (val == true)
+        sortingState.order = 'DESC'
+    else
+        sortingState.order = 'ASC';
+    console.log(getState());
+    getProducts();
+}
 //
 // modal
 //
