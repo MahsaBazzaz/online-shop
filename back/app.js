@@ -80,10 +80,11 @@ app.post('/getProductsByCategory', async(req, res) => {
 app.post('/getProducts', async(req, res) => {
     body = req.body;
     console.log(body);
-    const products = await userService.getProducts(body);
-    res.send(products);
+    const response = await userService.getProducts(body);
+    res.send(response);
 
 });
+
 
 //app.use("/admin", require("./services/db/admin"));
 

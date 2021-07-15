@@ -78,14 +78,13 @@ function getProducts(state) {
     const offset = productsInPage*(page-1);
     const limit = productsInPage;
 
-    
-
     console.log(state.order);
     return Product.findAll({
             offset: offset,
             limit: limit,
             where: state.where,
-            order: [[state.order.by, state.order.order]]
+            order: [[state.order.by, state.order.order],
+                    ["name", "ASC"]]
     })
         .then((foundProducts) => {
             return foundProducts;
@@ -93,6 +92,22 @@ function getProducts(state) {
         .catch (err => {
             console.log(err);
             return null;
+    });
+
+}
+
+function getPages(state) {
+    const productsInPage = state.products_in_page;
+    return Product.count({
+        where: state.where,
+        order: [[state.order.by, state.order.order]]
+    })
+    .then((foundProducts) => {
+        return Math.ceil(foundProducts/productsInPage);
+    })
+    .catch (err => {
+        console.log(err);
+        return null;
     });
 }
 
@@ -212,5 +227,6 @@ module.exports = {
     getProductsSortedByCreationDate,
     truncateProductTable,
     getProductById,
-    getProducts
+    getProducts,
+    getPages
 };

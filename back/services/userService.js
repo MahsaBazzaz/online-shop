@@ -189,12 +189,15 @@ async function getProducts(state) {
         state.where.name = like;
     }
 
-    products = await product.getProducts(state);
+    let products = await product.getProducts(state);
+
     for (pro of products) {
         pro.category = await category.mapCategoryIdToCategoryName(pro.category_id);
     }
 
-    return products;
+    let pages = await product.getPages(state);
+
+    return [products, pages];
 }
 
 module.exports = {
