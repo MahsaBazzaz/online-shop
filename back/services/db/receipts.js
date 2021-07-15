@@ -16,7 +16,10 @@ function getAllReceiptsForAdmin() {
 }
 
 function getAllReceipts(userId) {
-    return Receipt.findAll({ where: { user_id: userId } })
+    return Receipt.findAll({
+         where: { user_id: userId },
+         order: [["createdat", "DESC"]] 
+        })
         .then((foundreceipt) => {
             return foundreceipt;
         })

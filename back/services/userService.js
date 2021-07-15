@@ -113,12 +113,9 @@ async function editProfile(userId, newFields) {
     }
 }
 
-async function getReceipts(userId, requestedUserId) {
-    if (userId != requestedUserId) {
-        return console.error("Error: you can't see someone else's receipts")
-    }
+async function getReceipts(userId) {
     let receipts = await receipt.getAllReceipts(userId);
-    console.log(receipts);
+    // console.log(receipts);
     return receipts;
 }
 
@@ -147,7 +144,8 @@ async function purchase(userId, productId, count) {
     newReceipt.tracking_code = randomstring.generate({
         length: 10,
         charset: 'alphanumeric'
-    });; //must be generated uniqely for each receipt
+    }); //must be generated uniqely for each receipt
+    
     newReceipt.status = "در حال انجام";
 
 

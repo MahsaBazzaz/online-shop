@@ -281,6 +281,7 @@ body {
 .tab {
     font-family: iransans;
     font-size: 14px;
+    cursor: pointer;
     height: 100%;
 }
 

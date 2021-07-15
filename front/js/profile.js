@@ -39,11 +39,8 @@ window.onload = function() {
             }
             editUserInfo(getCookie("Authorization"), newFields);
         });
-
-
+        
         getUserInfo(getCookie("Authorization"));
-        
-        
 
     } else {
         document.getElementsByClassName("dropdown-content")[0].style.display = "none";
@@ -56,11 +53,14 @@ window.onload = function() {
     document.getElementById(tabs[0]).addEventListener("click", function() {
         makeProfileVisible();
         // get profile info
+        getUserInfo(getCookie("Authorization"));
 
     });
     document.getElementById(tabs[1]).addEventListener("click", function() {
         makeRecieptVisible();
+        getUserInfo(getCookie("Authorization"));
         // get receipts info
+        getAllReceipts(getCookie("Authorization"));
     });
 
 }
@@ -176,6 +176,60 @@ function editUserInfo(cookie, newFields) {
             }
         }
     }
+}
+
+function getAllReceipts(cookie) {
+    var xhttp = new XMLHttpRequest();
+    xhttp.open("GET", `http://localhost:3000/user/getAllReceipts`, true);
+    xhttp.setRequestHeader("Authorization", cookie);
+    xhttp.send();
+
+    xhttp.onreadystatechange = (e) => {
+        if (xhttp.readyState == 4 && xhttp.status == 200) {
+
+            if (xhttp.responseText) {
+                res = JSON.parse(xhttp.responseText);
+                //console.log(res);
+                showReceipts(res)
+            }
+        }
+    }
+}
+
+
+function showReceipts(receipts) {
+    receiptsTable = document.getElementsByClassName("receipts-table")[0];
+    receiptsTable.innerHTML =   "<tr>" +
+                                    "<th>کد پیگیری</th>" +
+                                    "<th>کالا</th>" +
+                                    "<th>قیمت پرداخت شده</th>" +
+                                    "<th>آدرس ارسال شده</th>" +
+                                "</tr>";
+
+    for (let receipt of receipts) {
+        receiptsTable.appendChild(createReceipt(receipt));
+    }
+}
+
+function createReceipt(receipt) {
+    const newRow = document.createElement("tr");
+
+    const trackingCodeColumn = document.createElement("td");
+    const nameColumn = document.createElement("td");
+    const costColumn = document.createElement("td");
+    const addressColumn = document.createElement("td");
+
+    trackingCodeColumn.innerText = receipt.tracking_code;
+    nameColumn.innerText = receipt.product_name;
+    costColumn.innerText = receipt.total_cost;
+    addressColumn.innerText = receipt.user_address;
+
+    newRow.appendChild(trackingCodeColumn);
+    newRow.appendChild(nameColumn);
+    newRow.appendChild(costColumn);
+    newRow.appendChild(addressColumn);
+
+    return newRow;
 }
 
 function getCookie(name) {
