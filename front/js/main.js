@@ -7,7 +7,8 @@ let category_states = {};
 let sortingState = { by: "sold", order: "DESC" };
 let searchedTerm = ""
 let currentPage = 1;
-let priceRange = { min: 0, max: 100 };
+let pages = 6;
+let priceRange = {min: 0, max: 100};
 const productsInPage = 15;
 
 function getState() {
@@ -152,10 +153,15 @@ function getProducts() {
     xhttp.onreadystatechange = (e) => {
         if (xhttp.readyState == 4 && xhttp.status == 200) {
             if (xhttp.responseText) {
-
-                products = JSON.parse(xhttp.responseText);
-                console.log(products);
+                
+                console.log(xhttp.responseText);
+                const response = JSON.parse(xhttp.responseText);
+                const products = response[0];
+                pages = response[1];
+                console.log(pages);
+                createPagination();
                 showProducts(products);
+                document.getElementsByClassName("sorting-box-container")[0].scrollIntoView();
             }
         }
     }
@@ -236,6 +242,7 @@ function createCategoryBox(category) {
 function checkboxHandler(category_id) {
     const checkboxe = document.getElementById("checkbox" + category_id);
     category_states[category_id] = !category_states[category_id];
+    currentPage = 1;
     getProducts();
     //getProductsByCategoryState(1);
     console.log(getState());
@@ -255,6 +262,7 @@ function sortBySold() {
 
         sortingState.by = "sold";
         console.log(getState());
+        currentPage = 1;
         getProducts();
     }
 }
@@ -272,6 +280,7 @@ function sortByPrice() {
 
         sortingState.by = "price";
         console.log(getState());
+        currentPage = 1;
         getProducts();
     }
 }
@@ -290,6 +299,7 @@ function sortByCreationDate() {
 
         sortingState.by = "createdat";
         console.log(getState());
+        currentPage = 1;
         getProducts();
     }
 }
@@ -302,6 +312,7 @@ function changeSortOrder() {
     else
         sortingState.order = 'ASC';
     console.log(getState());
+    currentPage = 1;
     getProducts();
 }
 //
@@ -348,4 +359,50 @@ function setRightValue() {
 
     pricefilter_thumbRight.style.right = (100 - percent) + "%";
     pricefilter_range.style.right = (100 - percent) + "%";
+}
+
+
+function createPagination() {
+    const pagination = document.getElementsByClassName("pagination")[0];
+    pagination.innerHTML = ""
+    const prev = document.createElement("a");
+    prev.id = "prev-btn";
+    prev.innerHTML ='صفحه قبل'
+    prev.disabled = true;
+    prev.addEventListener("click", function() {
+        goToPage(Math.max(1, currentPage - 1), pages);
+    });
+
+    const next = document.createElement("a");
+    next.id = "next-btn";
+    next.innerHTML = 'صفحه بعد'
+    next.addEventListener("click", function() {
+        goToPage(Math.min(currentPage + 1, pages), pages);
+    });
+
+    pagination.appendChild(prev);
+    for(let i=1; i<=pages; i++){
+        const page = document.createElement("a");
+        page.id = "page" + i;
+        page.innerHTML = i;
+        if (i == currentPage) {
+            page.className = "active";
+        }
+        page.addEventListener("click", function() {
+            goToPage(i, pages);
+        });
+        pagination.appendChild(page);
+    }
+    pagination.appendChild(next);
+
+}
+
+function goToPage(pageNumber) {
+    if (pageNumber != currentPage) {
+        document.getElementById("page" + currentPage).classList.remove("active");
+        document.getElementById("page" + pageNumber).classList.add("active");
+        currentPage = pageNumber;
+        getProducts();
+    }
+    
 }

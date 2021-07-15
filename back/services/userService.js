@@ -6,14 +6,14 @@ const { response } = require("express");
 var randomstring = require("randomstring");
 const Sequelize = require("sequelize");
 
-async function getAllProducts(page, productsInPage) {
-    let products = await product.getAllProducts(page, productsInPage);
-    for (pro of products) {
-        pro.category = await category.mapCategoryIdToCategoryName(pro.category_id);
-    }
-    console.log(products);
-    return products;
-}
+// async function getAllProducts(page, productsInPage) {
+//     let products = await product.getAllProducts(page, productsInPage);
+//     for (pro of products) {
+//         pro.category = await category.mapCategoryIdToCategoryName(pro.category_id);
+//     }
+//     console.log(products);
+//     return products;
+// }
 
 async function getAllCategories() {
     let categories = await category.getAllCategory();
@@ -21,72 +21,73 @@ async function getAllCategories() {
     return categories;
 }
 
-async function getProductsByCategory(categoryStates, page, productsInPage) {
-    let trueCategories = [];
-    for (let cat in categoryStates) {
-        if (categoryStates[cat]) {
-            trueCategories.push(cat);
-        }
-    }
+// async function getProductsByCategory(categoryStates, page, productsInPage) {
+//     let trueCategories = [];
+//     for (let cat in categoryStates) {
+//         if (categoryStates[cat]) {
+//             trueCategories.push(cat);
+//         }
+//     }
 
-    if (trueCategories.length == 0) {
-        return await getAllProducts(page, productsInPage);
-    } else {
-        let products = await product.findProductsByCategory(trueCategories, page, productsInPage);
-        for (pro of products) {
-            pro.category = await category.mapCategoryIdToCategoryName(pro.category_id);
-        }
+//     if (trueCategories.length == 0) {
+//         return await getAllProducts(page, productsInPage);
+//     } else {
+//         let products = await product.findProductsByCategory(trueCategories, page, productsInPage);
+//         for (pro of products) {
+//             pro.category = await category.mapCategoryIdToCategoryName(pro.category_id);
+//         }
 
-        console.log(products);
-        return products;
-    }
+//         console.log(products);
+//         return products;
+//     }
 
-}
+// }
 
-async function getProductsSortedByPrice(order, page, productsInPage) {
-    let products = await product.getProductsSortedByPrice(order, page, productsInPage);
-    for (pro of products) {
-        pro.category = await category.mapCategoryIdToCategoryName(pro.category_id);
-    }
-    console.log(products);
-    return products;
-}
 
-async function getProductsSortedBySold(order, page, productsInPage) {
-    let products = await product.getProductsSortedBySold(order, page, productsInPage);
-    for (pro of products) {
-        pro.category = await category.mapCategoryIdToCategoryName(pro.category_id);
-    }
-    console.log(products);
-    return products;
-}
+// async function getProductsSortedByPrice(order, page, productsInPage) {
+//     let products = await product.getProductsSortedByPrice(order, page, productsInPage);
+//     for (pro of products) {
+//         pro.category = await category.mapCategoryIdToCategoryName(pro.category_id);
+//     }
+//     console.log(products);
+//     return products;
+// }
 
-async function getProductsSortedByCreationDate(order, page, productsInPage) {
-    let products = await product.getProductsSortedByCreationDate(order, page, productsInPage);
-    for (pro of products) {
-        pro.category = await category.mapCategoryIdToCategoryName(pro.category_id);
-    }
-    console.log(products);
-    return products;
-}
+// async function getProductsSortedBySold(order, page, productsInPage) {
+//     let products = await product.getProductsSortedBySold(order, page, productsInPage);
+//     for (pro of products) {
+//         pro.category = await category.mapCategoryIdToCategoryName(pro.category_id);
+//     }
+//     console.log(products);
+//     return products;
+// }
 
-async function getProductsInPriceRange(order, page, productsInPage, range) {
-    let products = await product.getProductsInPriceRange(order, page, productsInPage, range);
-    for (pro of products) {
-        pro.category = await category.mapCategoryIdToCategoryName(pro.category_id);
-    }
-    console.log(products);
-    return products;
-}
+// async function getProductsSortedByCreationDate(order, page, productsInPage) {
+//     let products = await product.getProductsSortedByCreationDate(order, page, productsInPage);
+//     for (pro of products) {
+//         pro.category = await category.mapCategoryIdToCategoryName(pro.category_id);
+//     }
+//     console.log(products);
+//     return products;
+// }
 
-async function searchProductByName(productName, page, productsInPage) {
-    let products = await product.findProductWithName(productName, page, productsInPage);
-    for (pro of products) {
-        pro.category = await category.mapCategoryIdToCategoryName(pro.category_id);
-    }
-    console.log(products);
-    return products;
-}
+// async function getProductsInPriceRange(order, page, productsInPage, range) {
+//     let products = await product.getProductsInPriceRange(order, page, productsInPage, range);
+//     for (pro of products) {
+//         pro.category = await category.mapCategoryIdToCategoryName(pro.category_id);
+//     }
+//     console.log(products);
+//     return products;
+// }
+
+// async function searchProductByName(productName, page, productsInPage) {
+//     let products = await product.findProductWithName(productName, page, productsInPage);
+//     for (pro of products) {
+//         pro.category = await category.mapCategoryIdToCategoryName(pro.category_id);
+//     }
+//     console.log(products);
+//     return products;
+// }
 
 async function signup(userInfo) {
     userInfo.credit = 0;
@@ -189,12 +190,15 @@ async function getProducts(state) {
         state.where.name = like;
     }
 
-    products = await product.getProducts(state);
+    let products = await product.getProducts(state);
+
     for (pro of products) {
         pro.category = await category.mapCategoryIdToCategoryName(pro.category_id);
     }
 
-    return products;
+    let pages = await product.getPages(state);
+
+    return [products, pages];
 }
 
 module.exports = {
