@@ -8,7 +8,7 @@ let sortingState = { by: "sold", order: "DESC" };
 let searchedTerm = ""
 let currentPage = 1;
 let pages = 6;
-let priceRange = {min: 0, max: 100};
+let priceRange = { min: 0, max: 100 };
 const productsInPage = 15;
 
 function getState() {
@@ -82,7 +82,11 @@ window.onload = function() {
 
     //ajax request for getting products in price range -> DONE but //FIXME: the ui does not work
 
-
+    document.getElementsByClassName('search-box')[0].addEventListener("keydown", function(e) {
+        if (e.keyCode == 13) {
+            document.getElementsByClassName('search-button')[0].click(); // Things you want to do.
+        }
+    });
     document.getElementsByClassName('search-button')[0].addEventListener("click", function() {
         //ajax request for getting products by name
         // console.log("search product by name");
@@ -153,7 +157,7 @@ function getProducts() {
     xhttp.onreadystatechange = (e) => {
         if (xhttp.readyState == 4 && xhttp.status == 200) {
             if (xhttp.responseText) {
-                
+
                 console.log(xhttp.responseText);
                 const response = JSON.parse(xhttp.responseText);
                 const products = response[0];
@@ -367,7 +371,7 @@ function createPagination() {
     pagination.innerHTML = ""
     const prev = document.createElement("a");
     prev.id = "prev-btn";
-    prev.innerHTML ='صفحه قبل'
+    prev.innerHTML = 'صفحه قبل'
     prev.disabled = true;
     prev.addEventListener("click", function() {
         goToPage(Math.max(1, currentPage - 1), pages);
@@ -381,7 +385,7 @@ function createPagination() {
     });
 
     pagination.appendChild(prev);
-    for(let i=1; i<=pages; i++){
+    for (let i = 1; i <= pages; i++) {
         const page = document.createElement("a");
         page.id = "page" + i;
         page.innerHTML = i;
@@ -404,5 +408,5 @@ function goToPage(pageNumber) {
         currentPage = pageNumber;
         getProducts();
     }
-    
+
 }

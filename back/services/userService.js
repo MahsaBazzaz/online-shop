@@ -186,7 +186,9 @@ async function getProducts(state) {
         state.where.category_id = trueCategories;
     }
     if (state.searched_term != "") {
-        like = { [Sequelize.Op.iLike]: "%"+state.searched_term + "%"};
+        like = {
+            [Sequelize.Op.iLike]: "%" + state.searched_term + "%"
+        };
         state.where.name = like;
     }
 
@@ -202,14 +204,14 @@ async function getProducts(state) {
 }
 
 module.exports = {
-    getAllProducts,
+    // getAllProducts,
     getAllCategories,
-    getProductsByCategory,
-    getProductsSortedByPrice,
-    getProductsSortedBySold,
-    getProductsSortedByCreationDate,
-    getProductsInPriceRange,
-    searchProductByName,
+    // getProductsByCategory,
+    // getProductsSortedByPrice,
+    // getProductsSortedBySold,
+    // getProductsSortedByCreationDate,
+    // getProductsInPriceRange,
+    // searchProductByName,
     signup,
     editProfile,
     getReceipts,
