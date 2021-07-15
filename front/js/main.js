@@ -60,7 +60,11 @@ var pricefilter_thumbLeft;
 var pricefilter_thumbRight;
 var pricefilter_range;
 window.onload = function() {
-
+    document.getElementById("go-to-signup").addEventListener("click", function() {
+        console.log("click");
+        document.getElementsByClassName("signup-div")[0].style.display = "block";
+        document.getElementsByClassName("login-div")[0].style.display = "none";
+    })
     document.getElementById("best-seller").addEventListener("click", sortBySold);
     document.getElementById("price").addEventListener("click", sortByPrice);
     document.getElementById("creation-date").addEventListener("click", sortByCreationDate);
@@ -326,6 +330,8 @@ var modal = document.getElementById("modal");
 var btn = document.getElementsByClassName("dropdownbtn")[0];
 var span = document.getElementsByClassName("close")[0];
 btn.onclick = function() {
+    document.getElementsByClassName("signup-div")[0].style.display = "none";
+    document.getElementsByClassName("login-div")[0].style.display = "block";
     modal.style.display = "flex";
 }
 span.onclick = function() {

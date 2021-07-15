@@ -127,6 +127,7 @@ html {
     top: 0px;
     left: 0px;
     z-index: 2;
+    cursor: pointer;
 }
 
 .dropdown-content {
@@ -759,6 +760,16 @@ hr {
     box-shadow: rgba(0, 0, 0, 0.8) 0 0 10px;
 }
 
+#go-to-signup {
+    margin-bottom: 10px;
+    color: var(--price-filter-blue);
+}
+
+#go-to-signup:hover {
+    color: gray;
+    cursor: pointer;
+}
+
 #modal .close {
     color: #aaa;
     position: absolute;
@@ -998,16 +1009,14 @@ hr {
 /* validation */
 
 
-
 /* pagination */
-
 
 .pagination {
     display: inline-block;
     margin-top: 30px;
-  }
-  
-  .pagination a {
+}
+
+.pagination a {
     color: black;
     background-color: gainsboro;
     float: left;
@@ -1017,15 +1026,17 @@ hr {
     border-radius: 7px;
     margin: 0 4px;
     cursor: pointer;
-  }
-  
-  .pagination a.active {
+}
+
+.pagination a.active {
     background-color: var(--input-label-color);
     color: white;
     border-radius: 7px;
-  }
-  
-  .pagination a:hover:not(.active) {
-      background-color: silver;
-  }
+}
+
+.pagination a:hover:not(.active) {
+    background-color: silver;
+}
+
+
 /* pagination */
