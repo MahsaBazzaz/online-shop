@@ -92,8 +92,6 @@ function getAllReceipts() {
     xhttp.open("POST", `http://localhost:3000/admin/getAllReceipts`, true);
     xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     xhttp.setRequestHeader("Accept", "application/json");
-    xhttp.setRequestHeader("Authorization", "Basic " + btoa(window.localStorage.getItem("username") +
-                                                        ":" + window.localStorage.getItem("password")));
 
     xhttp.send(jsonObject);
 

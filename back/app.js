@@ -3,6 +3,7 @@ const cors = require('cors')
     //const exphbs = require("express-handlebars");
 const bodyParser = require("body-parser");
 const path = require("path");
+const btoa = require('btoa');
 const port = 3000;
 // DB
 const db = require("../back/config/database");
@@ -12,6 +13,7 @@ const dbTest = require("../back/tests/databaseServices");
 //services Test
 const userService = require("../back/services/userService");
 const adminService = require("../back/services/adminService");
+const authService = require("../back/services/authenticationService")
 
 // test database connection
 db.authenticate().then(() => console.log("Khoda bozorge")).catch(err => console.log("Ghalat kardam " + err.message));
@@ -29,6 +31,37 @@ app.get('/user/getAllCategories', async(req, res) => {
     const allCategories = await userService.getAllCategories();
     res.send(allCategories);
 });
+
+
+app.use('/login', async (req, res, next) => {
+    const auth = {login: 'admin', password: 'password'};
+    const b64auth = (req.headers.authorization || '').split(' ')[1] || '';
+    const [login, password] = Buffer.from(b64auth, 'base64').toString().split(':');
+
+    if (login && password && login === auth.login && password === auth.password) {
+        // Admin Access granted...
+        // route to admin panel;
+        const header = "Basic " + btoa(auth.username + ":" + auth.password);
+        cookie = "Authorization=" + header;
+        res.send([true, cookie, "admin.html"]);
+    } else {
+        authResult = await authService.userAuth(login, password);
+
+        console.log(authResult);
+        if (authResult.length == 1) {
+            //User Access granted
+            const header = "Basic " + btoa(auth.username + ":" + auth.password);
+            cookie = "Authorization=" + header;
+            res.send([true, cookie, "profile.html"]);
+
+        } else {
+            //Access denied
+            res.send("Access Denied");
+        }
+    }
+
+
+})
 
 
 app.use('/admin', (req, res, next) => {

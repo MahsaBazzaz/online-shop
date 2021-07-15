@@ -20,6 +20,18 @@ function createUser(newUser) {
         });
 }
 
+function auth(username, password) {
+    return User.findAll({where: {username: username, password: password}})
+        .then((user) => {
+            console.log(user);
+            return user;
+        })
+        .catch(err => {
+            console.log(err);
+            return null;
+        })
+}
+
 function getUserById(userId) {
     return User.findByPk(userId)
         .then((foundUser) => {
@@ -41,4 +53,4 @@ function editUser(newFields, userId) {
 }
 
 
-module.exports = { router, createUser, editUser, getUserById };
+module.exports = { router, createUser, editUser, getUserById, auth };
