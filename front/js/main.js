@@ -1,5 +1,6 @@
 //
 // hero header
+
 //
 var slideIndex = 0;
 var slides = document.getElementsByClassName("slider-image");
@@ -60,11 +61,20 @@ var pricefilter_thumbLeft;
 var pricefilter_thumbRight;
 var pricefilter_range;
 window.onload = function() {
+    // transition between login and signup
     document.getElementById("go-to-signup").addEventListener("click", function() {
-        console.log("click");
-        document.getElementsByClassName("signup-div")[0].style.display = "block";
-        document.getElementsByClassName("login-div")[0].style.display = "none";
-    })
+            console.log("click");
+            document.getElementsByClassName("signup-div")[0].style.display = "block";
+            document.getElementsByClassName("login-div")[0].style.display = "none";
+        })
+        // login
+    document.getElementById("login-button").addEventListener("click", function() {
+            var email = document.getElementById("login-email").value;
+            var password = document.getElementById("login-pass").value;
+            // check validation
+            login(email, password);
+        })
+        //sort
     document.getElementById("best-seller").addEventListener("click", sortBySold);
     document.getElementById("price").addEventListener("click", sortByPrice);
     document.getElementById("creation-date").addEventListener("click", sortByCreationDate);
@@ -101,10 +111,6 @@ window.onload = function() {
     });
 
     //ajax request for purchasing products
-
-
-    //ajax request for login
-
 
     //ajax request for signup
 
@@ -322,6 +328,29 @@ function changeSortOrder() {
     console.log(getState());
     currentPage = 1;
     getProducts();
+}
+
+function login(email, password) {
+    //ajax request for login
+    var xhttp = new XMLHttpRequest();
+    xhttp.open("GET", `http://localhost:3000/login`, true);
+    xhttp.setRequestHeader("Authorization", "Basic " + btoa(email + ":" + password));
+    xhttp.send();
+
+    xhttp.onreadystatechange = (e) => {
+        if (xhttp.readyState == 4 && xhttp.status == 200) {
+            if (xhttp.responseText) {
+                console.log(xhttp.responseText);
+                var objectResult = JSON.parse(xhttp.responseText);
+                if (objectResult.result == true) {
+                    document.cookie = objectResult.cookie;
+                    window.location.replace(objectResult.url);
+                } else {
+                    alert("error:: could not login");
+                }
+            }
+        }
+    }
 }
 //
 // modal

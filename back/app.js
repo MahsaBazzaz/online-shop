@@ -23,7 +23,7 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
-app.get('/', (req, res) => res.send("INDEX"));
+// app.get('/', (req, res) => res.send("INDEX"));
 
 // get allcategories
 app.get('/user/getAllCategories', async(req, res) => {
@@ -33,8 +33,8 @@ app.get('/user/getAllCategories', async(req, res) => {
 });
 
 
-app.use('/login', async (req, res, next) => {
-    const auth = {login: 'admin', password: 'password'};
+app.use('/login', async(req, res, next) => {
+    const auth = { login: 'admin', password: 'password' };
     const b64auth = (req.headers.authorization || '').split(' ')[1] || '';
     const [login, password] = Buffer.from(b64auth, 'base64').toString().split(':');
 
@@ -43,7 +43,7 @@ app.use('/login', async (req, res, next) => {
         // route to admin panel;
         const header = "Basic " + btoa(auth.username + ":" + auth.password);
         cookie = "Authorization=" + header;
-        res.send([true, cookie, "admin.html"]);
+        res.send({ result: true, cookie: cookie, url: "admin.html" });
     } else {
         authResult = await authService.userAuth(login, password);
 
@@ -52,11 +52,11 @@ app.use('/login', async (req, res, next) => {
             //User Access granted
             const header = "Basic " + btoa(auth.username + ":" + auth.password);
             cookie = "Authorization=" + header;
-            res.send([true, cookie, "profile.html"]);
+            res.send({ result: true, cookie: cookie, url: "profile.html" });
 
         } else {
             //Access denied
-            res.send("Access Denied");
+            res.send({ result: false, cookie: null, url: "error.html" });
         }
     }
 
@@ -65,7 +65,7 @@ app.use('/login', async (req, res, next) => {
 
 
 app.use('/admin', (req, res, next) => {
-    const auth = {login: 'admin', password: 'password'};
+    const auth = { login: 'admin', password: 'password' };
     const b64auth = (req.headers.authorization || '').split(' ')[1] || '';
     const [login, password] = Buffer.from(b64auth, 'base64').toString().split(':');
 
