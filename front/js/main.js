@@ -68,9 +68,15 @@ window.onload = function() {
     if (authCookie != null) {
         // console.log(authCookie);
         getUserFirstName(authCookie);
+        
         document.getElementsByClassName("logout-btn")[0].addEventListener("click", function() {
             logout();
         });
+
+        document.getElementsByClassName("profile-btn")[0].addEventListener("click", function() {
+            window.location.replace("profile.html");
+        });
+        
 
     } else {
         document.getElementsByClassName("dropdown-content")[0].style.display = "none";
@@ -174,7 +180,7 @@ window.onload = function() {
 
 
 // This function gets products given filtering, sorting, searching, and pagination conditions
-function getProducts() {
+function getProducts(option) {
     var xhttp = new XMLHttpRequest();
     xhttp.open("POST", `http://localhost:3000/viewer/getProducts`, true);
     xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
@@ -186,14 +192,15 @@ function getProducts() {
         if (xhttp.readyState == 4 && xhttp.status == 200) {
             if (xhttp.responseText) {
 
-                console.log(xhttp.responseText);
                 const response = JSON.parse(xhttp.responseText);
                 const products = response[0];
                 pages = response[1];
-                console.log(pages);
                 createPagination();
                 showProducts(products);
-                document.getElementsByClassName("sorting-box-container")[0].scrollIntoView();
+                if(! option) {
+                    document.getElementsByClassName("sorting-box-container")[0].scrollIntoView();
+                }
+                
             }
         }
     }
@@ -239,14 +246,12 @@ function getAllCategories() {
         if (xhttp.readyState == 4 && xhttp.status == 200) {
             if (xhttp.responseText) {
                 //put your code here 
-                console.log(xhttp.responseText);
                 categories = JSON.parse(xhttp.responseText);
                 for (category of categories) {
                     category_states[category.id] = false;
                 }
                 showCategories(categories);
-                getProducts();
-                console.log(getState());
+                getProducts("firstTime");
             }
         }
     }
@@ -385,11 +390,14 @@ function getUserFirstName(cookie) {
     xhttp.setRequestHeader("Authorization", cookie);
     xhttp.send();
 
+    
     xhttp.onreadystatechange = (e) => {
         if (xhttp.readyState == 4 && xhttp.status == 200) {
+
             if (xhttp.responseText) {
+                console.log(xhttp.responseText);
                 firstname = xhttp.responseText;
-                console.log(firstname);
+                console.log("Firstname: " + firstname);
                 dropdownbtn = document.getElementsByClassName("dropdownbtn")[0];
                 dropdownbtn.innerText = firstname;
                 dropdownbtn.removeEventListener("click", showModal);

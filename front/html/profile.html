@@ -17,18 +17,18 @@
     <div class="main-div">
         <div class="navbar">
             <p>فروشگاه</p>
-            <a href="#home">صفحه اصلی</a>
+            <a id="homepage">صفحه اصلی</a>
             <a href="#contact">تماس با ما</a>
             <a href="#support">پشتیبانی</a>
-            <a href="#products">محصولات </a>
+            <a id="products">محصولات </a>
 
             <div class="dropdown">
                 <button class="dropdownbtn">ورود / ثبت نام
                             <i class="fa fa-chevron-down" style="display: none;"></i>
                         </button>
                 <div class="dropdown-content">
-                    <a href="#profile">پروفایل</a>
-                    <a href="#logout">خروج از حساب</a>
+                    <a class="profile-btn">پروفایل</a>
+                    <a class="logout-btn">خروج از حساب</a>
                 </div>
             </div>
 
@@ -38,7 +38,8 @@
 
 
             <div class="title-div">
-                <span class="welcome">هادی عزیز خوش آمدید</span>
+                <span class="welcome-name">هادی</span>
+                <span class="welcome-text">عزیز خوش آمدید</span>
                 <div class="credit-section">
                     <span class="welcome">|</span>
                     <span id="your-credit">موجودی حساب شما:</span>
@@ -64,13 +65,13 @@
                         <div class="input-container">
                             <div class="input-label">
                                 نام </div>
-                            <input class="input-textbox" placeholder="نام خود را وارد کنید">
+                            <input id="firstname-input" class="input-textbox" placeholder="نام خود را وارد کنید">
                         </div>
 
                         <div class="input-container">
                             <div class="input-label">
                                 نام خانوادگی </div>
-                            <input class="input-textbox" type="password" placeholder="نام خانوادگی خود را وارد کنید">
+                            <input id="lastname-input" class="input-textbox" placeholder="نام خانوادگی خود را وارد کنید">
                         </div>
                     </div>
 
@@ -79,7 +80,7 @@
                             <div class="input-label">
                                 رمز عبور
                             </div>
-                            <input class="input-textbox" type="password" minlength="6" placeholder="رمز عبور خود را وارد کنید">
+                            <input id="password-input" class="input-textbox" type="password" minlength="6" placeholder="رمز عبور خود را وارد کنید">
                         </div>
                     </div>
 
@@ -88,7 +89,7 @@
                             <div class="input-label">
                                 آدرس
                             </div>
-                            <textarea class="input-textarea" placeholder="آدرس خود را وارد کنید"></textarea>
+                            <textarea id="address-input" class="input-textarea" placeholder="آدرس خود را وارد کنید"></textarea>
                         </div>
                     </div>
 

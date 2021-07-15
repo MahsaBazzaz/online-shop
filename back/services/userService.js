@@ -102,8 +102,11 @@ function login(userInfo) {
 
 async function editProfile(userId, newFields) {
     let editedUser = await user.editUser(newFields, userId);
-    console.log(editedUser);
-    return editedUser;
+    if(editedUser) {
+        return await user.getUserById(userId);
+    } else {
+        return null;
+    }
 }
 
 async function getReceipts(userId, requestedUserId) {
@@ -168,9 +171,11 @@ async function chargeCredit(userId, chargeAmount) {
     let userToBeCharged = await user.getUserById(userId);
     newCredit = userToBeCharged.credit + chargeAmount;
     let editedUser = await user.editUser({ credit: newCredit }, userId);
-
-    console.log(editedUser);
-    return editedUser;
+    if(editedUser) {
+        return await user.getUserById(userId);
+    } else {
+        return null;
+    }
 }
 
 

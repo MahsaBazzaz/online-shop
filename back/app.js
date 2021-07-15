@@ -82,22 +82,15 @@ app.use('/admin', (req, res, next) => {
     res.status(401).send('Authentication required.'); // custom message
 });
 
-app.use('/user', async(req, res, next) => {
-
-    console.log(req.headers);
+app.use('/user/getFirstname', async(req, res) => {
     const b64auth = (req.headers.authorization || '').split(' ')[1] || '';
     const [login, password] = Buffer.from(b64auth, 'base64').toString().split(':');
-    console.log(login + "..........." + password);
     const authResult = await authService.userAuth(login, password);
     // Verify login and password are set and correct
     if (authResult != null && authResult.length == 1) {
         if (login && password && login === authResult[0].username && password === authResult[0].password) {
             // Access granted...
-            res.header('firstname', authResult[0].firstname);
-            console.log("hi");
-            console.log(authResult[0]);
             res.send(authResult[0].firstname);
-            return next();
 
         }
 
@@ -109,6 +102,70 @@ app.use('/user', async(req, res, next) => {
 
 });
 
+
+
+app.use('/user/getUserInfo', async (req, res) => {
+    const b64auth = (req.headers.authorization || '').split(' ')[1] || '';
+    const [login, password] = Buffer.from(b64auth, 'base64').toString().split(':');
+    const authResult = await authService.userAuth(login, password);
+    // Verify login and password are set and correct
+    if (authResult != null && authResult.length == 1) {
+        if (login && password && login === authResult[0].username && password === authResult[0].password) {
+            // Access granted...
+            res.send({firstname: authResult[0].firstname, lastname: authResult[0].lastname,
+            address: authResult[0].address, credit: authResult[0].credit});
+        }
+
+    } else {
+        // Access denied...
+        res.set('WWW-Authenticate', 'Basic realm="401"'); // change this
+        res.status(401).send('Authentication required.'); // custom message
+    }
+});
+
+app.use('/user/increaseCredit', async (req, res) => {
+    const b64auth = (req.headers.authorization || '').split(' ')[1] || '';
+    const [login, password] = Buffer.from(b64auth, 'base64').toString().split(':');
+    const authResult = await authService.userAuth(login, password);
+    // Verify login and password are set and correct
+    if (authResult != null && authResult.length == 1) {
+        if (login && password && login === authResult[0].username && password === authResult[0].password) {
+            // Access granted...
+            const updatedUser = await userService.chargeCredit(authResult[0].id, req.body.amount);
+            res.send(updatedUser);
+        }
+
+    } else {
+        // Access denied...
+        res.set('WWW-Authenticate', 'Basic realm="401"'); // change this
+        res.status(401).send('Authentication required.'); // custom message
+    }
+});
+
+app.use('/user/editUserInfo', async (req, res) => {
+    const b64auth = (req.headers.authorization || '').split(' ')[1] || '';
+    const [login, password] = Buffer.from(b64auth, 'base64').toString().split(':');
+    const authResult = await authService.userAuth(login, password);
+    // Verify login and password are set and correct
+    if (authResult != null && authResult.length == 1) {
+        if (login && password && login === authResult[0].username && password === authResult[0].password) {
+            // Access granted...
+            
+            let updatedUser = await userService.editProfile(authResult[0].id, req.body.fields);
+            const header = "Basic " + btoa(updatedUser.username + ":" + updatedUser.password);
+            cookie = "Authorization=" + header;
+            updatedUser.password = cookie;
+            res.send(updatedUser);
+        }
+
+    } else {
+        // Access denied...
+        res.set('WWW-Authenticate', 'Basic realm="401"'); // change this
+        res.status(401).send('Authentication required.'); // custom message
+    }
+});
+
+
 app.post('/viewer/getProducts', async(req, res) => {
     body = req.body;
     console.log(body);
@@ -117,10 +174,10 @@ app.post('/viewer/getProducts', async(req, res) => {
 
 });
 
-app.get('/user/getFirstname', async(req, res) => {
-    console.log("dfhvgdfskghkdfshbkhdfbgngfbnukfgnbukgfnbkubgk");
-    res.sendStatus(200);
-});
+// app.get('/user/getFirstname', async(req, res) => {
+//     console.log("dfhvgdfskghkdfshbkhdfbgngfbnukfgnbukgfnbkubgk");
+//     res.sendStatus(200);
+// });
 
 app.get('/admin/getAllReceipts', async(req, res) => {
     const receipts = await adminService.getAllReceiptsForAdmin();

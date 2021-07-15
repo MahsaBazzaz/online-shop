@@ -3,6 +3,14 @@
     src: url("../assets/fonts/iran\ sans/iransans_medium.woff");
 }
 
+
+html {
+    scroll-behavior: smooth;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+
 :root {
     --input-label-color: rgb(14, 186, 197);
     --background-color: rgb(232, 233, 237);
@@ -40,6 +48,12 @@ body {
 }
 
 
+#homepage, #products {
+    cursor: pointer;
+}
+
+
+
 /* menu */
 
 .navbar {
@@ -74,6 +88,10 @@ body {
 
 .dropdown .dropdownbtn {
     font-size: 14px;
+    width: 125px;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
     background-color: var(--menu-white);
     color: var(--menu-black);
     border-radius: 24px;
@@ -194,7 +212,7 @@ body {
     flex-wrap: nowrap;
 }
 
-.welcome {
+.welcome-name, .welcome-text {
     font-family: iransans;
     font-size: 22px;
     padding: 0px 5px;
@@ -492,3 +510,12 @@ tr:last-child td {
 
 
 /* footer */
+
+
+.logout-btn {
+    cursor: pointer;
+}
+
+.profile-btn {
+    cursor: pointer;
+}
