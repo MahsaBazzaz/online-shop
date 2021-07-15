@@ -92,8 +92,12 @@ async function getAllCategories() {
 async function signup(userInfo) {
     userInfo.credit = 0;
     let createdUser = await user.createUser(userInfo);
-    console.log(createdUser);
-    return createdUser;
+    userInfo = {
+        id: createdUser.id,
+        username: createdUser.username,
+        password: createdUser.password
+    }
+    return userInfo;
 }
 
 function login(userInfo) {

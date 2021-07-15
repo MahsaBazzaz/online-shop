@@ -60,7 +60,22 @@ app.use('/login', async(req, res, next) => {
         }
     }
 
+})
 
+
+app.use('/signup', async(req, res) => {
+    const createdUser = await userService.signup(req.body.fields);
+    console.log(createdUser);
+    if (createdUser) {
+        //User Created Successfully
+        const header = "Basic " + btoa(createdUser.username + ":" + createdUser.password);
+        cookie = "Authorization=" + header;
+        res.send({ result: true, cookie: cookie, url: "profile.html" });
+
+    } else {
+        //Error
+        res.send({ result: false, cookie: null, url: "error.html" });
+    }
 })
 
 

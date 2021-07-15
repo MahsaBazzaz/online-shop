@@ -63,11 +63,9 @@ var pricefilter_range;
 window.onload = function() {
     
     // check if cookie is set or not
-    var authCookie = getCookie("Authorization");
-    // console.log(authCookie);
-    if (authCookie != null) {
+    if (getCookie("Authorization") != null) {
         // console.log(authCookie);
-        getUserFirstName(authCookie);
+        getUserFirstName(getCookie("Authorization"));
         
         document.getElementsByClassName("logout-btn")[0].addEventListener("click", function() {
             logout();
@@ -84,7 +82,6 @@ window.onload = function() {
     
     // transition between login and signup
     document.getElementById("go-to-signup").addEventListener("click", function() {
-            console.log("click");
             document.getElementsByClassName("signup-div")[0].style.display = "block";
             document.getElementsByClassName("login-div")[0].style.display = "none";
     })
@@ -93,8 +90,27 @@ window.onload = function() {
     document.getElementById("login-button").addEventListener("click", function() {
         var email = document.getElementById("login-email").value;
         var password = document.getElementById("login-pass").value;
-        // check validation
+        // check validation 
         login(email, password);
+    })
+
+
+    //signup
+    document.getElementById("signup-button").addEventListener("click", function() {
+        const firstname = document.getElementById("signup-firstname").value;
+        const lastname = document.getElementById("signup-lastname").value;
+        const email = document.getElementById("signup-email").value;
+        const password = document.getElementById("signup-password").value;
+        const address = document.getElementById("signup-address").value;
+        fields = {
+            firstname: firstname,
+            lastname: lastname,
+            username: email,
+            password: password,
+            address: address
+        }
+        // check validation => to be implemented
+        signup(fields);
     })
 
     //sort
@@ -370,6 +386,32 @@ function login(email, password) {
                     window.location.replace(objectResult.url);
                 } else {
                     alert("error:: could not login");
+                }
+            }
+        }
+    }
+}
+
+
+function signup(fields) {
+    //ajax request for signup
+    var xhttp = new XMLHttpRequest();
+    xhttp.open("POST", `http://localhost:3000/signup`, true);
+    xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    xhttp.setRequestHeader("Accept", "application/json");
+    jsonObject = JSON.stringify({fields: fields});
+    xhttp.send(jsonObject);
+
+    xhttp.onreadystatechange = (e) => {
+        if (xhttp.readyState == 4 && xhttp.status == 200) {
+            if (xhttp.responseText) {
+                console.log(xhttp.responseText);
+                var objectResult = JSON.parse(xhttp.responseText);
+                if (objectResult.result == true) {
+                    document.cookie = objectResult.cookie + "; Secure";
+                    window.location.replace(objectResult.url);
+                } else {
+                    alert("error:: could not signup");
                 }
             }
         }
