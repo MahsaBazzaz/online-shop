@@ -70,6 +70,32 @@ function findProductsByCategory(categoryIds, page, productsInPage) {
         });
 }
 
+
+function getProducts(state) {
+    const page = state.page_number;
+    const productsInPage = state.products_in_page;
+
+    const offset = productsInPage*(page-1);
+    const limit = productsInPage;
+
+    
+
+    console.log(state.order);
+    return Product.findAll({
+            offset: offset,
+            limit: limit,
+            where: state.where,
+            order: [[state.order.by, state.order.order]]
+    })
+        .then((foundProducts) => {
+            return foundProducts;
+    })
+        .catch (err => {
+            console.log(err);
+            return null;
+    });
+}
+
 function getProductById(productId) {
     return Product.findByPk(productId)
         .then((foundProduct) => {
@@ -185,5 +211,6 @@ module.exports = {
     getProductsSortedBySold,
     getProductsSortedByCreationDate,
     truncateProductTable,
-    getProductById
+    getProductById,
+    getProducts
 };
