@@ -4,6 +4,7 @@ const product = require("../../back/services/db/products");
 const receipt = require("../../back/services/db/receipts");
 const { response } = require("express");
 var randomstring = require("randomstring");
+const Sequelize = require("sequelize");
 
 async function getAllProducts(page, productsInPage) {
     let products = await product.getAllProducts(page, productsInPage);
@@ -171,6 +172,31 @@ async function chargeCredit(userId, chargeAmount) {
     return editedUser;
 }
 
+
+async function getProducts(state) {
+    state.where = {};
+    let trueCategories = [];
+    for (let cat in state.category_states) {
+        if (state.category_states[cat]) {
+            trueCategories.push(cat);
+        }
+    }
+    if (trueCategories.length > 0) {
+        state.where.category_id = trueCategories;
+    }
+    if (state.searched_term != "") {
+        like = { [Sequelize.Op.iLike]: "%"+state.searched_term + "%"};
+        state.where.name = like;
+    }
+
+    products = await product.getProducts(state);
+    for (pro of products) {
+        pro.category = await category.mapCategoryIdToCategoryName(pro.category_id);
+    }
+
+    return products;
+}
+
 module.exports = {
     getAllProducts,
     getAllCategories,
@@ -184,5 +210,6 @@ module.exports = {
     editProfile,
     getReceipts,
     purchase,
-    chargeCredit
+    chargeCredit,
+    getProducts
 };

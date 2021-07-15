@@ -77,6 +77,14 @@ app.post('/getProductsByCategory', async(req, res) => {
 });
 
 
+app.post('/getProducts', async(req, res) => {
+    body = req.body;
+    console.log(body);
+    const products = await userService.getProducts(body);
+    res.send(products);
+
+});
+
 //app.use("/admin", require("./services/db/admin"));
 
 app.listen(port, () => {

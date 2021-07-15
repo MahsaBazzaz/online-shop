@@ -4,8 +4,20 @@
 var slideIndex = 0;
 var slides = document.getElementsByClassName("slider-image");
 let category_states = {};
-
+let sortingState = {by: "sold", order: "DESC"};
+let searchedTerm = ""
+let currentPage = 1;
+let priceRange = {min: 0, max: 100};
 const productsInPage = 15;
+
+function getState() {
+    return {category_states: category_states,
+            order: sortingState,
+            searched_term: searchedTerm,
+            price_range: priceRange,
+            page_number: currentPage,
+            products_in_page: productsInPage};
+}
 
 showSlide(0);
 
@@ -45,24 +57,18 @@ var pricefilter_thumbLeft;
 var pricefilter_thumbRight;
 var pricefilter_range;
 window.onload = function() {
-    document.getElementById("best-seller").addEventListener("click", changeSortMethod);
-    document.getElementById("best-seller").addEventListener("click", function() {
-        //ajax rquest for getting products list sorted by sold
-        console.log("sort by sells");
-        getSortedProductsBySells(1);
-    });
-    document.getElementById("price").addEventListener("click", changeSortMethod);
-    document.getElementById("price").addEventListener("click", function() {
-        //ajax request for getting products list sorted by price
-        console.log("sort by price");
-        getSortedProductsByPrice(1);
-    });
-    //ajax request for getting products list
-    getAllProducts(1);
-
+    
+    document.getElementById("best-seller").addEventListener("click", sortBySold);
+    document.getElementById("price").addEventListener("click", sortByPrice);
 
     //ajax request for getting categories list
     getAllCategories();
+
+    //ajax request for getting products list
+    // getAllProducts(1);
+
+
+
 
     //ajax request for getting products list sorted by creation date -> DONE
 
@@ -75,8 +81,11 @@ window.onload = function() {
 
     document.getElementsByClassName('search-button')[0].addEventListener("click", function() {
         //ajax request for getting products by name
-        console.log("search product by name");
-        searchProductByName(document.getElementsByClassName('search-box')[0].value, 1);
+        // console.log("search product by name");
+        searchedTerm = document.getElementsByClassName('search-box')[0].value;
+        console.log(getState());
+        getProducts();
+        // searchProductByName(document.getElementsByClassName('search-box')[0].value, 1);
     });
 
     //ajax request for purchasing products
@@ -128,98 +137,27 @@ window.onload = function() {
 }
 
 
-
-
-function getAllProducts(pageNumber) {
-    //products in page
+// This function gets products given filtering, sorting, searching, and pagination conditions
+function getProducts() {
     var xhttp = new XMLHttpRequest();
-    xhttp.open("GET", `http://localhost:3000/getAllProducts?page=${pageNumber}&productsInPage=${productsInPage}`, true);
-    xhttp.send();
+    xhttp.open("POST", `http://localhost:3000/getProducts`, true);
+    xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    xhttp.setRequestHeader("Accept", "application/json");
+    jsonObject = JSON.stringify(getState());
+    xhttp.send(jsonObject);
 
     xhttp.onreadystatechange = (e) => {
         if (xhttp.readyState == 4 && xhttp.status == 200) {
             if (xhttp.responseText) {
-                //put your code here 
-                console.log(xhttp.responseText);
+                
                 products = JSON.parse(xhttp.responseText);
-                showProducts(products);
-            }
-        }
-    }
-
-}
-
-function getSortedProductsByPrice(pageNumber) {
-    //products in page
-    var xhttp = new XMLHttpRequest();
-    xhttp.open("GET", `http://localhost:3000/getSortedProductsByPrice?order=ASC&page=${pageNumber}&productsInPage=${productsInPage}`, true);
-    xhttp.send();
-
-    xhttp.onreadystatechange = (e) => {
-        if (xhttp.readyState == 4 && xhttp.status == 200) {
-            if (xhttp.responseText) {
-                //put your code here 
-                console.log(xhttp.responseText);
-                products = JSON.parse(xhttp.responseText);
+                console.log(products);
                 showProducts(products);
             }
         }
     }
 }
 
-function getSortedProductsBySells(pageNumber) {
-    //products in page
-    var xhttp = new XMLHttpRequest();
-    xhttp.open("GET", `http://localhost:3000/getSortedProductsBySells?order=ASC&page=${pageNumber}&productsInPage=${productsInPage}`, true);
-    xhttp.send();
-
-    xhttp.onreadystatechange = (e) => {
-        if (xhttp.readyState == 4 && xhttp.status == 200) {
-            if (xhttp.responseText) {
-                //put your code here 
-                console.log(xhttp.responseText);
-                products = JSON.parse(xhttp.responseText);
-                showProducts(products);
-            }
-        }
-    }
-}
-
-function getSortedProductsByCreationDate(pageNumber) {
-    //products in page
-    var xhttp = new XMLHttpRequest();
-    xhttp.open("GET", `http://localhost:3000/getSortedProductsByCreationDate?order=ASC&page=${pageNumber}&productsInPage=${productsInPage}`, true);
-    xhttp.send();
-
-    xhttp.onreadystatechange = (e) => {
-        if (xhttp.readyState == 4 && xhttp.status == 200) {
-            if (xhttp.responseText) {
-                //put your code here 
-                console.log(xhttp.responseText);
-                products = JSON.parse(xhttp.responseText);
-                showProducts(products);
-            }
-        }
-    }
-}
-
-function getProductsInPriceRange(pageNumber, minPrice, maxPrice) {
-    //products in page
-    var xhttp = new XMLHttpRequest();
-    xhttp.open("GET", `http://localhost:3000/getProductsInPriceRange?order=ASC&page=${pageNumber}&productsInPage=${productsInPage}&minPrice=${minPrice}&maxPrice=${maxPrice}`, true);
-    xhttp.send();
-
-    xhttp.onreadystatechange = (e) => {
-        if (xhttp.readyState == 4 && xhttp.status == 200) {
-            if (xhttp.responseText) {
-                //put your code here 
-                console.log(xhttp.responseText);
-                products = JSON.parse(xhttp.responseText);
-                showProducts(products);
-            }
-        }
-    }
-}
 
 function showProducts(products) {
     productsBox = document.getElementsByClassName("products-box")[0];
@@ -266,6 +204,8 @@ function getAllCategories() {
                     category_states[category.id] = false;
                 }
                 showCategories(categories);
+                getProducts();
+                console.log(getState());
             }
         }
     }
@@ -293,52 +233,41 @@ function createCategoryBox(category) {
 function checkboxHandler(category_id) {
     const checkboxe = document.getElementById("checkbox" + category_id);
     category_states[category_id] = !category_states[category_id];
-    getProductsByCategoryState(1);
-    console.log(category_states);
+    getProducts();
+    //getProductsByCategoryState(1);
+    console.log(getState());
 }
 
-function getProductsByCategoryState(pageNumber) {
-    var xhttp = new XMLHttpRequest();
-    xhttp.open("POST", `http://localhost:3000/getProductsByCategory?page=${pageNumber}&productsInPage=${productsInPage}`, true);
-    xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-    xhttp.setRequestHeader("Accept", "application/json");
-    jsonObject = JSON.stringify(category_states);
-    xhttp.send(jsonObject);
 
-    xhttp.onreadystatechange = (e) => {
-        if (xhttp.readyState == 4 && xhttp.status == 200) {
-            if (xhttp.responseText) {
-                console.log(xhttp.responseText);
-                products = JSON.parse(xhttp.responseText);
-                showProducts(products);
-            }
-        }
+function sortBySold() {
+    if (! document.getElementById("best-seller").classList.contains("sorting-box-btn-active")) {
+        document.getElementById("best-seller").classList.remove("sorting-box-btn-deactive");
+        document.getElementById("best-seller").classList.add("sorting-box-btn-active");
+
+        document.getElementById("price").classList.remove("sorting-box-btn-active");
+        document.getElementById("price").classList.add("sorting-box-btn-deactive");
+
+        sortingState.by = "sold";
+        console.log(getState());
+        getProducts();
     }
 }
 
-function changeSortMethod() {
-    document.getElementById("best-seller").classList.toggle('sorting-box-btn-active');
-    document.getElementById("best-seller").classList.toggle('sorting-box-btn-deactive');
-    document.getElementById("price").classList.toggle('sorting-box-btn-active');
-    document.getElementById("price").classList.toggle('sorting-box-btn-deactive');
-}
+function sortByPrice() {
+    if (! document.getElementById("price").classList.contains("sorting-box-btn-active")) {
+        document.getElementById("price").classList.remove("sorting-box-btn-deactive");
+        document.getElementById("price").classList.add("sorting-box-btn-active");
 
-function searchProductByName(productName, pageNumber) {
-    var xhttp = new XMLHttpRequest();
-    xhttp.open("GET", `http://localhost:3000/searchProductByName?page=${pageNumber}&productsInPage=${productsInPage}&productName=${productName}`, true);
-    xhttp.send();
+        document.getElementById("best-seller").classList.remove("sorting-box-btn-active");
+        document.getElementById("best-seller").classList.add("sorting-box-btn-deactive");
 
-    xhttp.onreadystatechange = (e) => {
-        if (xhttp.readyState == 4 && xhttp.status == 200) {
-            if (xhttp.responseText) {
-                //put your code here 
-                console.log(xhttp.responseText);
-                products = JSON.parse(xhttp.responseText);
-                showProducts(products);
-            }
-        }
+        sortingState.by = "price";
+        console.log(getState());
+        getProducts();
     }
 }
+
+
 //
 // modal
 //
