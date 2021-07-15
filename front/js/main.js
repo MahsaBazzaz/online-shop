@@ -61,30 +61,42 @@ var pricefilter_thumbLeft;
 var pricefilter_thumbRight;
 var pricefilter_range;
 window.onload = function() {
+    
     // check if cookie is set or not
     var authCookie = getCookie("Authorization");
+    // console.log(authCookie);
     if (authCookie != null) {
-        console.log(authCookie);
+        // console.log(authCookie);
         getUserFirstName(authCookie);
-    } else {}
+        document.getElementsByClassName("logout-btn")[0].addEventListener("click", function() {
+            logout();
+        });
+
+    } else {
+        document.getElementsByClassName("dropdown-content")[0].style.display = "none";
+    }
+    
     // transition between login and signup
     document.getElementById("go-to-signup").addEventListener("click", function() {
             console.log("click");
             document.getElementsByClassName("signup-div")[0].style.display = "block";
             document.getElementsByClassName("login-div")[0].style.display = "none";
-        })
-        // login
+    })
+
+    // login
     document.getElementById("login-button").addEventListener("click", function() {
-            var email = document.getElementById("login-email").value;
-            var password = document.getElementById("login-pass").value;
-            // check validation
-            login(email, password);
-        })
-        //sort
+        var email = document.getElementById("login-email").value;
+        var password = document.getElementById("login-pass").value;
+        // check validation
+        login(email, password);
+    })
+
+    //sort
     document.getElementById("best-seller").addEventListener("click", sortBySold);
     document.getElementById("price").addEventListener("click", sortByPrice);
     document.getElementById("creation-date").addEventListener("click", sortByCreationDate);
     document.getElementById("order-checkbox").addEventListener("click", changeSortOrder);
+    
     //ajax request for getting categories list
     getAllCategories();
 
@@ -164,7 +176,7 @@ window.onload = function() {
 // This function gets products given filtering, sorting, searching, and pagination conditions
 function getProducts() {
     var xhttp = new XMLHttpRequest();
-    xhttp.open("POST", `http://localhost:3000/user/getProducts`, true);
+    xhttp.open("POST", `http://localhost:3000/viewer/getProducts`, true);
     xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     xhttp.setRequestHeader("Accept", "application/json");
     jsonObject = JSON.stringify(getState());
@@ -220,7 +232,7 @@ function createProductBox(product) {
 
 function getAllCategories() {
     var xhttp = new XMLHttpRequest();
-    xhttp.open("GET", `http://localhost:3000/user/getAllCategories`, true);
+    xhttp.open("GET", `http://localhost:3000/viewer/getAllCategories`, true);
     xhttp.send();
 
     xhttp.onreadystatechange = (e) => {
@@ -349,7 +361,7 @@ function login(email, password) {
                 console.log(xhttp.responseText);
                 var objectResult = JSON.parse(xhttp.responseText);
                 if (objectResult.result == true) {
-                    document.cookie = objectResult.cookie;
+                    document.cookie = objectResult.cookie + "; Secure";
                     window.location.replace(objectResult.url);
                 } else {
                     alert("error:: could not login");
@@ -357,6 +369,12 @@ function login(email, password) {
             }
         }
     }
+}
+
+function logout() {
+    document.cookie = "Authorization= ; expires = Thu, 01 Jan 1970 00:00:00 GMT";
+    window.location.replace("index.html");
+
 }
 
 function getUserFirstName(cookie) {
@@ -370,8 +388,13 @@ function getUserFirstName(cookie) {
     xhttp.onreadystatechange = (e) => {
         if (xhttp.readyState == 4 && xhttp.status == 200) {
             if (xhttp.responseText) {
-                console.log(xhttp.responseText);
-                // console.log(xhttp.getResponseHeader());
+                firstname = xhttp.responseText;
+                console.log(firstname);
+                dropdownbtn = document.getElementsByClassName("dropdownbtn")[0];
+                dropdownbtn.innerText = firstname;
+                dropdownbtn.removeEventListener("click", showModal);
+                //document.getElementsByClassName("dropdown-content")[0].style.display = "block";
+
             }
         }
     }
@@ -382,11 +405,14 @@ function getUserFirstName(cookie) {
 var modal = document.getElementById("modal");
 var btn = document.getElementsByClassName("dropdownbtn")[0];
 var span = document.getElementsByClassName("close")[0];
-btn.onclick = function() {
+btn.addEventListener("click", showModal);
+
+function showModal() {
     document.getElementsByClassName("signup-div")[0].style.display = "none";
     document.getElementsByClassName("login-div")[0].style.display = "block";
     modal.style.display = "flex";
 }
+
 span.onclick = function() {
         modal.style.display = "none";
     }

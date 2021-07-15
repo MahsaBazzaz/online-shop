@@ -169,6 +169,10 @@ html {
     color: var(--menu-black);
 }
 
+.logout-btn {
+    cursor: pointer;
+}
+
 
 /* menu */
 

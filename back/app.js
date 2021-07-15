@@ -26,7 +26,7 @@ app.use(bodyParser.json());
 // app.get('/', (req, res) => res.send("INDEX"));
 
 // get allcategories
-app.get('/user/getAllCategories', async(req, res) => {
+app.get('/viewer/getAllCategories', async(req, res) => {
     console.log(req.query);
     const allCategories = await userService.getAllCategories();
     res.send(allCategories);
@@ -96,8 +96,8 @@ app.use('/user', async(req, res, next) => {
             res.header('firstname', authResult[0].firstname);
             console.log("hi");
             console.log(authResult[0]);
+            res.send(authResult[0].firstname);
             return next();
-            // res.send(authResult[0].firstname);
 
         }
 
@@ -109,7 +109,7 @@ app.use('/user', async(req, res, next) => {
 
 });
 
-app.post('/user/getProducts', async(req, res) => {
+app.post('/viewer/getProducts', async(req, res) => {
     body = req.body;
     console.log(body);
     const response = await userService.getProducts(body);
