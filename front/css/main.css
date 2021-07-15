@@ -3,6 +3,10 @@
     src: url("../assets/fonts/iran\ sans/iransans_medium.woff");
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 .main-body {
     background-color: lightsteelblue;
     direction: rtl;

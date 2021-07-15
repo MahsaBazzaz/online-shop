@@ -161,6 +161,7 @@ function getProducts() {
                 console.log(pages);
                 createPagination();
                 showProducts(products);
+                document.getElementsByClassName("sorting-box-container")[0].scrollIntoView();
             }
         }
     }
@@ -298,6 +299,7 @@ function sortByCreationDate() {
 
         sortingState.by = "createdat";
         console.log(getState());
+        currentPage = 1;
         getProducts();
     }
 }
@@ -310,6 +312,7 @@ function changeSortOrder() {
     else
         sortingState.order = 'ASC';
     console.log(getState());
+    currentPage = 1;
     getProducts();
 }
 //
