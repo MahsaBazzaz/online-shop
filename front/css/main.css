@@ -361,6 +361,11 @@ li .sorting-box-btn-deactive {
 
 /* toggle */
 
+.toggle-lable {
+    font-size: 13px;
+    padding: 15px 5px;
+}
+
 .sorting-toggle {
     position: relative;
     display: inline-block;
@@ -382,7 +387,7 @@ li .sorting-box-btn-deactive {
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: #ccc;
+    background-color: #2196F3;
     -webkit-transition: .4s;
     transition: .4s;
 }
@@ -397,14 +402,6 @@ li .sorting-box-btn-deactive {
     background-color: white;
     -webkit-transition: .4s;
     transition: .4s;
-}
-
-.sorting-toggle input:checked+.sorting-toggle-span {
-    background-color: #2196F3;
-}
-
-.sorting-toggle input:focus+.sorting-toggle-span {
-    box-shadow: 0 0 1px #2196F3;
 }
 
 .sorting-toggle input:checked+.sorting-toggle-span:before {
