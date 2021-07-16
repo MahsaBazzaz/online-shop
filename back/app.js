@@ -63,6 +63,33 @@ app.use('/login', async(req, res, next) => {
 })
 
 
+app.use('/getProfilePageUrl', async(req, res) => {
+    const auth = { login: 'admin', password: 'password' };
+    const b64auth = (req.headers.authorization || '').split(' ')[1] || '';
+    const [login, password] = Buffer.from(b64auth, 'base64').toString().split(':');
+
+    if (login && password && login === auth.login && password === auth.password) {
+        // Admin Access granted...
+        // route to admin panel;
+        res.send({result: true, url: "admin.html" });
+    } else {
+        authResult = await authService.userAuth(login, password);
+
+        console.log(authResult);
+        if (authResult != null && authResult.length == 1) {
+            //User Access granted
+            res.send({result: true, url: "profile.html" });
+
+        } else {
+            //Access denied
+            res.send({ result: false, url: "error.html" });
+        }
+    }
+
+})
+
+
+
 app.use('/signup', async(req, res) => {
     const createdUser = await userService.signup(req.body.fields);
     console.log(createdUser);
@@ -77,6 +104,8 @@ app.use('/signup', async(req, res) => {
         res.send({ result: false, cookie: null, url: "error.html" });
     }
 })
+
+
 
 
 app.use('/admin', (req, res, next) => {

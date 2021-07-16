@@ -72,7 +72,8 @@ window.onload = function() {
         });
 
         document.getElementsByClassName("profile-btn")[0].addEventListener("click", function() {
-            window.location.replace("profile.html");
+            goToProfilePage(getCookie("Authorization"));
+            //window.location.replace("profile.html");
         });
         
 
@@ -301,6 +302,31 @@ function checkboxHandler(category_id) {
     console.log(getState());
 }
 
+
+function goToProfilePage(cookie) {
+    //ajax request for redirecting to profile page
+    console.log(getCookie("Authorization"));
+    var xhttp = new XMLHttpRequest();
+    xhttp.open("GET", `http://localhost:3000/getProfilePageUrl`, true);
+    xhttp.setRequestHeader("Authorization", cookie);
+    xhttp.send();
+
+    xhttp.onreadystatechange = (e) => {
+        if (xhttp.readyState == 4 && xhttp.status == 200) {
+            if (xhttp.responseText) {
+                //console.log(xhttp.responseText);
+                var objectResult = JSON.parse(xhttp.responseText);
+                if (objectResult.result == true) {
+                    window.location.replace(objectResult.url);
+                } else {
+                    alert("error:: could not go to profile page");
+                }
+            }
+        }
+    }
+
+
+}
 
 function sortBySold() {
     if (!document.getElementById("best-seller").classList.contains("sorting-box-btn-active")) {
