@@ -1,4 +1,5 @@
 var selected_product_id = -1;
+var selected_product_price = -1;
 //
 // hero header
 
@@ -152,21 +153,14 @@ window.onload = function() {
         // searchProductByName(document.getElementsByClassName('search-box')[0].value, 1);
     });
 
-    //ajax request for purchasing products
-    var buy_buttons = document.getElementsByClassName("buy-product-button");
-    for (btn of buy_buttons) {
-        btn.addEventListener("click", function() {
-            selected_product_id = btn.id.split("buy-product-button-")[1];
-            document.getElementById("buy-product-modal").style.display = "flex";
-        })
-    }
+
     document.getElementsByClassName("close-purchase-div")[0].addEventListener("click", function() {
         document.getElementById("buy-product-modal").style.display = "none";
 
     });
     document.getElementById("quantity").addEventListener("change", function() {
         // show the price 
-        document.getElementById("total-price").innerText = 2000;
+        document.getElementById("total-price").innerText = document.getElementById("quantity").value * selected_product_price;
     });
     //ajax request for signup
 
@@ -245,6 +239,27 @@ function showProducts(products) {
     //productsBox.scrollTop = 0; we should use animation for this
     for (product of products) {
         productsBox.appendChild(createProductBox(product));
+        document.getElementById("buy-product-with-id-" + product.id).addEventListener("click", function() {
+            selected_product_id = this.id.split("buy-product-with-id-")[1];
+            document.getElementById("quantity").value = 1;
+
+            var xhttp = new XMLHttpRequest();
+            xhttp.open("GET", `http://localhost:3000/user/getProductInfo?productId=${selected_product_id}`, true);
+            xhttp.send();
+
+            xhttp.onreadystatechange = (e) => {
+                if (xhttp.readyState == 4 && xhttp.status == 200) {
+                    if (xhttp.responseText) {
+                        console.log(xhttp.responseText);
+                        jsonObj = JSON.parse(xhttp.responseText);
+                        document.getElementById("total-price").innerText = jsonObj.price;
+                        selected_product_price = jsonObj.price;
+                    }
+                }
+            }
+            document.getElementById("buy-product-modal").style.display = "flex";
+
+        })
     }
 }
 
@@ -264,7 +279,6 @@ function createProductBox(product) {
         '<p class="product-price">' + product.price + ' تومان</p>' +
         '<button id="buy-product-with-id-' + product.id + '"class="buy-product-button">خرید محصول</button>' +
         '</div>';
-
     return newDiv;
 
 }

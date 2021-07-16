@@ -106,7 +106,7 @@ function login(userInfo) {
 
 async function editProfile(userId, newFields) {
     let editedUser = await user.editUser(newFields, userId);
-    if(editedUser) {
+    if (editedUser) {
         return await user.getUserById(userId);
     } else {
         return null;
@@ -145,7 +145,7 @@ async function purchase(userId, productId, count) {
         length: 10,
         charset: 'alphanumeric'
     }); //must be generated uniqely for each receipt
-    
+
     newReceipt.status = "در حال انجام";
 
 
@@ -173,7 +173,7 @@ async function chargeCredit(userId, chargeAmount) {
     let userToBeCharged = await user.getUserById(userId);
     newCredit = userToBeCharged.credit + chargeAmount;
     let editedUser = await user.editUser({ credit: newCredit }, userId);
-    if(editedUser) {
+    if (editedUser) {
         return await user.getUserById(userId);
     } else {
         return null;
@@ -210,6 +210,11 @@ async function getProducts(state) {
     return [products, pages];
 }
 
+async function getProduct(product_id) {
+    let pro = await product.getProductById(product_id);
+    pro.category = await category.mapCategoryIdToCategoryName(pro.category_id);
+    return pro;
+}
 module.exports = {
     // getAllProducts,
     getAllCategories,
@@ -224,5 +229,6 @@ module.exports = {
     getReceipts,
     purchase,
     chargeCredit,
-    getProducts
+    getProducts,
+    getProduct
 };

@@ -71,14 +71,14 @@ app.use('/getProfilePageUrl', async(req, res) => {
     if (login && password && login === auth.login && password === auth.password) {
         // Admin Access granted...
         // route to admin panel;
-        res.send({result: true, url: "admin.html" });
+        res.send({ result: true, url: "admin.html" });
     } else {
         authResult = await authService.userAuth(login, password);
 
         console.log(authResult);
         if (authResult != null && authResult.length == 1) {
             //User Access granted
-            res.send({result: true, url: "profile.html" });
+            res.send({ result: true, url: "profile.html" });
 
         } else {
             //Access denied
@@ -148,7 +148,7 @@ app.use('/user/getFirstname', async(req, res) => {
 
 
 
-app.use('/user/getUserInfo', async (req, res) => {
+app.use('/user/getUserInfo', async(req, res) => {
     const b64auth = (req.headers.authorization || '').split(' ')[1] || '';
     const [login, password] = Buffer.from(b64auth, 'base64').toString().split(':');
     const authResult = await authService.userAuth(login, password);
@@ -156,8 +156,12 @@ app.use('/user/getUserInfo', async (req, res) => {
     if (authResult != null && authResult.length == 1) {
         if (login && password && login === authResult[0].username && password === authResult[0].password) {
             // Access granted...
-            res.send({firstname: authResult[0].firstname, lastname: authResult[0].lastname,
-            address: authResult[0].address, credit: authResult[0].credit});
+            res.send({
+                firstname: authResult[0].firstname,
+                lastname: authResult[0].lastname,
+                address: authResult[0].address,
+                credit: authResult[0].credit
+            });
         }
 
     } else {
@@ -188,7 +192,7 @@ app.use('/user/getAllReceipts', async(req, res) => {
     }
 });
 
-app.use('/user/increaseCredit', async (req, res) => {
+app.use('/user/increaseCredit', async(req, res) => {
     const b64auth = (req.headers.authorization || '').split(' ')[1] || '';
     const [login, password] = Buffer.from(b64auth, 'base64').toString().split(':');
     const authResult = await authService.userAuth(login, password);
@@ -207,7 +211,7 @@ app.use('/user/increaseCredit', async (req, res) => {
     }
 });
 
-app.use('/user/editUserInfo', async (req, res) => {
+app.use('/user/editUserInfo', async(req, res) => {
     const b64auth = (req.headers.authorization || '').split(' ')[1] || '';
     const [login, password] = Buffer.from(b64auth, 'base64').toString().split(':');
     const authResult = await authService.userAuth(login, password);
@@ -215,7 +219,7 @@ app.use('/user/editUserInfo', async (req, res) => {
     if (authResult != null && authResult.length == 1) {
         if (login && password && login === authResult[0].username && password === authResult[0].password) {
             // Access granted...
-            
+
             let updatedUser = await userService.editProfile(authResult[0].id, req.body.fields);
             const header = "Basic " + btoa(updatedUser.username + ":" + updatedUser.password);
             cookie = "Authorization=" + header;
@@ -230,6 +234,10 @@ app.use('/user/editUserInfo', async (req, res) => {
     }
 });
 
+app.use('/user/getProductInfo', async(req, res) => {
+    const info = await userService.getProduct(req.query.productId);
+    res.send(info);
+});
 
 app.post('/viewer/getProducts', async(req, res) => {
     body = req.body;

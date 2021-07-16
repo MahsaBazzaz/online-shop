@@ -1170,6 +1170,20 @@ hr {
     color: white;
 }
 
+#buy-product-modal .input-textbox {
+    direction: rtl;
+    text-align: center;
+    font-family: iransans;
+    font-size: 16px;
+    width: 200px;
+    background-color: white;
+    padding: 5px 10px 5px 10px;
+    border-radius: 5px 0px 0px 5px;
+    color: black;
+    border: none;
+    outline: none;
+}
+
 #buy-product-modal .purchase-div .submit-button {
     font-family: iransans;
     background-color: #ffc80a;
