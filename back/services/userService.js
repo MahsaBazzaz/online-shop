@@ -123,13 +123,14 @@ async function purchase(userId, productId, count) {
     //check if number of remaining products in stock is enough
     let purchasedProduct = await product.getProductById(productId);
     if (count > purchasedProduct.remaining) {
-        return console.error("Not enough in stock");
+        return { stat: false, message: "Not enough in stock" }
     }
     //check if credit is enough
     let buyerUser = await user.getUserById(userId);
     totalCost = count * purchasedProduct.price;
     if (totalCost > buyerUser.credit) {
-        return console.error("Not enough credit");
+        return { stat: false, message: "Not enough credit" }
+
     }
 
     //create new receipt
@@ -164,6 +165,7 @@ async function purchase(userId, productId, count) {
 
 
     console.log(buyerUserAfterPurchase);
+    return { stat: true, message: "parchused succesfully done" }
 }
 
 async function chargeCredit(userId, chargeAmount) {

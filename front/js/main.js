@@ -1,5 +1,6 @@
 var selected_product_id = -1;
 var selected_product_price = -1;
+selected_product_count = 1;
 //
 // hero header
 
@@ -161,10 +162,29 @@ window.onload = function() {
     document.getElementById("quantity").addEventListener("change", function() {
         // show the price 
         document.getElementById("total-price").innerText = document.getElementById("quantity").value * selected_product_price;
+        selected_product_count = document.getElementById("quantity").value;
     });
-    //ajax request for signup
 
+    document.getElementById("purchase-button").addEventListener('click', function() {
+        var xhttp = new XMLHttpRequest();
+        xhttp.open("GET", `http://localhost:3000/user/purchase?productId=${selected_product_id}&count=${selected_product_count}`, true);
+        xhttp.setRequestHeader("Authorization", getCookie("Authorization"));
+        xhttp.send();
 
+        xhttp.onreadystatechange = (e) => {
+            if (xhttp.readyState == 4 && xhttp.status == 200) {
+                if (xhttp.responseText) {
+                    const result = JSON.parse(xhttp.responseText);
+                    if (result.stat) {
+                        document.getElementById("buy-product-modal").style.display = "none";
+                        alert(result.message);
+                    } else {
+                        alert("error::" + result.message);
+                    }
+                }
+            }
+        }
+    });
     // price filter scripts
     pricefilter_inputLeft = document.getElementById("input-left");
     pricefilter_inputRight = document.getElementById("input-right");
@@ -242,7 +262,7 @@ function showProducts(products) {
         document.getElementById("buy-product-with-id-" + product.id).addEventListener("click", function() {
             selected_product_id = this.id.split("buy-product-with-id-")[1];
             document.getElementById("quantity").value = 1;
-
+            selected_product_count = 1;
             var xhttp = new XMLHttpRequest();
             xhttp.open("GET", `http://localhost:3000/user/getProductInfo?productId=${selected_product_id}`, true);
             xhttp.send();

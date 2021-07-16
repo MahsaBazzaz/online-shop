@@ -118,15 +118,15 @@ app.use('/isAdmin', (req, res) => {
     // Verify login and password are set and correct
     if (login && password && login === auth.login && password === auth.password) {
         // Access granted...
-        res.send({result: true});
+        res.send({ result: true });
     } else {
         // Access denied...
-        res.send({result: false});
+        res.send({ result: false });
         // res.set('WWW-Authenticate', 'Basic realm="401"'); // change this
         // res.status(401).send('Authentication required.'); // custom message
     }
 
-    
+
 });
 
 app.use('/getFirstname', async(req, res) => {
@@ -248,6 +248,25 @@ app.use('/user/editUserInfo', async(req, res) => {
 app.use('/user/getProductInfo', async(req, res) => {
     const info = await userService.getProduct(req.query.productId);
     res.send(info);
+});
+
+app.use('/user/purchase', async(req, res) => {
+    const b64auth = (req.headers.authorization || '').split(' ')[1] || '';
+    const [login, password] = Buffer.from(b64auth, 'base64').toString().split(':');
+    const authResult = await authService.userAuth(login, password);
+    // Verify login and password are set and correct
+    if (authResult != null && authResult.length == 1) {
+        if (login && password && login === authResult[0].username && password === authResult[0].password) {
+            // Access granted...
+            const result = await userService.purchase(authResult[0].id, req.query.productId, req.query.count);
+            res.send(result);
+        }
+
+    } else {
+        // Access denied...
+        res.set('WWW-Authenticate', 'Basic realm="401"'); // change this
+        res.status(401).send('Authentication required.'); // custom message
+    }
 });
 
 app.post('/viewer/getProducts', async(req, res) => {
