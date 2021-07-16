@@ -53,27 +53,31 @@ window.onload = function() {
                         tabs = ["tab1", "tab2", "tab3"];
                         tabDivs = ["product", "categories", "receipts"]
                         document.getElementById(tabs[0]).addEventListener("click", function() {
-                            selectTab(tabs, tabDivs, 0, 1, 2);
                             // products selected
+                            // get pages and get products
+                            getAllProducts(getCookie("Authorization"), currentPage, productsInPage);
+                            selectTab(tabs, tabDivs, 0, 1, 2);
 
                         });
                         document.getElementById(tabs[1]).addEventListener("click", function() {
-                            selectTab(tabs, tabDivs, 1, 0, 2);
                             console.log("here 1");
                             // categories selected
                             getAllCategories();
+                            selectTab(tabs, tabDivs, 1, 0, 2);
                         });
                         document.getElementById(tabs[2]).addEventListener("click", function() {
-                            selectTab(tabs, tabDivs, 2, 0, 1);
                             // receipts selected
                             // get receipts info
                             getAllReceipts(getCookie("Authorization"));
+                            selectTab(tabs, tabDivs, 2, 0, 1);
                         });
 
-                        let products = fillProducts();
-                        pages = Math.ceil(products.length / productsInPage);
-                        createPagination();
-                        showPage();
+                        getAllProducts(getCookie("Authorization"), currentPage, productsInPage);
+
+                        // let products = fillProducts();
+                        // pages = Math.ceil(products.length / productsInPage);
+                        // createPagination();
+                        // showPage();
 
 
                     } else {
@@ -310,28 +314,28 @@ function createProductBox(product) {
         '<p class="product-price">' + product.price + ' تومان</p>' +
         '<button id="edit-product-with-id-0" class="buy-product-button">ویرایش محصول</button>' +
         '</div>' +
-        '<span class="badge">12</span>';
+        '<span class="badge">' + product.sold + '</span>';
 
     return newDiv;
 
 }
 
-function createPagination() {
+function createPagination(cookie) {
     const pagination = document.getElementsByClassName("pagination")[0];
-
+    pagination.innerHTML = ""
     const prev = document.createElement("a");
     prev.id = "prev-btn";
     prev.innerHTML = 'صفحه قبل'
     prev.disabled = true;
     prev.addEventListener("click", function() {
-        goToPage(Math.max(1, currentPage - 1), pages);
+        goToPage(cookie, Math.max(1, currentPage - 1));
     });
 
     const next = document.createElement("a");
     next.id = "next-btn";
     next.innerHTML = 'صفحه بعد'
     next.addEventListener("click", function() {
-        goToPage(Math.min(currentPage + 1, pages), pages);
+        goToPage(cookie, Math.min(currentPage + 1, pages));
     });
 
     pagination.appendChild(prev);
@@ -343,7 +347,7 @@ function createPagination() {
             page.className = "active";
         }
         page.addEventListener("click", function() {
-            goToPage(i, pages);
+            goToPage(cookie, i);
         });
         pagination.appendChild(page);
     }
@@ -352,12 +356,12 @@ function createPagination() {
 }
 
 
-function goToPage(pageNumber) {
+function goToPage(cookie, pageNumber) {
     if (pageNumber != currentPage) {
         document.getElementById("page" + currentPage).classList.remove("active");
         document.getElementById("page" + pageNumber).classList.add("active");
         currentPage = pageNumber;
-        showPage();
+        getAllProducts(cookie, currentPage, productsInPage);
     }
 
 }
@@ -533,6 +537,27 @@ function createCategoryBox(category) {
     return newTr;
 }
 
+
+function getAllProducts(cookie, page, products_in_page) {
+    var xhttp = new XMLHttpRequest();
+    xhttp.open("GET", `http://localhost:3000/admin/getAllProducts?page=${page}&products_in_page=${products_in_page}`, true);
+    xhttp.setRequestHeader("Authorization", cookie);
+    xhttp.send();
+
+    xhttp.onreadystatechange = (e) => {
+        if (xhttp.readyState == 4 && xhttp.status == 200) {
+            if (xhttp.responseText) {
+                const response = JSON.parse(xhttp.responseText);
+                const products = response[0];
+                pages = response[1];
+                createPagination(getCookie("Authorization"));
+                showProducts(products);
+                document.getElementsByClassName("admin-div")[0].scrollIntoView();
+
+            }
+        }
+    }
+}
 
 function getCookie(name) {
     var dc = document.cookie;

@@ -6,7 +6,7 @@ const Product = require('../../models/Product');
 function getAllProducts(page, productsInPage) {
     const offset = productsInPage * (page - 1);
     const limit = productsInPage;
-    return Product.findAll({ offset: offset, limit: limit })
+    return Product.findAll({ offset: offset, limit: limit, order: [['sold', "DESC"]] })
         .then((products) => { return products; })
         .catch(err => {
             console.log(err);
@@ -104,6 +104,17 @@ function getPages(state) {
                 [state.order.by, state.order.order]
             ]
         })
+        .then((foundProducts) => {
+            return Math.ceil(foundProducts / productsInPage);
+        })
+        .catch(err => {
+            console.log(err);
+            return null;
+        });
+}
+
+function getAllPages(productsInPage) {
+    return Product.count()
         .then((foundProducts) => {
             return Math.ceil(foundProducts / productsInPage);
         })
@@ -230,5 +241,6 @@ module.exports = {
     truncateProductTable,
     getProductById,
     getProducts,
-    getPages
+    getPages,
+    getAllPages
 };

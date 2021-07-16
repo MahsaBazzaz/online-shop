@@ -15,6 +15,18 @@ async function getAllReceiptsForAdmin() {
     return await Receipt.getAllReceiptsForAdmin();
 }
 
+async function getAllProducts(page, productsInPage) {
+    
+    let products = await Product.getAllProducts(page, productsInPage);
+    for (pro of products) {
+        pro.category = await Category.mapCategoryIdToCategoryName(pro.category_id);
+    }
+
+    let pages = await Product.getAllPages(productsInPage);
+
+    return [products, pages];
+}
+
 async function searchReceiptsByTackingCode(trackingCode) {
     return await Receipt.findReceiptByTrackingCode(trackingCode);
 }
@@ -60,6 +72,7 @@ async function deleteCategory(categoryId) {
 module.exports = {
     editProduct,
     getAllReceipts,
+    getAllProducts,
     searchReceiptsByTackingCode,
     changeReceiptStatus,
     createCategory,
