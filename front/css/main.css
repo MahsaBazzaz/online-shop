@@ -1051,3 +1051,145 @@ hr {
 
 
 /* pagination */
+
+
+/* purchase modal */
+
+#buy-product-modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    margin: auto;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    overflow-y: auto;
+    overflow-x: hidden;
+    /* border-radius */
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    border-radius: 20px;
+    /* box-shadow */
+    -webkit-box-shadow: rgba(0, 0, 0, 0.8) 0px 0 10px;
+    -moz-box-shadow: rgba(0, 0, 0, 0.8) 0 0 10px;
+    box-shadow: rgba(0, 0, 0, 0.8) 0 0 10px;
+}
+
+#buy-product-modal .close-purchase-div {
+    color: #aaa;
+    position: absolute;
+    right: 10px;
+    top: 0px;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+#buy-product-modal .purchase-div {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--back-color-light);
+    padding: 10px 5px;
+    border-radius: 24px;
+    max-width: 800px;
+}
+
+#buy-product-modal .purchase-div .form-div {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: stretch;
+    margin-bottom: 30px;
+    max-width: 800px;
+    margin: 15px 0px;
+}
+
+#buy-product-modal .row-one {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    direction: rtl;
+    justify-content: flex-start;
+}
+
+#buy-product-modal .row-two {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    direction: rtl;
+    justify-content: flex-start;
+}
+
+#buy-product-modal .purchase-div .submit-div {
+    justify-content: center;
+    text-align: center;
+}
+
+#buy-product-modal .input-container {
+    direction: rtl;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    margin: 5px 10px 10px 10px;
+    width: 100%;
+}
+
+#buy-product-modal .text-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+    margin: 5px 10px 10px 10px;
+    width: 100%;
+}
+
+#buy-product-modal #price-text {
+    color: var(--menu-blue)
+}
+
+#buy-product-modal #total-price {
+    margin: 0px 10px;
+}
+
+#buy-product-modal .input-label {
+    direction: rtl;
+    text-align: center;
+    font-family: iransans;
+    font-size: 14px;
+    width: 70px;
+    background-color: var(--input-label-color);
+    padding: 5px 10px 5px 10px;
+    border-radius: 0px 5px 5px 0px;
+    color: white;
+}
+
+#buy-product-modal .purchase-div .submit-button {
+    font-family: iransans;
+    background-color: #ffc80a;
+    color: black;
+    text-align: center;
+    justify-content: center;
+    direction: rtl;
+    padding: 10px 50px 10px 50px;
+    border-radius: 24px;
+    border-style: solid;
+    border-width: 0px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+#buy-product-modal .purchase-div .submit-button:hover {
+    -moz-box-shadow: 1px 1px 3px 1px #ffc80a;
+    -webkit-box-shadow: 1px 1px 3px 1px #ffc80a;
+    box-shadow: 1px 1px 3px 1px #ffc80a;
+}
+
+
+/* purchase modal */
