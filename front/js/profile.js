@@ -5,6 +5,31 @@ window.onload = function() {
     // check if cookie is set or not
     if (getCookie("Authorization") != null) {
 
+        var xhttp = new XMLHttpRequest();
+        xhttp.open("GET", `http://localhost:3000/isAdmin`, true);
+        xhttp.setRequestHeader("Authorization", getCookie("Authorization"));
+        xhttp.send();
+
+        xhttp.onreadystatechange = async (e) => {
+            if (xhttp.readyState == 4 && xhttp.status == 200) {
+                if (xhttp.responseText) {
+                    //console.log(xhttp.responseText);
+                    result = JSON.parse(xhttp.responseText).result;
+                    if (! result) {
+                        //access granted
+                        console.log("OK");
+
+                        //everything has to be implented here
+
+                    } else {
+                        //access denied
+                        console.log("Error");
+                        window.location.replace("index.html");
+                    }
+                }
+            }
+        }
+
         document.getElementById("homepage").addEventListener("click", function(){
             window.location.replace("index.html");
         });

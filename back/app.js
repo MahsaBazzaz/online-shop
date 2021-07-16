@@ -108,7 +108,7 @@ app.use('/signup', async(req, res) => {
 
 
 
-app.use('/admin', (req, res, next) => {
+app.use('/isAdmin', (req, res) => {
     console.log(req.headers.authorization);
 
     const auth = { login: 'admin', password: 'password' };
@@ -118,30 +118,41 @@ app.use('/admin', (req, res, next) => {
     // Verify login and password are set and correct
     if (login && password && login === auth.login && password === auth.password) {
         // Access granted...
-        return next();
-    }
-
-    // Access denied...
-    res.set('WWW-Authenticate', 'Basic realm="401"'); // change this
-    res.status(401).send('Authentication required.'); // custom message
-});
-
-app.use('/user/getFirstname', async(req, res) => {
-    const b64auth = (req.headers.authorization || '').split(' ')[1] || '';
-    const [login, password] = Buffer.from(b64auth, 'base64').toString().split(':');
-    const authResult = await authService.userAuth(login, password);
-    // Verify login and password are set and correct
-    if (authResult != null && authResult.length == 1) {
-        if (login && password && login === authResult[0].username && password === authResult[0].password) {
-            // Access granted...
-            res.send(authResult[0].firstname);
-
-        }
-
+        res.send({result: true});
     } else {
         // Access denied...
-        res.set('WWW-Authenticate', 'Basic realm="401"'); // change this
-        res.status(401).send('Authentication required.'); // custom message
+        res.send({result: false});
+        // res.set('WWW-Authenticate', 'Basic realm="401"'); // change this
+        // res.status(401).send('Authentication required.'); // custom message
+    }
+
+    
+});
+
+app.use('/getFirstname', async(req, res) => {
+    adminName = "ادمین"
+    const auth = { login: 'admin', password: 'password' };
+    const b64auth = (req.headers.authorization || '').split(' ')[1] || '';
+    const [login, password] = Buffer.from(b64auth, 'base64').toString().split(':');
+
+    if (login && password && login === auth.login && password === auth.password) {
+        //Admin access granted
+        res.send(adminName);
+    } else {
+        const authResult = await authService.userAuth(login, password);
+        // Verify login and password are set and correct
+        if (authResult != null && authResult.length == 1) {
+            if (login && password && login === authResult[0].username && password === authResult[0].password) {
+                // User access granted...
+                res.send(authResult[0].firstname);
+            }
+
+        } else {
+            // Access denied...
+            res.set('WWW-Authenticate', 'Basic realm="401"'); // change this
+            res.status(401).send('Authentication required.'); // custom message
+        }
+
     }
 
 });
