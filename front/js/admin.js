@@ -6,7 +6,7 @@ window.onload = function() {
 
     if (getCookie("Authorization")) {
         var xhttp = new XMLHttpRequest();
-        xhttp.open("GET", `http://localhost:3000/isAdmin`, true);
+        xhttp.open("GET", `http://localhost:3000/userType`, true);
         xhttp.setRequestHeader("Authorization", getCookie("Authorization"));
         xhttp.send();
 
@@ -14,9 +14,9 @@ window.onload = function() {
             if (xhttp.readyState == 4 && xhttp.status == 200) {
                 if (xhttp.responseText) {
                     //console.log(xhttp.responseText);
-                    result = JSON.parse(xhttp.responseText).result;
-                    if (result) {
-                        //access granted
+                    result = JSON.parse(xhttp.responseText);
+                    if (result.result == true && result.type == "admin") {
+                        //admin access granted
                         console.log("OK");
 
                         //everything has to be implented here

@@ -108,22 +108,27 @@ app.use('/signup', async(req, res) => {
 
 
 
-app.use('/isAdmin', (req, res) => {
-    console.log(req.headers.authorization);
-
+app.use('/userType', async (req, res) => {
     const auth = { login: 'admin', password: 'password' };
     const b64auth = (req.headers.authorization || '').split(' ')[1] || '';
     const [login, password] = Buffer.from(b64auth, 'base64').toString().split(':');
 
-    // Verify login and password are set and correct
     if (login && password && login === auth.login && password === auth.password) {
-        // Access granted...
-        res.send({ result: true });
+        // Admin Access granted...
+        // route to admin panel;
+        res.send({ result: true, type: "admin" });
     } else {
-        // Access denied...
-        res.send({ result: false });
-        // res.set('WWW-Authenticate', 'Basic realm="401"'); // change this
-        // res.status(401).send('Authentication required.'); // custom message
+        authResult = await authService.userAuth(login, password);
+
+        console.log(authResult);
+        if (authResult != null && authResult.length == 1) {
+            //User Access granted
+            res.send({ result: true, type: "user" });
+
+        } else {
+            //Access denied
+            res.send({ result: false, type: "viewer" });
+        }
     }
 
 

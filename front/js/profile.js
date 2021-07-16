@@ -6,7 +6,7 @@ window.onload = function() {
     if (getCookie("Authorization") != null) {
 
         var xhttp = new XMLHttpRequest();
-        xhttp.open("GET", `http://localhost:3000/isAdmin`, true);
+        xhttp.open("GET", `http://localhost:3000/userType`, true);
         xhttp.setRequestHeader("Authorization", getCookie("Authorization"));
         xhttp.send();
 
@@ -14,79 +14,84 @@ window.onload = function() {
             if (xhttp.readyState == 4 && xhttp.status == 200) {
                 if (xhttp.responseText) {
                     //console.log(xhttp.responseText);
-                    result = JSON.parse(xhttp.responseText).result;
-                    if (! result) {
+                    result = JSON.parse(xhttp.responseText);
+                    if (result.result && result.type == "user") {
                         //access granted
                         console.log("OK");
-
                         //everything has to be implented here
 
+                        document.getElementById("homepage").addEventListener("click", function(){
+                            window.location.replace("index.html");
+                        });
+                
+                        document.getElementById("products").addEventListener("click", function(){
+                            window.location.replace("index.html#products");
+                        });
+                        
+                        document.getElementsByClassName("logout-btn")[0].addEventListener("click", function() {
+                            logout();
+                        });
+                
+                        document.getElementsByClassName("profile-btn")[0].addEventListener("click", function() {
+                            window.location.replace("profile.html");
+                        });
+                
+                        document.getElementById("increase-credit").addEventListener("click", function() {
+                            increaseCredit(getCookie("Authorization"), creditRaise);
+                        });
+                
+                        document.getElementById("edit-profile").addEventListener("click", function() {
+                            const firstname = document.getElementById("firstname-input").value;
+                            const lastname = document.getElementById("lastname-input").value;
+                            const password = document.getElementById("password-input").value;
+                            const address = document.getElementById("address-input").value;
+                            const newFields = { firstname: firstname,
+                                                lastname: lastname,
+                                                address: address};
+                
+                            if (password.length >= 6) {
+                                newFields.password = password;
+                            }
+
+                            editUserInfo(getCookie("Authorization"), newFields);
+                        });
+                        
+                        getUserInfo(getCookie("Authorization"));
+                
                     } else {
+                        document.getElementsByClassName("dropdown-content")[0].style.display = "none";
+                        window.location.replace("index.html");
+                    }
+                    
+                    
+                    tabs = ["tab1", "tab2"];
+                    classes = ["profile-section", "reciepts-section"]
+                    document.getElementById(tabs[0]).addEventListener("click", function() {
+                        makeProfileVisible();
+                        // get profile info
+                        getUserInfo(getCookie("Authorization"));
+                
+                    });
+                    document.getElementById(tabs[1]).addEventListener("click", function() {
+                        makeRecieptVisible();
+                        getUserInfo(getCookie("Authorization"));
+                        // get receipts info
+                        getAllReceipts(getCookie("Authorization"));
+                    });
+
+                } else {
                         //access denied
                         console.log("Error");
                         window.location.replace("index.html");
-                    }
                 }
             }
         }
-
-        document.getElementById("homepage").addEventListener("click", function(){
-            window.location.replace("index.html");
-        });
-
-        document.getElementById("products").addEventListener("click", function(){
-            window.location.replace("index.html#products");
-        });
-        
-        document.getElementsByClassName("logout-btn")[0].addEventListener("click", function() {
-            logout();
-        });
-
-        document.getElementsByClassName("profile-btn")[0].addEventListener("click", function() {
-            window.location.replace("profile.html");
-        });
-
-        document.getElementById("increase-credit").addEventListener("click", function() {
-            increaseCredit(getCookie("Authorization"), creditRaise);
-        });
-
-        document.getElementById("edit-profile").addEventListener("click", function() {
-            const firstname = document.getElementById("firstname-input").value;
-            const lastname = document.getElementById("lastname-input").value;
-            const password = document.getElementById("password-input").value;
-            const address = document.getElementById("address-input").value;
-            const newFields = { firstname: firstname,
-                                lastname: lastname,
-                                address: address};
-
-            if (password.length >= 6) {
-                newFields.password = password;
-            }
-            editUserInfo(getCookie("Authorization"), newFields);
-        });
-        
-        getUserInfo(getCookie("Authorization"));
-
     } else {
-        document.getElementsByClassName("dropdown-content")[0].style.display = "none";
+        // access denied
+        console.log("Error");
         window.location.replace("index.html");
     }
-    
-    
-    tabs = ["tab1", "tab2"];
-    classes = ["profile-section", "reciepts-section"]
-    document.getElementById(tabs[0]).addEventListener("click", function() {
-        makeProfileVisible();
-        // get profile info
-        getUserInfo(getCookie("Authorization"));
 
-    });
-    document.getElementById(tabs[1]).addEventListener("click", function() {
-        makeRecieptVisible();
-        getUserInfo(getCookie("Authorization"));
-        // get receipts info
-        getAllReceipts(getCookie("Authorization"));
-    });
 
 }
 

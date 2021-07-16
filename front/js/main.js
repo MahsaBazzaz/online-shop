@@ -68,54 +68,113 @@ window.onload = function() {
     // check if cookie is set or not
     if (getCookie("Authorization") != null) {
         // console.log(authCookie);
-        getUserFirstName(getCookie("Authorization"));
 
-        document.getElementsByClassName("logout-btn")[0].addEventListener("click", function() {
-            logout();
-        });
+        var xhttp = new XMLHttpRequest();
+        xhttp.open("GET", `http://localhost:3000/userType`, true);
+        xhttp.setRequestHeader("Authorization", getCookie("Authorization"));
+        xhttp.send();
 
-        document.getElementsByClassName("profile-btn")[0].addEventListener("click", function() {
-            goToProfilePage(getCookie("Authorization"));
-            //window.location.replace("profile.html");
-        });
+        xhttp.onreadystatechange = async (e) => {
+            if (xhttp.readyState == 4 && xhttp.status == 200) {
+                if (xhttp.responseText) {
+                    //console.log(xhttp.responseText);
+                    result = JSON.parse(xhttp.responseText);
+                    if (result.result && result.type != "viewer") {
+                        //user or admin access granted
+                        getUserFirstName(getCookie("Authorization"));
+
+                        document.getElementsByClassName("logout-btn")[0].addEventListener("click", function() {
+                            logout();
+                        });
+
+                        document.getElementsByClassName("profile-btn")[0].addEventListener("click", function() {
+                            goToProfilePage(getCookie("Authorization"));
+                            //window.location.replace("profile.html");
+                        });
+                    }
+
+                    if (result.result && result.type == "user") {
+                        //user access granted
+
+                        
+                        document.getElementsByClassName("close-purchase-div")[0].addEventListener("click", function() {
+                            document.getElementById("buy-product-modal").style.display = "none";
+                    
+                        });
+
+                        document.getElementById("quantity").addEventListener("change", function() {
+                            // show the price 
+                            document.getElementById("total-price").innerText = document.getElementById("quantity").value * selected_product_price;
+                            selected_product_count = document.getElementById("quantity").value;
+                        });
+                    
+                        document.getElementById("purchase-button").addEventListener('click', function() {
+                            var xhttp = new XMLHttpRequest();
+                            xhttp.open("GET", `http://localhost:3000/user/purchase?productId=${selected_product_id}&count=${selected_product_count}`, true);
+                            xhttp.setRequestHeader("Authorization", getCookie("Authorization"));
+                            xhttp.send();
+                    
+                            xhttp.onreadystatechange = (e) => {
+                                if (xhttp.readyState == 4 && xhttp.status == 200) {
+                                    if (xhttp.responseText) {
+                                        const result = JSON.parse(xhttp.responseText);
+                                        if (result.stat) {
+                                            document.getElementById("buy-product-modal").style.display = "none";
+                                            alert(result.message);
+                                        } else {
+                                            alert("error::" + result.message);
+                                        }
+                                    }
+                                }
+                            }
+                        });
+                    }
+                }
+            }
+        }
 
 
     } else {
+        //viewer access here
+
         document.getElementsByClassName("dropdown-content")[0].style.display = "none";
+
+        // transition between login and signup
+        document.getElementById("go-to-signup").addEventListener("click", function() {
+            document.getElementsByClassName("signup-div")[0].style.display = "block";
+            document.getElementsByClassName("login-div")[0].style.display = "none";
+        })
+
+        // login
+        document.getElementById("login-button").addEventListener("click", function() {
+            var email = document.getElementById("login-email").value;
+            var password = document.getElementById("login-pass").value;
+            // check validation 
+            login(email, password);
+        })
+
+
+        //signup
+        document.getElementById("signup-button").addEventListener("click", function() {
+            const firstname = document.getElementById("signup-firstname").value;
+            const lastname = document.getElementById("signup-lastname").value;
+            const email = document.getElementById("signup-email").value;
+            const password = document.getElementById("signup-password").value;
+            const address = document.getElementById("signup-address").value;
+            fields = {
+                    firstname: firstname,
+                    lastname: lastname,
+                    username: email,
+                    password: password,
+                    address: address
+                }
+            // check validation => to be implemented
+            signup(fields);
+        })
+
     }
 
-    // transition between login and signup
-    document.getElementById("go-to-signup").addEventListener("click", function() {
-        document.getElementsByClassName("signup-div")[0].style.display = "block";
-        document.getElementsByClassName("login-div")[0].style.display = "none";
-    })
-
-    // login
-    document.getElementById("login-button").addEventListener("click", function() {
-        var email = document.getElementById("login-email").value;
-        var password = document.getElementById("login-pass").value;
-        // check validation 
-        login(email, password);
-    })
-
-
-    //signup
-    document.getElementById("signup-button").addEventListener("click", function() {
-        const firstname = document.getElementById("signup-firstname").value;
-        const lastname = document.getElementById("signup-lastname").value;
-        const email = document.getElementById("signup-email").value;
-        const password = document.getElementById("signup-password").value;
-        const address = document.getElementById("signup-address").value;
-        fields = {
-                firstname: firstname,
-                lastname: lastname,
-                username: email,
-                password: password,
-                address: address
-            }
-            // check validation => to be implemented
-        signup(fields);
-    })
+    
 
     //sort
     document.getElementById("best-seller").addEventListener("click", sortBySold);
@@ -125,17 +184,6 @@ window.onload = function() {
 
     //ajax request for getting categories list
     getAllCategories();
-
-    //ajax request for getting products list
-    // getAllProducts(1);
-
-
-
-
-    //ajax request for getting products list sorted by creation date -> DONE
-
-
-    //ajax request for getting products by category
 
 
     //ajax request for getting products in price range -> DONE but //FIXME: the ui does not work
@@ -155,36 +203,7 @@ window.onload = function() {
     });
 
 
-    document.getElementsByClassName("close-purchase-div")[0].addEventListener("click", function() {
-        document.getElementById("buy-product-modal").style.display = "none";
-
-    });
-    document.getElementById("quantity").addEventListener("change", function() {
-        // show the price 
-        document.getElementById("total-price").innerText = document.getElementById("quantity").value * selected_product_price;
-        selected_product_count = document.getElementById("quantity").value;
-    });
-
-    document.getElementById("purchase-button").addEventListener('click', function() {
-        var xhttp = new XMLHttpRequest();
-        xhttp.open("GET", `http://localhost:3000/user/purchase?productId=${selected_product_id}&count=${selected_product_count}`, true);
-        xhttp.setRequestHeader("Authorization", getCookie("Authorization"));
-        xhttp.send();
-
-        xhttp.onreadystatechange = (e) => {
-            if (xhttp.readyState == 4 && xhttp.status == 200) {
-                if (xhttp.responseText) {
-                    const result = JSON.parse(xhttp.responseText);
-                    if (result.stat) {
-                        document.getElementById("buy-product-modal").style.display = "none";
-                        alert(result.message);
-                    } else {
-                        alert("error::" + result.message);
-                    }
-                }
-            }
-        }
-    });
+    
     // price filter scripts
     pricefilter_inputLeft = document.getElementById("input-left");
     pricefilter_inputRight = document.getElementById("input-right");
@@ -259,28 +278,53 @@ function showProducts(products) {
     //productsBox.scrollTop = 0; we should use animation for this
     for (product of products) {
         productsBox.appendChild(createProductBox(product));
-        document.getElementById("buy-product-with-id-" + product.id).addEventListener("click", function() {
-            selected_product_id = this.id.split("buy-product-with-id-")[1];
-            document.getElementById("quantity").value = 1;
-            selected_product_count = 1;
-            var xhttp = new XMLHttpRequest();
-            xhttp.open("GET", `http://localhost:3000/user/getProductInfo?productId=${selected_product_id}`, true);
-            xhttp.send();
+    }
 
-            xhttp.onreadystatechange = (e) => {
-                if (xhttp.readyState == 4 && xhttp.status == 200) {
-                    if (xhttp.responseText) {
-                        console.log(xhttp.responseText);
-                        jsonObj = JSON.parse(xhttp.responseText);
-                        document.getElementById("total-price").innerText = jsonObj.price;
-                        selected_product_price = jsonObj.price;
+    //check user access for purchase button event listener
+
+    var xhttp = new XMLHttpRequest();
+    xhttp.open("GET", `http://localhost:3000/userType`, true);
+    xhttp.setRequestHeader("Authorization", getCookie("Authorization"));
+    xhttp.send();
+
+    xhttp.onreadystatechange = async (e) => {
+        if (xhttp.readyState == 4 && xhttp.status == 200) {
+            if (xhttp.responseText) {
+                //console.log(xhttp.responseText);
+                result = JSON.parse(xhttp.responseText);
+                if (result.result && result.type == "user") {
+
+                    for (product of products) {
+                        document.getElementById("buy-product-with-id-" + product.id).addEventListener("click", function() {
+                            selected_product_id = this.id.split("buy-product-with-id-")[1];
+                            document.getElementById("quantity").value = 1;
+                            selected_product_count = 1;
+                            var xhttp = new XMLHttpRequest();
+                            xhttp.open("GET", `http://localhost:3000/user/getProductInfo?productId=${selected_product_id}`, true);
+                            xhttp.send();
+                            xhttp.onreadystatechange = (e) => {
+                                if (xhttp.readyState == 4 && xhttp.status == 200) {
+                                    if (xhttp.responseText) {
+                                        console.log(xhttp.responseText);
+                                        jsonObj = JSON.parse(xhttp.responseText);
+                                        document.getElementById("total-price").innerText = jsonObj.price;
+                                        selected_product_price = jsonObj.price;
+                                    }
+                                }
+                            }
+                            document.getElementById("buy-product-modal").style.display = "flex"; 
+                        })
+                    }
+                } else {
+                    for (product of products) {
+                        document.getElementById("buy-product-with-id-" + product.id).disabled = true;
                     }
                 }
             }
-            document.getElementById("buy-product-modal").style.display = "flex";
-
-        })
+        }
     }
+    
+
 }
 
 function createProductBox(product) {

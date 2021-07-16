@@ -1084,6 +1084,7 @@ hr {
     right: 10px;
     top: 0px;
     font-size: 28px;
+    cursor: pointer;
     font-weight: bold;
 }
 
