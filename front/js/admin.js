@@ -1,7 +1,7 @@
 let currentPage = 1;
 let pages = 0;
 const productsInPage = 15;
-
+let selected_product_id = -1;
 window.onload = function() {
 
     if (getCookie("Authorization")) {
@@ -50,9 +50,9 @@ window.onload = function() {
                             searchReceiptsByTrackingCode(getCookie("Authorization"), term);
                         });
 
-                        loadCategories();
 
                         document.getElementsByClassName("create-product-button")[0].addEventListener("click", function() {
+                            selected_product_id = -1;
                             document.getElementById("product-name-field").value = "";
                             document.getElementById("product-category-field").value = 1;
                             document.getElementById("product-price-field").value = 0;
@@ -66,8 +66,35 @@ window.onload = function() {
                         })
 
                         document.getElementById("save-changes").addEventListener("click", function() {
-                            // create new product ajax
-                            document.getElementById("product-modal").style.display = "none";
+                            var xhttp = new XMLHttpRequest();
+                            xhttp.open("POST", `http://localhost:3000/admin/CreateOrUpdateProduct?product_id=${selected_product_id}`, true);
+                            xhttp.setRequestHeader("Authorization", getCookie("Authorization"));
+                            xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+                            xhttp.setRequestHeader("Accept", "application/json");
+                            const field = JSON.stringify({
+                                name: document.getElementById("product-name-field").value,
+                                category_id: document.getElementById("product-category-field").value,
+                                price: document.getElementById("product-price-field").value,
+                                remaining: document.getElementById("product-remaining-field").value
+                            })
+                            xhttp.send(field);
+
+                            xhttp.onreadystatechange = (e) => {
+                                if (xhttp.readyState == 4 && xhttp.status == 200) {
+                                    if (xhttp.responseText) {
+                                        const result = JSON.parse(xhttp.responseText);
+                                        if (result.stat) {
+                                            alert(result.message);
+                                            document.getElementById("product-modal").style.display = "none";
+                                            getAllProducts(getCookie("Authorization"), currentPage, productsInPage);
+                                        } else {
+                                            alert("error:: " + result.message);
+
+                                        }
+                                    }
+
+                                }
+                            }
                         })
 
                         tabs = ["tab1", "tab2", "tab3"];
@@ -242,7 +269,10 @@ function showProducts(products) {
     for (product of products) {
         productsBox.appendChild(createProductBox(product));
         document.getElementById("edit-product-with-id-" + product.id).addEventListener("click", function() {
+            loadCategories();
+
             const id = this.id.split("edit-product-with-id-")[1];
+            selected_product_id = id;
             // ajax call to get product information
             var xhttp = new XMLHttpRequest();
             xhttp.open("GET", `http://localhost:3000/admin/getProductWithId?product_id=${id}`, true);
@@ -549,7 +579,7 @@ function loadCategories() {
     var xhttp = new XMLHttpRequest();
     xhttp.open("GET", `http://localhost:3000/viewer/getAllCategories`, true);
     xhttp.send();
-
+    document.getElementById("product-category-field").innerHTML = "";
     xhttp.onreadystatechange = (e) => {
         if (xhttp.readyState == 4 && xhttp.status == 200) {
             if (xhttp.responseText) {

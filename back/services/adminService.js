@@ -76,6 +76,15 @@ async function deleteCategory(categoryId) {
 
 }
 
+async function createOrUpdateProduct(product_id, newFields) {
+
+    const createdOrUpdated = await Product.createOrUpdateProduct(product_id, newFields);
+    if (createdOrUpdated != null) {
+        return { stat: true, message: "operation was successfully done" }
+    } else
+        return { stat: false, message: "operation failed" }
+}
+
 module.exports = {
     editProduct,
     getAllReceipts,
@@ -86,5 +95,6 @@ module.exports = {
     createCategory,
     editCategory,
     deleteCategory,
-    getAllReceiptsForAdmin
+    getAllReceiptsForAdmin,
+    createOrUpdateProduct
 };

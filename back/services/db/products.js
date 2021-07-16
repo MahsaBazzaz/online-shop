@@ -6,7 +6,13 @@ const Product = require('../../models/Product');
 function getAllProducts(page, productsInPage) {
     const offset = productsInPage * (page - 1);
     const limit = productsInPage;
-    return Product.findAll({ offset: offset, limit: limit, order: [['sold', "DESC"]] })
+    return Product.findAll({
+            offset: offset,
+            limit: limit,
+            order: [
+                ['sold', "DESC"]
+            ]
+        })
         .then((products) => { return products; })
         .catch(err => {
             console.log(err);
@@ -228,6 +234,20 @@ function truncateProductTable() {
         });
 }
 
+function createOrUpdateProduct(product_id, newFields) {
+    return Product.findByPk(product_id)
+        .then(function(obj) {
+            // update
+            if (obj) {
+                console.log("product was found. going to update it")
+                return Product.update(newFields, { where: { id: product_id } });
+            }
+            // insert
+            newFields.sold = 0;
+            return Product.create(newFields);
+        }).catch(err => { console.log(err); return null; })
+}
+
 module.exports = {
     getAllProducts,
     createProduct,
@@ -242,5 +262,6 @@ module.exports = {
     getProductById,
     getProducts,
     getPages,
-    getAllPages
+    getAllPages,
+    createOrUpdateProduct
 };
