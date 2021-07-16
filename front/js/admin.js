@@ -455,6 +455,7 @@ function showCategories(categories) {
         category_table.append(createCategoryBox(category));
         document.getElementById("category-edit-" + category.id).addEventListener("click", function() {
             document.getElementById("category-name-" + this.id.split("category-edit-")[1]).setAttribute('contenteditable', true);
+            document.getElementById("category-name-" + this.id.split("category-edit-")[1]).focus();
             this.style.display = "none";
             document.getElementById("category-save-" + this.id.split("category-edit-")[1]).style.display = "inline-block";
         })
