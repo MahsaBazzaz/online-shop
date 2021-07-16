@@ -670,6 +670,7 @@ hr {
     flex-wrap: nowrap;
     direction: rtl;
     justify-content: center;
+    margin-bottom: 10px;
 }
 
 #product-modal .row-two {
@@ -681,6 +682,7 @@ hr {
 }
 
 #product-modal .info-div .submit-div {
+    margin-top: 10px;
     justify-content: center;
     text-align: center;
 }
