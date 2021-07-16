@@ -40,6 +40,16 @@ window.onload = function() {
                             //window.location.replace("profile.html");
                         });
 
+                        document.getElementById("search_code_text").addEventListener("keydown", function() {
+                            const term =  document.getElementById("search_code_text").value;
+                            searchReceiptsByTrackingCode(getCookie("Authorization"), term);
+                        });
+
+                        document.getElementById("search_code_text").addEventListener("keyup", function() {
+                            const term =  document.getElementById("search_code_text").value;
+                            searchReceiptsByTrackingCode(getCookie("Authorization"), term);
+                        });
+
                         tabs = ["tab1", "tab2", "tab3"];
                         tabDivs = ["product", "categories", "receipts"]
                         document.getElementById(tabs[0]).addEventListener("click", function() {
@@ -55,9 +65,8 @@ window.onload = function() {
                         document.getElementById(tabs[2]).addEventListener("click", function() {
                             selectTab(tabs, tabDivs, 2, 0, 1);
                             // receipts selected
-                            const response = getAllReceipts();
-                            console.log(response);
-                    
+                            // get receipts info
+                            getAllReceipts(getCookie("Authorization"));
                         });
                     
                         let products = fillProducts();
@@ -146,22 +155,79 @@ window.onload = function() {
 
 
 
-function getAllReceipts() {
+function getAllReceipts(cookie) {
     var xhttp = new XMLHttpRequest();
-    xhttp.open("POST", `http://localhost:3000/admin/getAllReceipts`, true);
-    xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-    xhttp.setRequestHeader("Accept", "application/json");
-
-    //xhttp.send(jsonObject);
+    xhttp.open("GET", `http://localhost:3000/admin/getAllReceipts`, true);
+    xhttp.setRequestHeader("Authorization", cookie);
+    xhttp.send();
 
     xhttp.onreadystatechange = (e) => {
         if (xhttp.readyState == 4 && xhttp.status == 200) {
-            if (xhttp.responseText) {
 
-                console.log(xhttp.responseText);
+            if (xhttp.responseText) {
+                res = JSON.parse(xhttp.responseText);
+                //console.log(res);
+                showReceipts(res)
             }
         }
     }
+}
+
+function searchReceiptsByTrackingCode(cookie, term) {
+    var xhttp = new XMLHttpRequest();
+    xhttp.open("GET", `http://localhost:3000/admin/searchReceiptsByTrackingCode?term=${term}`, true);
+    xhttp.setRequestHeader("Authorization", cookie);
+    xhttp.send();
+
+    xhttp.onreadystatechange = (e) => {
+        if (xhttp.readyState == 4 && xhttp.status == 200) {
+
+            if (xhttp.responseText) {
+                res = JSON.parse(xhttp.responseText);
+                //console.log(res);
+                showReceipts(res)
+            }
+        }
+    }
+}
+
+function showReceipts(receipts) {
+    receiptsTable = document.getElementsByClassName("receipts-table")[0];
+    receiptsTable.innerHTML =   "<tr>" +
+                                    "<th>کد پیگیری</th>" +
+                                    "<th>کالا</th>" +
+                                    "<th>قیمت پرداخت شده</th>" +
+                                    "<th>نام خریدار</th>" +
+                                    "<th>آدرس ارسال شده</th>" +
+                                "</tr>";
+
+    for (let receipt of receipts) {
+        receiptsTable.appendChild(createReceipt(receipt));
+    }
+}
+
+function createReceipt(receipt) {
+    const newRow = document.createElement("tr");
+
+    const trackingCodeColumn = document.createElement("td");
+    const nameColumn = document.createElement("td");
+    const costColumn = document.createElement("td");
+    const firstnameColumn = document.createElement("td");
+    const addressColumn = document.createElement("td");
+
+    trackingCodeColumn.innerText = receipt.tracking_code;
+    nameColumn.innerText = receipt.product_name;
+    costColumn.innerText = receipt.total_cost;
+    firstnameColumn.innerText = receipt.user_firstname;
+    addressColumn.innerText = receipt.user_address;
+
+    newRow.appendChild(trackingCodeColumn);
+    newRow.appendChild(nameColumn);
+    newRow.appendChild(costColumn);
+    newRow.appendChild(firstnameColumn);
+    newRow.appendChild(addressColumn);
+
+    return newRow;
 }
 
 function selectTab(tabs, tabDivs, select, unselect1, unselect2) {
