@@ -1,3 +1,4 @@
+var selected_product_id = -1;
 //
 // hero header
 
@@ -61,12 +62,12 @@ var pricefilter_thumbLeft;
 var pricefilter_thumbRight;
 var pricefilter_range;
 window.onload = function() {
-    
+
     // check if cookie is set or not
     if (getCookie("Authorization") != null) {
         // console.log(authCookie);
         getUserFirstName(getCookie("Authorization"));
-        
+
         document.getElementsByClassName("logout-btn")[0].addEventListener("click", function() {
             logout();
         });
@@ -75,16 +76,16 @@ window.onload = function() {
             goToProfilePage(getCookie("Authorization"));
             //window.location.replace("profile.html");
         });
-        
+
 
     } else {
         document.getElementsByClassName("dropdown-content")[0].style.display = "none";
     }
-    
+
     // transition between login and signup
     document.getElementById("go-to-signup").addEventListener("click", function() {
-            document.getElementsByClassName("signup-div")[0].style.display = "block";
-            document.getElementsByClassName("login-div")[0].style.display = "none";
+        document.getElementsByClassName("signup-div")[0].style.display = "block";
+        document.getElementsByClassName("login-div")[0].style.display = "none";
     })
 
     // login
@@ -104,13 +105,13 @@ window.onload = function() {
         const password = document.getElementById("signup-password").value;
         const address = document.getElementById("signup-address").value;
         fields = {
-            firstname: firstname,
-            lastname: lastname,
-            username: email,
-            password: password,
-            address: address
-        }
-        // check validation => to be implemented
+                firstname: firstname,
+                lastname: lastname,
+                username: email,
+                password: password,
+                address: address
+            }
+            // check validation => to be implemented
         signup(fields);
     })
 
@@ -119,7 +120,7 @@ window.onload = function() {
     document.getElementById("price").addEventListener("click", sortByPrice);
     document.getElementById("creation-date").addEventListener("click", sortByCreationDate);
     document.getElementById("order-checkbox").addEventListener("click", changeSortOrder);
-    
+
     //ajax request for getting categories list
     getAllCategories();
 
@@ -152,7 +153,21 @@ window.onload = function() {
     });
 
     //ajax request for purchasing products
+    var buy_buttons = document.getElementsByClassName("buy-product-button");
+    for (btn of buy_buttons) {
+        btn.addEventListener("click", function() {
+            selected_product_id = btn.id.split("buy-product-button-")[1];
+            document.getElementById("buy-product-modal").style.display = "flex";
+        })
+    }
+    document.getElementsByClassName("close-purchase-div")[0].addEventListener("click", function() {
+        document.getElementById("buy-product-modal").style.display = "none";
 
+    });
+    document.getElementById("quantity").addEventListener("change", function() {
+        // show the price 
+        document.getElementById("total-price").innerText = 2000;
+    });
     //ajax request for signup
 
 
@@ -214,10 +229,10 @@ function getProducts(option) {
                 pages = response[1];
                 createPagination();
                 showProducts(products);
-                if(! option) {
+                if (!option) {
                     document.getElementsByClassName("sorting-box-container")[0].scrollIntoView();
                 }
-                
+
             }
         }
     }
@@ -423,7 +438,7 @@ function signup(fields) {
     xhttp.open("POST", `http://localhost:3000/signup`, true);
     xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     xhttp.setRequestHeader("Accept", "application/json");
-    jsonObject = JSON.stringify({fields: fields});
+    jsonObject = JSON.stringify({ fields: fields });
     xhttp.send(jsonObject);
 
     xhttp.onreadystatechange = (e) => {
@@ -456,7 +471,7 @@ function getUserFirstName(cookie) {
     xhttp.setRequestHeader("Authorization", cookie);
     xhttp.send();
 
-    
+
     xhttp.onreadystatechange = (e) => {
         if (xhttp.readyState == 4 && xhttp.status == 200) {
 
