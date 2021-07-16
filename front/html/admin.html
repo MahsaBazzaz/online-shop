@@ -222,25 +222,25 @@
                 <div class="row-two">
                     <div class="input-container">
                         <label class="input-label">نام</label>
-                        <input type="text" class="input-textbox">
+                        <input type="text" id="product-name-field" class="input-textbox">
                     </div>
                     <div class="input-container">
                         <label class="input-label">دسته بندی</label>
-                        <select name="category" class="input-textbox">
-                                <option value="default">دسته بندی نشده</option>
+                        <select name="category" id="product-category-field" class="input-textbox">
+                                <!-- <option value="default">دسته بندی نشده</option> -->
                             </select>
                     </div>
                     <div class="input-container">
                         <label class="input-label">قیمت</label>
-                        <input type="number" class="input-textbox" min="0">
+                        <input type="number" id="product-price-field" class="input-textbox" min="0">
                     </div>
                     <div class="input-container">
                         <label class="input-label">موجودی</label>
-                        <input type="number" class="input-textbox" min="0">
+                        <input type="number" id="product-remaining-field" class="input-textbox" min="0">
                     </div>
                 </div>
                 <div class="submit-div">
-                    <button class="submit-button" type="submit">ذخیره</button>
+                    <button id="save-changes" class="submit-button" type="submit">ذخیره</button>
                 </div>
             </div>
         </div>
