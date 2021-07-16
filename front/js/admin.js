@@ -3,27 +3,84 @@ let pages = 0;
 const productsInPage = 15;
 
 window.onload = function() {
-    tabs = ["tab1", "tab2", "tab3"];
-    tabDivs = ["products", "categories", "reciepts"]
-    document.getElementById(tabs[0]).addEventListener("click", function() {
-        selectTab(tabs, tabDivs, 0, 1, 2);
 
-    });
-    document.getElementById(tabs[1]).addEventListener("click", function() {
-        selectTab(tabs, tabDivs, 1, 0, 2);
-    });
-    document.getElementById(tabs[2]).addEventListener("click", function() {
-        selectTab(tabs, tabDivs, 2, 0, 1);
-        //receipts selected
-        const response = getAllReceipts();
-        console.log(response);
+    if (getCookie("Authorization")) {
+        var xhttp = new XMLHttpRequest();
+        xhttp.open("GET", `http://localhost:3000/isAdmin`, true);
+        xhttp.setRequestHeader("Authorization", getCookie("Authorization"));
+        xhttp.send();
 
-    });
+        xhttp.onreadystatechange = async (e) => {
+            if (xhttp.readyState == 4 && xhttp.status == 200) {
+                if (xhttp.responseText) {
+                    //console.log(xhttp.responseText);
+                    result = JSON.parse(xhttp.responseText).result;
+                    if (result) {
+                        //access granted
+                        console.log("OK");
 
-    let products = fillProducts();
-    pages = Math.ceil(products.length / productsInPage);
-    createPagination();
-    showPage();
+                        //everything has to be implented here
+
+                        getUserFirstName(getCookie("Authorization"));
+
+                        document.getElementById("homepage").addEventListener("click", function(){
+                            window.location.replace("index.html");
+                        });
+                
+                        document.getElementById("products").addEventListener("click", function(){
+                            window.location.replace("index.html#products");
+                        });
+
+                        document.getElementsByClassName("logout-btn")[0].addEventListener("click", function() {
+                            logout();
+                        });
+
+                        document.getElementsByClassName("profile-btn")[0].addEventListener("click", function() {
+                            goToProfilePage(getCookie("Authorization"));
+                            //window.location.replace("profile.html");
+                        });
+
+                        tabs = ["tab1", "tab2", "tab3"];
+                        tabDivs = ["product", "categories", "receipts"]
+                        document.getElementById(tabs[0]).addEventListener("click", function() {
+                            selectTab(tabs, tabDivs, 0, 1, 2);
+                            // products selected
+                    
+                        });
+                        document.getElementById(tabs[1]).addEventListener("click", function() {
+                            selectTab(tabs, tabDivs, 1, 0, 2);
+                            console.log("here 1");
+                            // categories selected
+                        });
+                        document.getElementById(tabs[2]).addEventListener("click", function() {
+                            selectTab(tabs, tabDivs, 2, 0, 1);
+                            // receipts selected
+                            const response = getAllReceipts();
+                            console.log(response);
+                    
+                        });
+                    
+                        let products = fillProducts();
+                        pages = Math.ceil(products.length / productsInPage);
+                        createPagination();
+                        showPage();
+
+
+                    } else {
+                        //access denied
+                        console.log("Error");
+                        window.location.replace("index.html");
+                    }
+                }
+            }
+        }
+    } else {
+        //no cookie
+        console.log("Error");
+        window.location.replace("index.html");
+    }
+
+
 
     var edit_category_button_ids = "edit-gategory-";
 
@@ -87,13 +144,15 @@ window.onload = function() {
     });
 }
 
+
+
 function getAllReceipts() {
     var xhttp = new XMLHttpRequest();
     xhttp.open("POST", `http://localhost:3000/admin/getAllReceipts`, true);
     xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     xhttp.setRequestHeader("Accept", "application/json");
 
-    xhttp.send(jsonObject);
+    //xhttp.send(jsonObject);
 
     xhttp.onreadystatechange = (e) => {
         if (xhttp.readyState == 4 && xhttp.status == 200) {
@@ -115,6 +174,7 @@ function selectTab(tabs, tabDivs, select, unselect1, unselect2) {
     document.getElementById(tabs[unselect2]).classList.remove('selected-tab');
     document.getElementById(tabs[unselect2]).classList.add('un-selected-tab');
 
+    //console.log(tabDivs[select], tabDivs[unselect1], tabDivs[unselect2]);
     document.getElementById(tabDivs[select]).style.display = "flex";
     document.getElementById(tabDivs[unselect1]).style.display = "none";
     document.getElementById(tabDivs[unselect2]).style.display = "none";
@@ -238,4 +298,78 @@ function goToPage(pageNumber) {
 function showPage() {
     let partition = products.slice((currentPage-1)*productsInPage, Math.min(currentPage*productsInPage, products.length));
     showProducts(partition);
+}
+
+function getUserFirstName(cookie) {
+
+    console.log(getCookie("Authorization"));
+    var xhttp = new XMLHttpRequest();
+    xhttp.open("GET", `http://localhost:3000/getFirstname`, true);
+    xhttp.setRequestHeader("Authorization", cookie);
+    xhttp.send();
+
+    
+    xhttp.onreadystatechange = (e) => {
+        if (xhttp.readyState == 4 && xhttp.status == 200) {
+
+            if (xhttp.responseText) {
+                console.log(xhttp.responseText);
+                firstname = xhttp.responseText;
+                console.log("Firstname: " + firstname);
+                dropdownbtn = document.getElementsByClassName("dropdownbtn")[0];
+                dropdownbtn.innerText = firstname;
+                //dropdownbtn.removeEventListener("click", showModal);
+                //document.getElementsByClassName("dropdown-content")[0].style.display = "block";
+
+            }
+        }
+    }
+}
+
+function logout() {
+    document.cookie = "Authorization= ; expires = Thu, 01 Jan 1970 00:00:00 GMT";
+    window.location.replace("index.html");
+
+}
+
+function goToProfilePage(cookie) {
+    //ajax request for redirecting to profile page
+    console.log(getCookie("Authorization"));
+    var xhttp = new XMLHttpRequest();
+    xhttp.open("GET", `http://localhost:3000/getProfilePageUrl`, true);
+    xhttp.setRequestHeader("Authorization", cookie);
+    xhttp.send();
+
+    xhttp.onreadystatechange = (e) => {
+        if (xhttp.readyState == 4 && xhttp.status == 200) {
+            if (xhttp.responseText) {
+                //console.log(xhttp.responseText);
+                var objectResult = JSON.parse(xhttp.responseText);
+                if (objectResult.result == true) {
+                    window.location.replace(objectResult.url);
+                } else {
+                    alert("error:: could not go to profile page");
+                }
+            }
+        }
+    }
+}
+
+function getCookie(name) {
+    var dc = document.cookie;
+    var prefix = name + "=";
+    var begin = dc.indexOf("; " + prefix);
+    if (begin == -1) {
+        begin = dc.indexOf(prefix);
+        if (begin != 0) return null;
+    } else {
+        begin += 2;
+        var end = document.cookie.indexOf(";", begin);
+        if (end == -1) {
+            end = dc.length;
+        }
+    }
+    // because unescape has been deprecated, replaced with decodeURI
+    //return unescape(dc.substring(begin + prefix.length, end));
+    return decodeURI(dc.substring(begin + prefix.length, end));
 }

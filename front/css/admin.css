@@ -28,6 +28,10 @@ html {
 
 }
 
+#homepage, #products {
+    cursor: pointer;
+}
+
 body {
     background-color: lightsteelblue;
     direction: rtl;
@@ -63,7 +67,7 @@ body {
 }
 
 
-.reciepts-div {
+.receipts-div {
     margin-top: 40px;
     display: none;
     align-items: flex-start;
@@ -162,6 +166,7 @@ body {
 
 .dropdown .dropdownbtn {
     font-size: 14px;
+    width: 125px;
     background-color: var(--menu-white);
     color: var(--menu-black);
     border-radius: 24px;
@@ -215,7 +220,15 @@ body {
 
 .dropdown-content a:hover {
     background-color: var(--menu-bright-gray);
-    color: var(--menu-black);
+    color: var(--menu-black);   
+}
+
+.logout-btn {
+    cursor: pointer;
+}
+
+.profile-btn {
+    cursor: pointer;
 }
 /* menu */
 
@@ -255,6 +268,7 @@ body {
     font-family: iransans;
     font-size: 14px;
     height: 100%;
+    cursor: pointer;
 }
 
 .tab a {

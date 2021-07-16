@@ -324,8 +324,6 @@ function goToProfilePage(cookie) {
             }
         }
     }
-
-
 }
 
 function sortBySold() {
@@ -454,7 +452,7 @@ function getUserFirstName(cookie) {
 
     console.log(getCookie("Authorization"));
     var xhttp = new XMLHttpRequest();
-    xhttp.open("GET", `http://localhost:3000/user/getFirstname`, true);
+    xhttp.open("GET", `http://localhost:3000/getFirstname`, true);
     xhttp.setRequestHeader("Authorization", cookie);
     xhttp.send();
 
