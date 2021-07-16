@@ -497,7 +497,7 @@ tr:last-child td {
 }
 
 .product-image-box {
-    background-color: white;
+    /* background-color: white; */
     color: black;
     justify-content: center;
 }
@@ -679,6 +679,7 @@ hr {
     flex-wrap: nowrap;
     direction: rtl;
     justify-content: flex-start;
+    align-items: center;
 }
 
 #product-modal .info-div .submit-div {
