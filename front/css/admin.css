@@ -616,7 +616,7 @@ hr {
     margin: auto;
     left: 50%;
     top: 50%;
-    width: 800px;
+    width: 600px;
     transform: translate(-50%, -50%);
     overflow-y: auto;
     overflow-x: hidden;
@@ -664,19 +664,12 @@ hr {
     margin: 15px 0px;
 }
 
-#product-modal .image-text {
-    padding-top: 20%;
-    padding-right: 10px;
-    padding-left: 10px;
-    color: var(--menu-blue)
-}
-
 #product-modal .row-one {
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
     direction: rtl;
-    justify-content: flex-start;
+    justify-content: center;
 }
 
 #product-modal .row-two {
