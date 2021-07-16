@@ -456,6 +456,7 @@ table {
     align-items: center;
     border-collapse: separate;
     border-spacing: 0 1em;
+    margin-bottom: 30px;
     border: none;
     width: 100%;
     background-color: rgb(255, 255, 255);
