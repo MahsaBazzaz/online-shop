@@ -321,6 +321,7 @@ table {
     border-spacing: 0 1em;
     border: none;
     width: 100%;
+    margin-bottom: 30px;
     background-color: rgb(255, 255, 255);
     direction: rtl;
     color: rgb(218, 216, 216);

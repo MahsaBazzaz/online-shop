@@ -287,11 +287,23 @@ app.post('/viewer/getProducts', async(req, res) => {
 //     res.sendStatus(200);
 // });
 
-app.get('/admin/getAllReceipts', async(req, res) => {
-    const receipts = await adminService.getAllReceiptsForAdmin();
-    console.log(receipts);
-    res.send(receipts);
-})
+app.use('/admin/getAllReceipts', async(req, res) => {
+    const auth = { login: 'admin', password: 'password' };
+    const b64auth = (req.headers.authorization || '').split(' ')[1] || '';
+    const [login, password] = Buffer.from(b64auth, 'base64').toString().split(':');
+
+    if (login && password && login === auth.login && password === auth.password) {
+        //Admin access granted
+        const receipts = await adminService.getAllReceiptsForAdmin();
+        res.send(receipts);
+
+    } else {
+        // Access denied...
+        res.set('WWW-Authenticate', 'Basic realm="401"'); // change this
+        res.status(401).send('Authentication required.'); // custom message
+    }
+});
+
 
 app.get('/admin/deleteCategory', async(req, res) => {
     const result = await adminService.deleteCategory(req.query.category_id);
@@ -299,11 +311,31 @@ app.get('/admin/deleteCategory', async(req, res) => {
 })
 
 app.use('/admin/editCategory', async(req, res) => {
-        console.log(req.body)
-        const result = await adminService.editCategory(req.query.category_id, req.body);
-        res.send(result);
-    })
-    //app.use("/admin", require("./services/db/admin"));
+    console.log(req.body)
+    const result = await adminService.editCategory(req.query.category_id, req.body);
+    res.send(result);
+})
+
+
+app.use('/admin/searchReceiptsByTrackingCode', async(req, res) => {
+    const auth = { login: 'admin', password: 'password' };
+    const b64auth = (req.headers.authorization || '').split(' ')[1] || '';
+    const [login, password] = Buffer.from(b64auth, 'base64').toString().split(':');
+
+    if (login && password && login === auth.login && password === auth.password) {
+        //Admin access granted
+        term = req.query.term;
+        const receipts = await adminService.searchReceiptsByTackingCode(term);
+        res.send(receipts);
+
+    } else {
+        // Access denied...
+        res.set('WWW-Authenticate', 'Basic realm="401"'); // change this
+        res.status(401).send('Authentication required.'); // custom message
+    }
+});
+
+//app.use("/admin", require("./services/db/admin"));
 
 app.listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`)

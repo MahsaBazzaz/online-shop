@@ -2,10 +2,13 @@ const express = require('express');
 const router = express.Router();
 const db = require('../../config/database');
 const Receipt = require('../../models/Receipts');
+const Sequelize = require("sequelize");
 
 
 function getAllReceiptsForAdmin() {
-    return Receipt.findAll()
+    return Receipt.findAll({
+        order: [["purchase_date", "DESC"]]
+    })
         .then((foundreceipt) => {
             return foundreceipt;
         })
@@ -48,7 +51,14 @@ function editReceipt(newFields, receiptId) {
 }
 
 function findReceiptByTrackingCode(trackingCode) {
-    return Receipt.findAll({ where: { tracking_code: trackingCode } })
+    console.log(trackingCode);
+    return Receipt.findAll({
+        where: { 
+            tracking_code: {
+                    [Sequelize.Op.iLike]: "%" + trackingCode + "%"
+            }
+        }, order: [["purchase_date", "DESC"]] 
+     })
         .then((foundreceipt) => {
             return foundreceipt;
         })
