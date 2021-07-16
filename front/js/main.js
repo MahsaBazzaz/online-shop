@@ -74,7 +74,7 @@ window.onload = function() {
         xhttp.setRequestHeader("Authorization", getCookie("Authorization"));
         xhttp.send();
 
-        xhttp.onreadystatechange = async (e) => {
+        xhttp.onreadystatechange = async(e) => {
             if (xhttp.readyState == 4 && xhttp.status == 200) {
                 if (xhttp.responseText) {
                     //console.log(xhttp.responseText);
@@ -96,10 +96,10 @@ window.onload = function() {
                     if (result.result && result.type == "user") {
                         //user access granted
 
-                        
+
                         document.getElementsByClassName("close-purchase-div")[0].addEventListener("click", function() {
                             document.getElementById("buy-product-modal").style.display = "none";
-                    
+
                         });
 
                         document.getElementById("quantity").addEventListener("change", function() {
@@ -107,13 +107,13 @@ window.onload = function() {
                             document.getElementById("total-price").innerText = document.getElementById("quantity").value * selected_product_price;
                             selected_product_count = document.getElementById("quantity").value;
                         });
-                    
+
                         document.getElementById("purchase-button").addEventListener('click', function() {
                             var xhttp = new XMLHttpRequest();
                             xhttp.open("GET", `http://localhost:3000/user/purchase?productId=${selected_product_id}&count=${selected_product_count}`, true);
                             xhttp.setRequestHeader("Authorization", getCookie("Authorization"));
                             xhttp.send();
-                    
+
                             xhttp.onreadystatechange = (e) => {
                                 if (xhttp.readyState == 4 && xhttp.status == 200) {
                                     if (xhttp.responseText) {
@@ -168,13 +168,18 @@ window.onload = function() {
                     password: password,
                     address: address
                 }
-            // check validation => to be implemented
+                // check validation
+            if (fields.firstname.length > 0 && fields.lastname.length > 0 && validateEmail(fields.username) && password.length > 8 && validatePassword(password) && address.length > 0)
+                signup(fields);
+            else {
+                alert("error:: check the fields again");
+            }
             signup(fields);
         })
 
     }
 
-    
+
 
     //sort
     document.getElementById("best-seller").addEventListener("click", sortBySold);
@@ -203,7 +208,7 @@ window.onload = function() {
     });
 
 
-    
+
     // price filter scripts
     pricefilter_inputLeft = document.getElementById("input-left");
     pricefilter_inputRight = document.getElementById("input-right");
@@ -287,7 +292,7 @@ function showProducts(products) {
     xhttp.setRequestHeader("Authorization", getCookie("Authorization"));
     xhttp.send();
 
-    xhttp.onreadystatechange = async (e) => {
+    xhttp.onreadystatechange = async(e) => {
         if (xhttp.readyState == 4 && xhttp.status == 200) {
             if (xhttp.responseText) {
                 //console.log(xhttp.responseText);
@@ -312,7 +317,7 @@ function showProducts(products) {
                                     }
                                 }
                             }
-                            document.getElementById("buy-product-modal").style.display = "flex"; 
+                            document.getElementById("buy-product-modal").style.display = "flex";
                         })
                     }
                 } else {
@@ -323,7 +328,7 @@ function showProducts(products) {
             }
         }
     }
-    
+
 
 }
 
@@ -680,4 +685,15 @@ function getCookie(name) {
     // because unescape has been deprecated, replaced with decodeURI
     //return unescape(dc.substring(begin + prefix.length, end));
     return decodeURI(dc.substring(begin + prefix.length, end));
+}
+
+function validateEmail(email) {
+    const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(String(email).toLowerCase());
+}
+
+function validatePassword(password) {
+    const a = /[a-zA-Z]/.test(password);
+    const b = /\d/.test(password);
+    return a && b;
 }
