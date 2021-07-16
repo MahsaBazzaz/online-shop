@@ -10,7 +10,7 @@ window.onload = function() {
         xhttp.setRequestHeader("Authorization", getCookie("Authorization"));
         xhttp.send();
 
-        xhttp.onreadystatechange = async (e) => {
+        xhttp.onreadystatechange = async(e) => {
             if (xhttp.readyState == 4 && xhttp.status == 200) {
                 if (xhttp.responseText) {
                     //console.log(xhttp.responseText);
@@ -23,11 +23,11 @@ window.onload = function() {
 
                         getUserFirstName(getCookie("Authorization"));
 
-                        document.getElementById("homepage").addEventListener("click", function(){
+                        document.getElementById("homepage").addEventListener("click", function() {
                             window.location.replace("index.html");
                         });
-                
-                        document.getElementById("products").addEventListener("click", function(){
+
+                        document.getElementById("products").addEventListener("click", function() {
                             window.location.replace("index.html#products");
                         });
 
@@ -45,21 +45,22 @@ window.onload = function() {
                         document.getElementById(tabs[0]).addEventListener("click", function() {
                             selectTab(tabs, tabDivs, 0, 1, 2);
                             // products selected
-                    
+
                         });
                         document.getElementById(tabs[1]).addEventListener("click", function() {
                             selectTab(tabs, tabDivs, 1, 0, 2);
                             console.log("here 1");
                             // categories selected
+                            getAllCategories();
                         });
                         document.getElementById(tabs[2]).addEventListener("click", function() {
                             selectTab(tabs, tabDivs, 2, 0, 1);
                             // receipts selected
                             const response = getAllReceipts();
                             console.log(response);
-                    
+
                         });
-                    
+
                         let products = fillProducts();
                         pages = Math.ceil(products.length / productsInPage);
                         createPagination();
@@ -82,17 +83,17 @@ window.onload = function() {
 
 
 
-    var edit_category_button_ids = "edit-gategory-";
+    // var edit_category_button_ids = "edit-gategory-";
 
-    var row = document.getElementById('categories-table').rows;
-    for (var i = 0; i < row.length; i++) {
-        var butid = edit_category_button_ids + i.toString();
-        var but = document.getElementById(butid);
-        if (but != null)
-            but.addEventListener('click', function() {
-                EditCategoryEvent(this.id);
-            })
-    }
+    // var row = document.getElementById('categories-table').rows;
+    // for (var i = 0; i < row.length; i++) {
+    //     var butid = edit_category_button_ids + i.toString();
+    //     var but = document.getElementById(butid);
+    //     if (but != null)
+    //         but.addEventListener('click', function() {
+    //             EditCategoryEvent(this.id);
+    //         })
+    // }
     var edit_product_ids = "edit-product-with-id-";
     var product_total_num = document.getElementsByClassName("main-product-box").length;
     for (var i = 0; i < product_total_num; i++) {
@@ -180,18 +181,18 @@ function selectTab(tabs, tabDivs, select, unselect1, unselect2) {
     document.getElementById(tabDivs[unselect2]).style.display = "none";
 }
 
-function EditCategoryEvent(butt_id) {
-    const row_number = butt_id.split("edit-gategory-");
-    var previous_value = document.getElementById('categories-table').rows[row_number[1]].cells[0].getAttribute("contenteditable");
-    if (previous_value == "true") {
-        document.getElementById('categories-table').rows[row_number[1]].cells[0].setAttribute('contenteditable', false);
-        document.getElementById(butt_id).innerHTML = "ویرایش دسته بندی";
-    } else {
-        document.getElementById('categories-table').rows[row_number[1]].cells[0].setAttribute('contenteditable', true);
-        document.getElementById('categories-table').rows[row_number[1]].cells[0].focus();
-        document.getElementById(butt_id).innerHTML = "ذخیره تغییرات";
-    }
-}
+// function EditCategoryEvent(butt_id) {
+//     const row_number = butt_id.split("edit-gategory-");
+//     var previous_value = document.getElementById('categories-table').rows[row_number[1]].cells[0].getAttribute("contenteditable");
+//     if (previous_value == "true") {
+//         document.getElementById('categories-table').rows[row_number[1]].cells[0].setAttribute('contenteditable', false);
+//         document.getElementById(butt_id).innerHTML = "ویرایش دسته بندی";
+//     } else {
+//         document.getElementById('categories-table').rows[row_number[1]].cells[0].setAttribute('contenteditable', true);
+//         document.getElementById('categories-table').rows[row_number[1]].cells[0].focus();
+//         document.getElementById(butt_id).innerHTML = "ذخیره تغییرات";
+//     }
+// }
 
 function EditProductEvent(buttenID) {
     const pId = buttenID.split("edit-product-with-id-");
@@ -211,8 +212,8 @@ function EditProductEvent(buttenID) {
 function fillProducts() {
     const productsNumber = 40;
     products = [];
-    for (let i=1; i<=productsNumber; i++) {
-        b = {"name": "محصول " + i, "category": "دسته بندی " + i, "price": i*1000};
+    for (let i = 1; i <= productsNumber; i++) {
+        b = { "name": "محصول " + i, "category": "دسته بندی " + i, "price": i * 1000 };
         products.push(b);
     }
 
@@ -231,19 +232,19 @@ function showProducts(products) {
 function createProductBox(product) {
     const newDiv = document.createElement("div");
     newDiv.className = "main-product-box";
-    newDiv.innerHTML = '<div class="product-image-box">'+
-                            '<img src="../assets/img/product.jpg">'+
-                        '</div>'+
-                        '<div class="product-desc-box">'+
-                            '<p class="product-title">' + product.name +'</p>'+
-                            '<p class="product-category">' + product.category + '</p>'+
-                        '</div>'+
-                        '<hr>'+
-                        '<div class="product-price-box">'+
-                            '<p class="product-price">' + product.price + ' تومان</p>'+
-                            '<button id="edit-product-with-id-0" class="buy-product-button">ویرایش محصول</button>'+
-                        '</div>'+
-                        '<span class="badge">12</span>';
+    newDiv.innerHTML = '<div class="product-image-box">' +
+        '<img src="../assets/img/product.jpg">' +
+        '</div>' +
+        '<div class="product-desc-box">' +
+        '<p class="product-title">' + product.name + '</p>' +
+        '<p class="product-category">' + product.category + '</p>' +
+        '</div>' +
+        '<hr>' +
+        '<div class="product-price-box">' +
+        '<p class="product-price">' + product.price + ' تومان</p>' +
+        '<button id="edit-product-with-id-0" class="buy-product-button">ویرایش محصول</button>' +
+        '</div>' +
+        '<span class="badge">12</span>';
 
     return newDiv;
 
@@ -254,7 +255,7 @@ function createPagination() {
 
     const prev = document.createElement("a");
     prev.id = "prev-btn";
-    prev.innerHTML ='صفحه قبل'
+    prev.innerHTML = 'صفحه قبل'
     prev.disabled = true;
     prev.addEventListener("click", function() {
         goToPage(Math.max(1, currentPage - 1), pages);
@@ -268,7 +269,7 @@ function createPagination() {
     });
 
     pagination.appendChild(prev);
-    for(let i=1; i<=pages; i++){
+    for (let i = 1; i <= pages; i++) {
         const page = document.createElement("a");
         page.id = "page" + i;
         page.innerHTML = i;
@@ -292,11 +293,11 @@ function goToPage(pageNumber) {
         currentPage = pageNumber;
         showPage();
     }
-    
+
 }
 
 function showPage() {
-    let partition = products.slice((currentPage-1)*productsInPage, Math.min(currentPage*productsInPage, products.length));
+    let partition = products.slice((currentPage - 1) * productsInPage, Math.min(currentPage * productsInPage, products.length));
     showProducts(partition);
 }
 
@@ -308,7 +309,7 @@ function getUserFirstName(cookie) {
     xhttp.setRequestHeader("Authorization", cookie);
     xhttp.send();
 
-    
+
     xhttp.onreadystatechange = (e) => {
         if (xhttp.readyState == 4 && xhttp.status == 200) {
 
@@ -354,6 +355,117 @@ function goToProfilePage(cookie) {
         }
     }
 }
+
+function getAllCategories() {
+    var xhttp = new XMLHttpRequest();
+    xhttp.open("GET", `http://localhost:3000/viewer/getAllCategories`, true);
+    xhttp.send();
+
+    xhttp.onreadystatechange = (e) => {
+        if (xhttp.readyState == 4 && xhttp.status == 200) {
+            if (xhttp.responseText) {
+                //put your code here 
+                categories = JSON.parse(xhttp.responseText);
+                showCategories(categories);
+            }
+        }
+    }
+}
+
+function showCategories(categories) {
+    let category_table = document.getElementById('categories-table');
+    console.log(categories);
+    category_table.innerHTML =
+        '<colgroup>' +
+        '<col style="width: 20%;" />' +
+        '<col style="width: 15%;" />' +
+        ' </colgroup>' +
+        '<tr>' +
+        ' <th>نام دسته بندی</th>' +
+        '<th>عملیات</th>' +
+        '</tr>';
+
+    for (category of categories) {
+        category_table.append(createCategoryBox(category));
+        document.getElementById("category-edit-" + category.id).addEventListener("click", function() {
+            document.getElementById("category-name-" + this.id.split("category-edit-")[1]).setAttribute('contenteditable', true);
+            this.style.display = "none";
+            document.getElementById("category-save-" + this.id.split("category-edit-")[1]).style.display = "inline-block";
+        })
+        document.getElementById("category-save-" + category.id).addEventListener("click", function() {
+            const id = this.id.split("category-save-")[1];
+            var xhttp = new XMLHttpRequest();
+            xhttp.open("POST", `http://localhost:3000/admin/editCategory?category_id=${id}`, true);
+            xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+            xhttp.setRequestHeader("Accept", "application/json");
+            const newName = document.getElementById("category-name-" + this.id.split("category-save-")[1]).innerText;
+            const obj = JSON.stringify({ name: newName });
+            xhttp.send(obj);
+
+            xhttp.onreadystatechange = (e) => {
+                if (xhttp.readyState == 4 && xhttp.status == 200) {
+                    if (xhttp.responseText) {
+                        //put your code here 
+                        result = JSON.parse(xhttp.responseText);
+                        if (result.stat) {
+                            alert(result.message);
+                            getAllCategories();
+
+                        } else {
+                            alert(result.message);
+
+                        }
+                    }
+                }
+            }
+            document.getElementById("category-name-" + this.id.split("category-save-")[1]).setAttribute('contenteditable', false);
+            this.style.display = "none";
+            document.getElementById("category-edit-" + this.id.split("category-save-")[1]).style.display = "inline-block";
+        })
+        document.getElementById("category-delete-" + category.id).addEventListener("click", function() {
+            const id = this.id.split("category-delete-")[1];
+            var xhttp = new XMLHttpRequest();
+            xhttp.open("GET", `http://localhost:3000/admin/deleteCategory?category_id=${id}`, true);
+            xhttp.send();
+
+            xhttp.onreadystatechange = (e) => {
+                if (xhttp.readyState == 4 && xhttp.status == 200) {
+                    if (xhttp.responseText) {
+                        //put your code here 
+                        result = JSON.parse(xhttp.responseText);
+                        if (result.stat) {
+                            alert(result.message);
+                            getAllCategories();
+
+                        } else {
+                            alert(result.message);
+
+                        }
+                    }
+                }
+            }
+        })
+    }
+}
+
+function createCategoryBox(category) {
+    const newTr = document.createElement("tr");
+    const name = document.createElement("td");
+    name.id = "category-name-" + category.id;
+    name.setAttribute("contenteditable", false);
+    name.innerText = category.name;
+    const operation = document.createElement("td");
+    const dV = document.createElement("div");
+    dV.innerHTML =
+        '<button id="category-edit-' + category.id + '" class="operation-button">ویرایش دسته بندی</button>' +
+        '<button id="category-save-' + category.id + '" class="operation-button" style="display:none">ذخیره</button>' +
+        '<button id="category-delete-' + category.id + '" class="operation-button">X حذف دسته بندی</button>';
+    operation.appendChild(dV);
+    newTr.appendChild(name);
+    newTr.appendChild(operation);
+    return newTr;
+}
+
 
 function getCookie(name) {
     var dc = document.cookie;

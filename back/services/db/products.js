@@ -57,10 +57,8 @@ function findProductWithName(productname, page, productsInPage) {
         });
 }
 
-function findProductsByCategory(categoryIds, page, productsInPage) {
-    const offset = productsInPage*(page-1);
-    const limit = productsInPage;
-    return Product.findAll({offset: offset, limit: limit, where: { category_id: categoryIds } })
+function findProductsByCategory(categoryIds) {
+    return Product.findAll({ where: { category_id: categoryIds } })
         .then((foundProduct) => {
             return foundProduct;
         })
@@ -75,7 +73,7 @@ function getProducts(state) {
     const page = state.page_number;
     const productsInPage = state.products_in_page;
 
-    const offset = productsInPage*(page-1);
+    const offset = productsInPage * (page - 1);
     const limit = productsInPage;
 
     console.log(state.order);
@@ -83,32 +81,36 @@ function getProducts(state) {
             offset: offset,
             limit: limit,
             where: state.where,
-            order: [[state.order.by, state.order.order],
-                    ["name", "ASC"]]
-    })
+            order: [
+                [state.order.by, state.order.order],
+                ["name", "ASC"]
+            ]
+        })
         .then((foundProducts) => {
             return foundProducts;
-    })
-        .catch (err => {
+        })
+        .catch(err => {
             console.log(err);
             return null;
-    });
+        });
 
 }
 
 function getPages(state) {
     const productsInPage = state.products_in_page;
     return Product.count({
-        where: state.where,
-        order: [[state.order.by, state.order.order]]
-    })
-    .then((foundProducts) => {
-        return Math.ceil(foundProducts/productsInPage);
-    })
-    .catch (err => {
-        console.log(err);
-        return null;
-    });
+            where: state.where,
+            order: [
+                [state.order.by, state.order.order]
+            ]
+        })
+        .then((foundProducts) => {
+            return Math.ceil(foundProducts / productsInPage);
+        })
+        .catch(err => {
+            console.log(err);
+            return null;
+        });
 }
 
 function getProductById(productId) {

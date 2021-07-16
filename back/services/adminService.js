@@ -28,11 +28,33 @@ async function createCategory(newCategory) {
 }
 
 async function editCategory(categoryId, newFields) {
-    return await Category.editCategory(newFields, categoryId);
+    if (categoryId != 1) {
+        const edited_category = await Category.editCategory(newFields, categoryId);
+        if (edited_category != null) {
+            return { stat: true, message: "successfuly edited category" }
+        } else
+            return { stat: false, message: "could not edit category" }
+    } else
+        return { stat: false, message: "cannot edit category" }
+
 }
 
 async function deleteCategory(categoryId) {
-    return await Category.deleteCategory(categoryId);
+    if (categoryId != 1) {
+        const products_affected = await Product.findProductsByCategory(categoryId);
+        // console.log(products_affected)
+        const deleted_category = await Category.deleteCategory(categoryId);
+        if (deleted_category != null) {
+
+            for (pro of products_affected) {
+                Product.editProduct({ category_id: 1 }, pro.id);
+            }
+            return { stat: true, message: "successfuly deleted category" }
+        } else
+            return { stat: false, message: "could not delete category" }
+    } else
+        return { stat: false, message: "cannot delete category" }
+
 }
 
 module.exports = {

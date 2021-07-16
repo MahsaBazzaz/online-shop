@@ -48,7 +48,7 @@ function mapCategoryIdToCategoryName(categoryId) {
 
 
 function deleteCategory(categoryId) {
-    return Category.destroy({ where: { firstName: "Jane" } })
+    return Category.destroy({ where: { id: categoryId } })
         .then((editedCategory) => {
             return editedCategory;
         })

@@ -108,7 +108,7 @@ app.use('/signup', async(req, res) => {
 
 
 
-app.use('/userType', async (req, res) => {
+app.use('/userType', async(req, res) => {
     const auth = { login: 'admin', password: 'password' };
     const b64auth = (req.headers.authorization || '').split(' ')[1] || '';
     const [login, password] = Buffer.from(b64auth, 'base64').toString().split(':');
@@ -293,8 +293,17 @@ app.get('/admin/getAllReceipts', async(req, res) => {
     res.send(receipts);
 })
 
+app.get('/admin/deleteCategory', async(req, res) => {
+    const result = await adminService.deleteCategory(req.query.category_id);
+    res.send(result);
+})
 
-//app.use("/admin", require("./services/db/admin"));
+app.use('/admin/editCategory', async(req, res) => {
+        console.log(req.body)
+        const result = await adminService.editCategory(req.query.category_id, req.body);
+        res.send(result);
+    })
+    //app.use("/admin", require("./services/db/admin"));
 
 app.listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`)
