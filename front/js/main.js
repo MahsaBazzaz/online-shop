@@ -174,7 +174,7 @@ window.onload = function() {
             else {
                 alert("error:: check the fields again");
             }
-            signup(fields);
+            //signup(fields);
         })
 
     }
@@ -632,36 +632,47 @@ function setRightValue() {
 function createPagination() {
     const pagination = document.getElementsByClassName("pagination")[0];
     pagination.innerHTML = ""
-    const prev = document.createElement("a");
-    prev.id = "prev-btn";
-    prev.innerHTML = 'صفحه قبل'
-    prev.disabled = true;
-    prev.addEventListener("click", function() {
-        goToPage(Math.max(1, currentPage - 1), pages);
-    });
-
-    const next = document.createElement("a");
-    next.id = "next-btn";
-    next.innerHTML = 'صفحه بعد'
-    next.addEventListener("click", function() {
-        goToPage(Math.min(currentPage + 1, pages), pages);
-    });
-
-    pagination.appendChild(prev);
-    for (let i = 1; i <= pages; i++) {
-        const page = document.createElement("a");
-        page.id = "page" + i;
-        page.innerHTML = i;
-        if (i == currentPage) {
-            page.className = "active";
+    if (pages > 0) {
+        const prev = document.createElement("a");
+        prev.id = "prev-btn";
+        prev.innerHTML = 'صفحه قبل'
+        if (currentPage == 1) {
+            prev.classList.add("deactive");
+        } else {
+            prev.classList.remove("deactive");
         }
-        page.addEventListener("click", function() {
-            goToPage(i, pages);
+        prev.addEventListener("click", function() {
+            goToPage(Math.max(1, currentPage - 1), pages);
         });
-        pagination.appendChild(page);
-    }
-    pagination.appendChild(next);
 
+        const next = document.createElement("a");
+        next.id = "next-btn";
+        next.innerHTML = 'صفحه بعد'
+        if (currentPage == pages) {
+            next.classList.add("deactive");
+        } else {
+            next.classList.remove("deactive");
+        }
+        next.addEventListener("click", function() {
+            goToPage(Math.min(currentPage + 1, pages), pages);
+        });
+
+        pagination.appendChild(prev);
+        for (let i = 1; i <= pages; i++) {
+            const page = document.createElement("a");
+            page.id = "page" + i;
+            page.innerHTML = i;
+            if (i == currentPage) {
+                page.className = "active";
+            }
+            page.addEventListener("click", function() {
+                goToPage(i, pages);
+            });
+            pagination.appendChild(page);
+        }
+        pagination.appendChild(next);
+
+    }
 }
 
 function goToPage(pageNumber) {
@@ -669,6 +680,18 @@ function goToPage(pageNumber) {
         document.getElementById("page" + currentPage).classList.remove("active");
         document.getElementById("page" + pageNumber).classList.add("active");
         currentPage = pageNumber;
+        const prev = document.getElementById("prev-btn");
+        const next = document.getElementById("next-btn");
+        if (currentPage == 1) {
+            prev.classList.add("deactive");
+        } else {
+            prev.classList.remove("deactive");
+        }
+        if (currentPage == pages) {
+            next.classList.add("deactive");
+        } else {
+            next.classList.remove("deactive");
+        }
         getProducts();
     }
 

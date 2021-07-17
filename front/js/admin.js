@@ -52,6 +52,7 @@ window.onload = function() {
 
 
                         document.getElementsByClassName("create-product-button")[0].addEventListener("click", function() {
+                            loadCategories();
                             selected_product_id = -1;
                             document.getElementById("product-name-field").value = "";
                             document.getElementById("product-category-field").value = 1;
@@ -324,35 +325,46 @@ function createProductBox(product) {
 function createPagination(cookie) {
     const pagination = document.getElementsByClassName("pagination")[0];
     pagination.innerHTML = ""
-    const prev = document.createElement("a");
-    prev.id = "prev-btn";
-    prev.innerHTML = 'صفحه قبل'
-    prev.disabled = true;
-    prev.addEventListener("click", function() {
-        goToPage(cookie, Math.max(1, currentPage - 1));
-    });
-
-    const next = document.createElement("a");
-    next.id = "next-btn";
-    next.innerHTML = 'صفحه بعد'
-    next.addEventListener("click", function() {
-        goToPage(cookie, Math.min(currentPage + 1, pages));
-    });
-
-    pagination.appendChild(prev);
-    for (let i = 1; i <= pages; i++) {
-        const page = document.createElement("a");
-        page.id = "page" + i;
-        page.innerHTML = i;
-        if (i == currentPage) {
-            page.className = "active";
+    if (pages > 0) {
+        const prev = document.createElement("a");
+        prev.id = "prev-btn";
+        prev.innerHTML = 'صفحه قبل'
+        if (currentPage == 1) {
+            prev.classList.add("deactive");
+        } else {
+            prev.classList.remove("deactive");
         }
-        page.addEventListener("click", function() {
-            goToPage(cookie, i);
+        prev.addEventListener("click", function() {
+            goToPage(cookie, Math.max(1, currentPage - 1));
         });
-        pagination.appendChild(page);
+
+        const next = document.createElement("a");
+        next.id = "next-btn";
+        next.innerHTML = 'صفحه بعد'
+        if (currentPage == pages) {
+            next.classList.add("deactive");
+        } else {
+            next.classList.remove("deactive");
+        }
+        next.addEventListener("click", function() {
+            goToPage(cookie, Math.min(currentPage + 1, pages));
+        });
+
+        pagination.appendChild(prev);
+        for (let i = 1; i <= pages; i++) {
+            const page = document.createElement("a");
+            page.id = "page" + i;
+            page.innerHTML = i;
+            if (i == currentPage) {
+                page.className = "active";
+            }
+            page.addEventListener("click", function() {
+                goToPage(cookie, i);
+            });
+            pagination.appendChild(page);
+        }
+        pagination.appendChild(next);
     }
-    pagination.appendChild(next);
 
 }
 
@@ -362,6 +374,20 @@ function goToPage(cookie, pageNumber) {
         document.getElementById("page" + currentPage).classList.remove("active");
         document.getElementById("page" + pageNumber).classList.add("active");
         currentPage = pageNumber;
+        
+        const prev = document.getElementById("prev-btn");
+        const next = document.getElementById("next-btn");
+        if (currentPage == 1) {
+            prev.classList.add("deactive");
+        } else {
+            prev.classList.remove("deactive");
+        }
+        if (currentPage == pages) {
+            next.classList.add("deactive");
+        } else {
+            next.classList.remove("deactive");
+        }
+        
         getAllProducts(cookie, currentPage, productsInPage);
     }
 
@@ -588,6 +614,7 @@ function loadCategories() {
         if (xhttp.readyState == 4 && xhttp.status == 200) {
             if (xhttp.responseText) {
                 categories = JSON.parse(xhttp.responseText);
+                console.log(categories);
                 for (cat of categories) {
                     let op = document.createElement("option");
                     op.innerText = cat.name;

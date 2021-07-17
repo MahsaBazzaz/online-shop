@@ -1038,6 +1038,7 @@ hr {
     border-radius: 7px;
     margin: 0 4px;
     cursor: pointer;
+    user-select: none;
 }
 
 .pagination a.active {
@@ -1050,6 +1051,11 @@ hr {
     background-color: silver;
 }
 
+.pagination a.deactive {
+    pointer-events: none;
+    background-color: silver;
+    color: gray;
+}
 
 /* pagination */
 
