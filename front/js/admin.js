@@ -50,6 +50,46 @@ window.onload = function() {
                             searchReceiptsByTrackingCode(getCookie("Authorization"), term);
                         });
 
+                        document.getElementsByClassName("create-category-button")[0].addEventListener("click", function() {
+                            document.getElementById("new-category-name").value = "";
+                            document.getElementById("create-category-modal").style.display = "flex";
+                            document.getElementById("new-category-name").focus();
+                        });
+
+                        document.getElementsByClassName("close-category-div")[0].addEventListener("click", function() {
+                            document.getElementById("create-category-modal").style.display = "none";
+
+                        });
+                        
+                        document.getElementById("submit-category").addEventListener("click", function() {
+                            var xhttp = new XMLHttpRequest();
+                            xhttp.open("POST", `http://localhost:3000/admin/createCategory`, true);
+                            xhttp.setRequestHeader("Authorization", getCookie("Authorization"));
+                            xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+                            xhttp.setRequestHeader("Accept", "application/json");
+                            const newCategory = JSON.stringify({
+                                name: document.getElementById("new-category-name").value
+                            });
+                            xhttp.send(newCategory);
+
+                            xhttp.onreadystatechange = (e) => {
+                                if (xhttp.readyState == 4 && xhttp.status == 200) {
+                                    if (xhttp.responseText) {
+                                        const result = JSON.parse(xhttp.responseText);
+                                        if (result.stat) {
+                                            alert(result.message);
+                                            document.getElementById("create-category-modal").style.display = "none";
+                                            getAllCategories();
+                                        } else {
+                                            alert("error:: " + result.message);
+                                        }
+                                    }
+
+                                }
+                            }
+
+
+                        });
 
                         document.getElementsByClassName("create-product-button")[0].addEventListener("click", function() {
                             loadCategories();
@@ -193,6 +233,7 @@ function showReceipts(receipts) {
         "<th>قیمت پرداخت شده</th>" +
         "<th>نام خریدار</th>" +
         "<th>آدرس ارسال شده</th>" +
+        "<th>وضعیت رسید</th>" +
         "</tr>";
 
     for (let receipt of receipts) {
@@ -208,18 +249,21 @@ function createReceipt(receipt) {
     const costColumn = document.createElement("td");
     const firstnameColumn = document.createElement("td");
     const addressColumn = document.createElement("td");
+    const statusColumn = document.createElement("td");
 
     trackingCodeColumn.innerText = receipt.tracking_code;
     nameColumn.innerText = receipt.product_name;
     costColumn.innerText = receipt.total_cost;
     firstnameColumn.innerText = receipt.user_firstname;
     addressColumn.innerText = receipt.user_address;
+    statusColumn.innerText = receipt.status;
 
     newRow.appendChild(trackingCodeColumn);
     newRow.appendChild(nameColumn);
     newRow.appendChild(costColumn);
     newRow.appendChild(firstnameColumn);
     newRow.appendChild(addressColumn);
+    newRow.appendChild(statusColumn);
 
     return newRow;
 }

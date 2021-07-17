@@ -43,7 +43,12 @@ async function changeReceiptStatus(receiptId, newStatus) {
 }
 
 async function createCategory(newCategory) {
-    return await Category.createCategory(newCategory);
+    const createdCategory = await Category.createCategory(newCategory);
+    if (createCategory != null) {
+        return { stat: true, message: "successfuly created category" };
+    } else {
+        return { stat: true, message: "could not create category" };
+    }
 }
 
 async function editCategory(categoryId, newFields) {

@@ -78,7 +78,17 @@ body {
     width: 90%;
 }
 
-.strech-row {
+.strech-row-categories {
+    display: flex;
+    align-items: stretch;
+    flex-direction: column;
+    justify-content: center;
+    flex-wrap: nowrap;
+    width: 100%;
+    margin-top: 30px;
+}
+
+.strech-row-receipts {
     display: flex;
     align-items: stretch;
     flex-direction: column;
@@ -126,6 +136,28 @@ body {
 }
 
 .create-product-button:hover {
+    -moz-box-shadow: 1px 1px 3px 1px #0099ff;
+    -webkit-box-shadow: 1px 1px 3px 1px #0099ff;
+    box-shadow: 1px 1px 3px 1px #0099ff;
+}
+
+.create-category-button {
+    font-family: iransans;
+    font-size: 14px;
+    background-color: #0099ff;
+    color: white;
+    text-align: center;
+    justify-content: center;
+    direction: rtl;
+    margin-top: 30px;
+    padding: 5px 15px 5px 15px;
+    border-radius: 24px;
+    border-style: solid;
+    border-width: 0px;
+    cursor: pointer;
+}
+
+.create-category-button:hover {
     -moz-box-shadow: 1px 1px 3px 1px #0099ff;
     -webkit-box-shadow: 1px 1px 3px 1px #0099ff;
     box-shadow: 1px 1px 3px 1px #0099ff;
@@ -754,3 +786,140 @@ hr {
 
 
 /* edit product modal */
+
+
+
+/* create category modal */
+
+#create-category-modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    margin: auto;
+    left: 50%;
+    top: 50%;
+    width: 400px;
+    transform: translate(-50%, -50%);
+    overflow-y: auto;
+    overflow-x: hidden;
+    /* border-radius */
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    border-radius: 20px;
+    /* box-shadow */
+    -webkit-box-shadow: rgba(0, 0, 0, 0.8) 0px 0 10px;
+    -moz-box-shadow: rgba(0, 0, 0, 0.8) 0 0 10px;
+    box-shadow: rgba(0, 0, 0, 0.8) 0 0 10px;
+}
+
+#create-category-modal .close-category-div {
+    color: #aaa;
+    position: absolute;
+    right: 10px;
+    top: 0px;
+    width: 80%;
+    font-size: 28px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+#create-category-modal .create-category-div {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    background-color: var(--back-color-light);
+    padding: 10px 5px;
+    border-radius: 24px;
+    max-width: 800px;
+}
+
+#create-category-modal .create-category-div .category-form-div {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: stretch;
+    margin-bottom: 30px;
+    max-width: 800px;
+    margin: 15px 0px;
+}
+
+#create-category-modal .row-one {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    direction: rtl;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+
+#create-category-modal .create-category-div .submit-category-div {
+    margin-top: 10px;
+    justify-content: center;
+    text-align: center;
+}
+
+#create-category-modal .input-container {
+    direction: rtl;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    margin: 5px 10px 10px 10px;
+    width: 100%;
+}
+
+#create-category-modal .input-label {
+    direction: rtl;
+    text-align: center;
+    font-family: iransans;
+    font-size: 14px;
+    width: 90px;
+    background-color: var(--input-label-color);
+    padding: 5px 10px 5px 10px;
+    border-radius: 0px 5px 5px 0px;
+    color: white;
+}
+
+#create-category-modal .input-textbox {
+    direction: rtl;
+    text-align: center;
+    font-family: iransans;
+    font-size: 16px;
+    width: 200px;
+    background-color: white;
+    padding: 5px 10px 5px 10px;
+    border-radius: 5px 0px 0px 5px;
+    color: black;
+    border: none;
+    outline: none;
+}
+
+#create-category-modal .create-category-div .submit-button {
+    font-family: iransans;
+    background-color: #ffc80a;
+    color: black;
+    text-align: center;
+    justify-content: center;
+    direction: rtl;
+    padding: 10px 50px 10px 50px;
+    border-radius: 24px;
+    border-style: solid;
+    border-width: 0px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+#create-category-modal .create-category-div .submit-button:hover {
+    -moz-box-shadow: 1px 1px 3px 1px #ffc80a;
+    -webkit-box-shadow: 1px 1px 3px 1px #ffc80a;
+    box-shadow: 1px 1px 3px 1px #ffc80a;
+}
+
+/* create category modal */
