@@ -246,6 +246,12 @@ window.onload = function() {
     });
     setLeftValue();
     setRightValue();
+
+    setTimeout(function(){ 
+        document.getElementsByTagName("html")[0].style.visibility = "visible";
+     }, 350);
+    
+
 }
 
 

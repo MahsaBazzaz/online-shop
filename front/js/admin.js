@@ -140,6 +140,10 @@ window.onload = function() {
         console.log("Error");
         window.location.replace("index.html");
     }
+
+    setTimeout(function(){ 
+        document.getElementsByTagName("html")[0].style.visibility = "visible";
+     }, 350);
 }
 
 
