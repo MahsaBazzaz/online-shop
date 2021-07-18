@@ -222,7 +222,6 @@ function getAllReceipts(cookie) {
 
             if (xhttp.responseText) {
                 res = JSON.parse(xhttp.responseText);
-                //console.log(res);
                 showReceipts(res)
             }
         }
@@ -231,17 +230,35 @@ function getAllReceipts(cookie) {
 
 
 function showReceipts(receipts) {
+    receiptsTbl = document.getElementsByClassName("receipts-tbl")[0];
     receiptsTable = document.getElementsByClassName("receipts-table")[0];
-    receiptsTable.innerHTML =   "<tr>" +
-                                    "<th>کد پیگیری</th>" +
-                                    "<th>کالا</th>" +
-                                    "<th>قیمت پرداخت شده</th>" +
-                                    "<th>آدرس ارسال شده</th>" +
-                                "</tr>";
+    receiptsTable.innerHTML = "";
+    let colgr = document.createElement("colgroup");
+    colgr.innerHTML = 
+        '<col style="width: 20%;" />' +
+        '<col style="width: 25%;" />' +
+        '<col style="width: 15%;" />' +
+        '<col style="width: 25%;" />' +
+        '<col style="width: 15%;" />';
+    
+    receiptsTbl.innerHTML = "";
+    
+    let trg = document.createElement("tr");
+    trg.innerHTML = "<th>کد پیگیری</th>" +
+                    "<th>کالا</th>" +
+                    "<th>قیمت پرداخت شده</th>" +
+                    "<th>آدرس ارسال شده</th>" +
+                    "<th>وضعیت سفارش</th>";
+
+    receiptsTable.appendChild(trg);
 
     for (let receipt of receipts) {
         receiptsTable.appendChild(createReceipt(receipt));
     }
+
+    receiptsTbl.innerHTML = "";
+    receiptsTbl.appendChild(colgr);
+    receiptsTbl.appendChild(receiptsTable);
 }
 
 function createReceipt(receipt) {
@@ -251,16 +268,19 @@ function createReceipt(receipt) {
     const nameColumn = document.createElement("td");
     const costColumn = document.createElement("td");
     const addressColumn = document.createElement("td");
+    const statusColumn = document.createElement("td");
 
     trackingCodeColumn.innerText = receipt.tracking_code;
     nameColumn.innerText = receipt.product_name;
     costColumn.innerText = receipt.total_cost;
     addressColumn.innerText = receipt.user_address;
+    statusColumn.innerText = receipt.status;
 
     newRow.appendChild(trackingCodeColumn);
     newRow.appendChild(nameColumn);
     newRow.appendChild(costColumn);
     newRow.appendChild(addressColumn);
+    newRow.appendChild(statusColumn);
 
     return newRow;
 }
