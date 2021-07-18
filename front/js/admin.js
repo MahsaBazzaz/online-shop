@@ -17,7 +17,6 @@ window.onload = function() {
                     result = JSON.parse(xhttp.responseText);
                     if (result.result == true && result.type == "admin") {
                         //admin access granted
-                        console.log("OK");
 
                         //everything has to be implented here
 
@@ -148,7 +147,6 @@ window.onload = function() {
 
                         });
                         document.getElementById(tabs[1]).addEventListener("click", function() {
-                            console.log("here 1");
                             // categories selected
                             getAllCategories();
                             selectTab(tabs, tabDivs, 1, 0, 2);
@@ -234,10 +232,51 @@ function showReceipts(receipts) {
         "<th>نام خریدار</th>" +
         "<th>آدرس ارسال شده</th>" +
         "<th>وضعیت رسید</th>" +
+        "<th>تغییر وضعیت رسید</th>" +
         "</tr>";
 
     for (let receipt of receipts) {
         receiptsTable.appendChild(createReceipt(receipt));
+    }
+
+    for (let receipt of receipts) {
+
+        document.getElementById("op1-" + receipt.id).addEventListener("click", function() {
+            operationTabs = [`op1-${receipt.id}`, `op2-${receipt.id}`, `op3-${receipt.id}`];
+            selectOperationTab(operationTabs, 0, 1, 2);
+            editReceiptStatus(receipt.id, {status: 1})
+        });
+    
+        document.getElementById("op2-" + receipt.id).addEventListener("click", function() {
+            operationTabs = [`op1-${receipt.id}`, `op2-${receipt.id}`, `op3-${receipt.id}`];
+            selectOperationTab(operationTabs, 1, 0, 2);
+            editReceiptStatus(receipt.id, {status: 2})
+        });
+    
+        document.getElementById("op3-" + receipt.id).addEventListener("click", function() {
+            operationTabs = [`op1-${receipt.id}`, `op2-${receipt.id}`, `op3-${receipt.id}`];
+            selectOperationTab(operationTabs, 2, 0, 1);
+            editReceiptStatus(receipt.id, {status: 3})
+        });
+    }
+}
+
+function editReceiptStatus(receiptId, field) {
+    var xhttp = new XMLHttpRequest();
+    xhttp.open("POST", `http://localhost:3000/admin/editReceiptStatus?receipt_id=${receiptId}`, true);
+    xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    xhttp.setRequestHeader("Accept", "application/json");
+    xhttp.setRequestHeader("Authorization", getCookie("Authorization"));
+    const obj = JSON.stringify(field);
+    xhttp.send(obj);
+
+    xhttp.onreadystatechange = (e) => {
+        if (xhttp.readyState == 4 && xhttp.status == 200) {
+            if (xhttp.responseText) {
+                res = JSON.parse(xhttp.responseText);
+                getAllReceipts(getCookie("Authorization"));
+            }
+        }
     }
 }
 
@@ -250,6 +289,50 @@ function createReceipt(receipt) {
     const firstnameColumn = document.createElement("td");
     const addressColumn = document.createElement("td");
     const statusColumn = document.createElement("td");
+    const operationsColumn = document.createElement("td");
+
+    const operationsTab = document.createElement("div");
+
+    operationsTab.className = "tripple-operations-container";
+    const op1 = document.createElement("div");
+    const op2 = document.createElement("div");
+    const op3 = document.createElement("div");
+
+    statusMapping = {"لغو شده": 1, "در حال انجام": 2, "انجام شده": 3}
+    active = statusMapping[receipt.status];
+    op1.className = "right-operation-tab operation-tab un-selected-operation-tab";
+    op2.className = "center-operation-tab operation-tab un-selected-operation-tab";
+    op3.className = "left-operation-tab operation-tab un-selected-operation-tab";
+    if (active == 1) {
+        op1.classList.remove("un-selected-operation-tab");
+        op1.classList.add("selected-operation-tab");
+    }
+    if (active == 2) {
+        op2.classList.remove("un-selected-operation-tab");
+        op2.classList.add("selected-operation-tab");
+    }
+    if (active == 3) {
+        op3.classList.remove("un-selected-operation-tab");
+        op3.classList.add("selected-operation-tab");
+    }
+
+    op1.id = "op1-" + receipt.id;
+    op2.id = "op2-" + receipt.id;
+    op3.id = "op3-" + receipt.id;
+
+    op1.innerHTML = `<a><i class="fa fa-times" aria-hidden="true"></i></a>`;
+    op2.innerHTML = `<a><i class="fa fa-hourglass" aria-hidden="true"></i></a>`;
+    op3.innerHTML = `<a><i class="fas fa-check"></i></a>`;
+
+    
+    
+
+
+    operationsTab.appendChild(op1);
+    operationsTab.appendChild(op2);
+    operationsTab.appendChild(op3);
+
+    operationsColumn.appendChild(operationsTab);
 
     trackingCodeColumn.innerText = receipt.tracking_code;
     nameColumn.innerText = receipt.product_name;
@@ -264,6 +347,7 @@ function createReceipt(receipt) {
     newRow.appendChild(firstnameColumn);
     newRow.appendChild(addressColumn);
     newRow.appendChild(statusColumn);
+    newRow.appendChild(operationsColumn);
 
     return newRow;
 }
@@ -282,6 +366,18 @@ function selectTab(tabs, tabDivs, select, unselect1, unselect2) {
     document.getElementById(tabDivs[select]).style.display = "flex";
     document.getElementById(tabDivs[unselect1]).style.display = "none";
     document.getElementById(tabDivs[unselect2]).style.display = "none";
+}
+
+function selectOperationTab(tabs, select, unselect1, unselect2) {
+    document.getElementById(tabs[select]).classList.remove('un-selected-operation-tab');
+    document.getElementById(tabs[select]).classList.add('selected-operation-tab');
+
+    document.getElementById(tabs[unselect1]).classList.remove('selected-operation-tab');
+    document.getElementById(tabs[unselect1]).classList.add('un-selected-operation-tab');
+
+    document.getElementById(tabs[unselect2]).classList.remove('selected-operation-tab');
+    document.getElementById(tabs[unselect2]).classList.add('un-selected-operation-tab');
+
 }
 
 
@@ -444,7 +540,6 @@ function showPage() {
 
 function getUserFirstName(cookie) {
 
-    console.log(getCookie("Authorization"));
     var xhttp = new XMLHttpRequest();
     xhttp.open("GET", `http://localhost:3000/getFirstname`, true);
     xhttp.setRequestHeader("Authorization", cookie);
@@ -455,9 +550,7 @@ function getUserFirstName(cookie) {
         if (xhttp.readyState == 4 && xhttp.status == 200) {
 
             if (xhttp.responseText) {
-                console.log(xhttp.responseText);
                 firstname = xhttp.responseText;
-                console.log("Firstname: " + firstname);
                 dropdownbtn = document.getElementsByClassName("dropdownbtn")[0];
                 dropdownbtn.innerText = firstname;
                 //dropdownbtn.removeEventListener("click", showModal);
@@ -476,7 +569,6 @@ function logout() {
 
 function goToProfilePage(cookie) {
     //ajax request for redirecting to profile page
-    console.log(getCookie("Authorization"));
     var xhttp = new XMLHttpRequest();
     xhttp.open("GET", `http://localhost:3000/getProfilePageUrl`, true);
     xhttp.setRequestHeader("Authorization", cookie);
@@ -515,7 +607,6 @@ function getAllCategories() {
 
 function showCategories(categories) {
     let category_table = document.getElementById('categories-table');
-    console.log(categories);
     category_table.innerHTML =
         '<colgroup>' +
         '<col style="width: 20%;" />' +
@@ -658,7 +749,6 @@ function loadCategories() {
         if (xhttp.readyState == 4 && xhttp.status == 200) {
             if (xhttp.responseText) {
                 categories = JSON.parse(xhttp.responseText);
-                console.log(categories);
                 for (cat of categories) {
                     let op = document.createElement("option");
                     op.innerText = cat.name;

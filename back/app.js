@@ -19,11 +19,10 @@ const authService = require("../back/services/authenticationService")
 db.authenticate().then(() => console.log("Khoda bozorge")).catch(err => console.log("Ghalat kardam " + err.message));
 
 const app = express();
-
 app.use(cors());
 app.use(bodyParser.json());
 
-// app.get('/', (req, res) => res.send("INDEX"));
+
 
 // get allcategories
 app.get('/viewer/getAllCategories', async(req, res) => {
@@ -406,6 +405,28 @@ app.use('/admin/CreateOrUpdateProduct', async(req, res) => {
         res.status(401).send('Authentication required.'); // custom message
     }
 });
+
+app.use('/admin/editReceiptStatus', async(req, res) => {
+    const auth = { login: 'admin', password: 'password' };
+    const b64auth = (req.headers.authorization || '').split(' ')[1] || '';
+    const [login, password] = Buffer.from(b64auth, 'base64').toString().split(':');
+
+    if (login && password && login === auth.login && password === auth.password) {
+        //Admin access granted
+        const result = await adminService.changeReceiptStatus(req.query.receipt_id, req.body.status);
+        res.send(result);
+
+    } else {
+        // Access denied...
+        res.set('WWW-Authenticate', 'Basic realm="401"'); // change this
+        res.status(401).send('Authentication required.'); // custom message
+    }
+});
+
+
+app.use(express.static(path.join(__dirname, 'pages')));
+
+
 
 //app.use("/admin", require("./services/db/admin"));
 

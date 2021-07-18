@@ -17,7 +17,6 @@ window.onload = function() {
                     result = JSON.parse(xhttp.responseText);
                     if (result.result && result.type == "user") {
                         //access granted
-                        console.log("OK");
                         //everything has to be implented here
 
                         document.getElementById("homepage").addEventListener("click", function(){

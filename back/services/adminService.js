@@ -12,7 +12,8 @@ async function getAllReceipts(userId) {
 }
 
 async function getAllReceiptsForAdmin() {
-    return await Receipt.getAllReceiptsForAdmin();
+    let receipts = await Receipt.getAllReceiptsForAdmin();
+    return receipts;
 }
 
 async function getAllProducts(page, productsInPage) {
@@ -39,7 +40,18 @@ async function searchReceiptsByTackingCode(trackingCode) {
 }
 
 async function changeReceiptStatus(receiptId, newStatus) {
-    return await Receipt.editReceipt({ "status": newStatus }, receiptId);
+    console.log(newStatus);
+    statuses = {s1: "لغو شده", s2: "در حال انجام", s3: "انجام شده"};
+    if (newStatus == 1 || newStatus == 2 || newStatus == 3) {
+        const result = await Receipt.editReceipt({ status: statuses["s" + newStatus] }, receiptId);
+        if (result != null) {
+            return { stat: true, message: "operation was successfully done" };
+        } else {
+            return { stat: false, message: "operation failed" };
+        }
+    } else {
+        return { stat: false, message: "invalid status" }
+    }
 }
 
 async function createCategory(newCategory) {

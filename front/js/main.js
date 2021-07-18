@@ -442,7 +442,6 @@ function sortBySold() {
         document.getElementById("creation-date").classList.add("sorting-box-btn-deactive");
 
         sortingState.by = "sold";
-        console.log(getState());
         currentPage = 1;
         getProducts();
     }
@@ -460,7 +459,6 @@ function sortByPrice() {
         document.getElementById("creation-date").classList.add("sorting-box-btn-deactive");
 
         sortingState.by = "price";
-        console.log(getState());
         currentPage = 1;
         getProducts();
     }
@@ -479,7 +477,6 @@ function sortByCreationDate() {
         document.getElementById("price").classList.add("sorting-box-btn-deactive");
 
         sortingState.by = "createdat";
-        console.log(getState());
         currentPage = 1;
         getProducts();
     }
@@ -487,12 +484,10 @@ function sortByCreationDate() {
 
 function changeSortOrder() {
     var val = document.getElementById("order-checkbox").checked;
-    console.log(val);
     if (val == true)
         sortingState.order = 'DESC'
     else
         sortingState.order = 'ASC';
-    console.log(getState());
     currentPage = 1;
     getProducts();
 }
@@ -507,7 +502,6 @@ function login(email, password) {
     xhttp.onreadystatechange = (e) => {
         if (xhttp.readyState == 4 && xhttp.status == 200) {
             if (xhttp.responseText) {
-                console.log(xhttp.responseText);
                 var objectResult = JSON.parse(xhttp.responseText);
                 if (objectResult.result == true) {
                     document.cookie = objectResult.cookie + "; Secure";
@@ -533,7 +527,6 @@ function signup(fields) {
     xhttp.onreadystatechange = (e) => {
         if (xhttp.readyState == 4 && xhttp.status == 200) {
             if (xhttp.responseText) {
-                console.log(xhttp.responseText);
                 var objectResult = JSON.parse(xhttp.responseText);
                 if (objectResult.result == true) {
                     document.cookie = objectResult.cookie + "; Secure";
@@ -554,7 +547,6 @@ function logout() {
 
 function getUserFirstName(cookie) {
 
-    console.log(getCookie("Authorization"));
     var xhttp = new XMLHttpRequest();
     xhttp.open("GET", `http://localhost:3000/getFirstname`, true);
     xhttp.setRequestHeader("Authorization", cookie);
@@ -565,9 +557,7 @@ function getUserFirstName(cookie) {
         if (xhttp.readyState == 4 && xhttp.status == 200) {
 
             if (xhttp.responseText) {
-                console.log(xhttp.responseText);
                 firstname = xhttp.responseText;
-                console.log("Firstname: " + firstname);
                 dropdownbtn = document.getElementsByClassName("dropdownbtn")[0];
                 dropdownbtn.innerText = firstname;
                 dropdownbtn.removeEventListener("click", showModal);

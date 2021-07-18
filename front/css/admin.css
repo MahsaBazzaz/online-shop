@@ -19,6 +19,8 @@
     --tab-light-gray: rgb(255, 255, 255);
     --tab-darkest-gray: rgb(161, 165, 169);
     --tab-black: rgb(0, 0, 0);
+    --operations-background: rgba(197, 205, 211, 0.842);
+    --operations-gray: rgb(40, 40, 40);
 }
 
 html {
@@ -923,3 +925,71 @@ hr {
 }
 
 /* create category modal */
+
+
+/* operations switch */
+.tripple-operations-container {
+    direction: rtl;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-color: gainsboro;
+    background-color: var(--operations-background);
+    border-radius: 24px;
+    text-align: center;
+    display: inline-flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.operation-tab {
+    font-family: iransans;
+    margin: 5px;
+    font-size: 12px;
+    border-radius: 24px;
+    border-color: black;
+    cursor: pointer;
+    height: 100%;
+}
+
+
+.operation-tab a {
+    text-decoration: none;
+    display: inline-block;
+    border-radius: 24px;
+    padding: 0px 10px;
+}
+
+.left-operation-tab.selected-operation-tab a {
+    background-color: green;
+}
+
+.center-operation-tab.selected-operation-tab a {
+    background-color: orange;
+}
+
+.right-operation-tab.selected-operation-tab a {
+    background-color: red;
+}
+
+.selected-operation-tab {
+    color: var(--tab-black);
+}
+
+.un-selected-operation-tab {
+    background-color: var(--operations-gray);
+    color: var(--tab-darkest-gray);
+}
+
+.un-selected-operation-tab a {
+    color: var(--tab-darkest-gray);
+}
+
+.operation-tab a i {
+    font-size: 12px;
+    text-align: center;
+    justify-content: center;
+}
+
+/* operations switch */

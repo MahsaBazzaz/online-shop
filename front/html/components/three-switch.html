@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>tab component</title>
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+</head>
+<style>
+    @font-face {
+        font-family: iransans;
+        src: url("../../assets/fonts/iran\ sans/iransans_medium.woff");
+    }
+    
+     :root {
+        --tab-dark-gray: rgb(238, 238, 238);
+        --tab-light-gray: rgb(255, 255, 255);
+        --tab-darkest-gray: rgb(161, 165, 169);
+        --tab-black: rgb(0, 0, 0);
+        --operations-background: rgba(197, 205, 211, 0.842);
+
+        --operations-gray: rgb(40, 40, 40);
+    }
+    
+    body {
+        margin: 0;
+        background-color: whitesmoke;
+    }
+    
+    .tripple-operations-container {
+        direction: rtl;
+        padding-left: 10px;
+        padding-right: 10px;
+        border-color: gainsboro;
+        background-color: var(--operations-background);
+        border-radius: 24px;
+        text-align: center;
+        display: inline-flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        align-items: center;
+        justify-content: flex-start;
+    }
+    
+    .operation-tab {
+        font-family: iransans;
+        margin: 5px;
+        font-size: 12px;
+        border-radius: 24px;
+        border-color: black;
+        height: 100%;
+    }
+    
+
+    .operation-tab a {
+        text-decoration: none;
+        display: inline-block;
+        border-radius: 24px;
+        padding: 0px 10px;
+    }
+
+    .left-operation-tab.selected-operation-tab a {
+        background-color: green;
+    }
+
+    .center-operation-tab.selected-operation-tab a {
+        background-color: orange;
+    }
+
+    .right-operation-tab.selected-operation-tab a {
+        background-color: red;
+    }
+    
+    .selected-operation-tab {
+        background-color: var(--tab-dark-gray);
+        color: var(--tab-black);
+    }
+    
+    .selected-operation-tab a {
+        color: var(--tab-black);
+    }
+    
+    .un-selected-operation-tab {
+        background-color: var(--operations-gray);
+        color: var(--tab-darkest-gray);
+    }
+    
+    .un-selected-operation-tab a {
+        color: var(--tab-darkest-gray);
+    }
+    
+    .operation-tab a i {
+        font-size: 12px;
+        text-align: center;
+        justify-content: center;
+    }
+
+</style>
+<script>
+    window.onload = function() {
+        tabs = ["op1", "op2", "op3"];
+        document.getElementById(tabs[0]).addEventListener("click", function() {
+            selectOperationTab(tabs, 0, 1, 2);
+        });
+        document.getElementById(tabs[1]).addEventListener("click", function() {
+            selectOperationTab(tabs, 1, 0, 2);
+        });
+        document.getElementById(tabs[2]).addEventListener("click", function() {
+            selectOperationTab(tabs, 2, 0, 1);
+        });
+    }
+
+    function selectOperationTab(tabs, select, unselect1, unselect2) {
+        document.getElementById(tabs[select]).classList.remove('un-selected-operation-tab');
+        document.getElementById(tabs[select]).classList.add('selected-operation-tab');
+
+        document.getElementById(tabs[unselect1]).classList.remove('selected-operation-tab');
+        document.getElementById(tabs[unselect1]).classList.add('un-selected-operation-tab');
+
+        document.getElementById(tabs[unselect2]).classList.remove('selected-operation-tab');
+        document.getElementById(tabs[unselect2]).classList.add('un-selected-operation-tab');
+    }
+
+</script>
+
+<body>
+    <div class="tripple-operations-container">
+        <div id="op1" class="right-operation-tab operation-tab selected-operation-tab">
+            <a href="#profile"><i class="fa fa-times" aria-hidden="true"></i></a>
+        </div>
+        <div id="op2" class="center-operation-tab operation-tab un-selected-operation-tab">
+            <a href="#profile"><i class="fa fa-hourglass" aria-hidden="true"></i></a>
+        </div>
+        <div id="op3" class="left-operation-tab operation-tab un-selected-operation-tab">
+            <a href="#receipts"><i class="fas fa-check"></i></a>
+        </div>
+    </div>
+</body>
+
+</html>
