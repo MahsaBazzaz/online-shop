@@ -92,7 +92,7 @@ app.use('/getProfilePageUrl', async(req, res) => {
 app.use('/signup', async(req, res) => {
     const createdUser = await userService.signup(req.body.fields);
     console.log(createdUser);
-    if (createdUser) {
+    if (createdUser != null) {
         //User Created Successfully
         const header = "Basic " + btoa(createdUser.username + ":" + createdUser.password);
         cookie = "Authorization=" + header;
