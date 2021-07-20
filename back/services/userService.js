@@ -92,12 +92,17 @@ async function getAllCategories() {
 async function signup(userInfo) {
     userInfo.credit = 0;
     let createdUser = await user.createUser(userInfo);
-    userInfo = {
-        id: createdUser.id,
-        username: createdUser.username,
-        password: createdUser.password
+    if (createdUser == null) {
+    } else {
+        userInfo = {
+            id: createdUser.id,
+            username: createdUser.username,
+            password: createdUser.password
+        }
+        return userInfo;
     }
-    return userInfo;
+    
+    return null;
 }
 
 function login(userInfo) {

@@ -552,7 +552,8 @@ function getUserFirstName(cookie) {
             if (xhttp.responseText) {
                 firstname = xhttp.responseText;
                 dropdownbtn = document.getElementsByClassName("dropdownbtn")[0];
-                dropdownbtn.innerText = firstname;
+                dropdownbtn.innerHTML = firstname + " " + `<i class="fa fa-chevron-down" style="font-size: 7px" aria-hidden="true"></i>`;
+                //dropdownbtn.innerText = firstname;
                 //dropdownbtn.removeEventListener("click", showModal);
                 //document.getElementsByClassName("dropdown-content")[0].style.display = "block";
 

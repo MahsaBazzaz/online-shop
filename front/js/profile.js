@@ -148,7 +148,8 @@ function getUserInfo(cookie) {
             if (xhttp.responseText) {
                 res = JSON.parse(xhttp.responseText);
                 document.getElementsByClassName("welcome-name")[0].innerText = res.firstname;
-                document.getElementsByClassName("dropdownbtn")[0].innerText = res.firstname;
+                document.getElementsByClassName("dropdownbtn")[0].innerHTML = res.firstname  + " " + `<i class="fa fa-chevron-down" style="font-size: 7px" aria-hidden="true"></i>`;
+                //document.getElementsByClassName("dropdownbtn")[0].innerText = res.firstname;
                 document.getElementById("firstname-input").value = res.firstname;
                 document.getElementById("lastname-input").value = res.lastname;
                 document.getElementById("address-input").value = res.address;
