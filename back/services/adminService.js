@@ -95,6 +95,11 @@ async function deleteCategory(categoryId) {
 
 async function createOrUpdateProduct(product_id, newFields) {
 
+    if ("image" in newFields) {
+        if (! newFields.image) {
+            newFields.image = "../assets/img/placeholder.jpg";
+        } 
+    }
     const createdOrUpdated = await Product.createOrUpdateProduct(product_id, newFields);
     if (createdOrUpdated != null) {
         return { stat: true, message: "operation was successfully done" }

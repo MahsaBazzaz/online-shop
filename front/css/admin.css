@@ -537,6 +537,15 @@ tr:last-child td {
     justify-content: center;
 }
 
+.file-pick {
+    margin: auto;
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: column;
+    direction: rtl;
+    justify-content: center;
+}
+
 .product-desc-box {
     background-color: white;
     color: black;

@@ -93,6 +93,7 @@ window.onload = function() {
                         document.getElementsByClassName("create-product-button")[0].addEventListener("click", function() {
                             loadCategories();
                             selected_product_id = -1;
+                            document.getElementById("product-image-field").src = "../assets/img/placeholder.jpg";
                             document.getElementById("product-name-field").value = "";
                             document.getElementById("product-category-field").value = 1;
                             document.getElementById("product-price-field").value = 0;
@@ -101,9 +102,19 @@ window.onload = function() {
                         });
 
                         document.getElementsByClassName("close-product-div")[0].addEventListener("click", function() {
+                            document.getElementById("product-image-field").src = "";
                             document.getElementById("product-modal").style.display = "none";
 
-                        })
+                        });
+
+                        document.getElementById("change-product-image").addEventListener("change", function() {
+                            
+                            relativePath = "../assets/img/products/"
+                            if (this.files.length > 0) {
+                                imgPath = relativePath + this.files[0].name;
+                                document.getElementById("product-image-field").src = imgPath;
+                            }
+                        });
 
                         document.getElementById("save-changes").addEventListener("click", function() {
                             var xhttp = new XMLHttpRequest();
@@ -115,7 +126,8 @@ window.onload = function() {
                                 name: document.getElementById("product-name-field").value,
                                 category_id: document.getElementById("product-category-field").value,
                                 price: document.getElementById("product-price-field").value,
-                                remaining: document.getElementById("product-remaining-field").value
+                                remaining: document.getElementById("product-remaining-field").value,
+                                image: document.getElementById("product-image-field").src
                             })
                             xhttp.send(field);
 
@@ -430,14 +442,16 @@ function showProducts(products) {
                 if (xhttp.readyState == 4 && xhttp.status == 200) {
                     if (xhttp.responseText) {
                         const response = JSON.parse(xhttp.responseText);
+                        document.getElementById("product-image-field").src = response.image;
                         document.getElementById("product-name-field").value = response.name;
                         document.getElementById("product-category-field").value = response.category_id;
                         document.getElementById("product-price-field").value = response.price;
                         document.getElementById("product-remaining-field").value = response.remaining;
+                        document.getElementById("product-modal").style.display = "flex";
                     }
                 }
             }
-            document.getElementById("product-modal").style.display = "flex";
+            
 
         })
     }
@@ -447,7 +461,7 @@ function createProductBox(product) {
     const newDiv = document.createElement("div");
     newDiv.className = "main-product-box";
     newDiv.innerHTML = '<div class="product-image-box">' +
-        '<img src="../assets/img/product.jpg">' +
+        '<img src=' + product.image + '>' +
         '</div>' +
         '<div class="product-desc-box">' +
         '<p class="product-title">' + product.name + '</p>' +

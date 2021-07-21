@@ -17,6 +17,9 @@ const Product = db.define('products', {
     sold: {
         type: Sequelize.INTEGER
     },
+    image: {
+        type: Sequelize.STRING
+    },
     createdat: {
         type: Sequelize.DATE
     },

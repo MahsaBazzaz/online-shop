@@ -343,7 +343,7 @@ function createProductBox(product) {
     newDiv.className = "main-product-box";
     newDiv.id = "product" + product.id;
     newDiv.innerHTML = '<div class="product-image-box">' +
-        '<img src="../assets/img/product.jpg">' +
+        '<img src=' + product.image + '>' +
         '</div>' +
         '<div class="product-desc-box">' +
         '<p class="product-title">' + product.name + '</p>' +
@@ -484,10 +484,11 @@ function sortByCreationDate() {
 
 function changeSortOrder() {
     var val = document.getElementById("order-checkbox").checked;
-    if (val == true)
-        sortingState.order = 'DESC'
-    else
+    if (val == true) {
         sortingState.order = 'ASC';
+    } else {
+        sortingState.order = 'DESC';
+    }
     currentPage = 1;
     getProducts();
 }

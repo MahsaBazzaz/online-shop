@@ -10,7 +10,8 @@ function getAllProducts(page, productsInPage) {
             offset: offset,
             limit: limit,
             order: [
-                ['sold', "DESC"]
+                ['sold', "DESC"],
+                ["name", "ASC"]
             ]
         })
         .then((products) => { return products; })
