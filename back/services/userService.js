@@ -131,7 +131,6 @@ async function purchase(userId, productId, count) {
     }
     //check if count is integer
     if (count != Math.floor(count)) {
-        console.log(count, Math.floor(count))
         return { stat: false, message: "Count must be integer" }
     }
     //check if number of remaining products in stock is enough
@@ -178,7 +177,6 @@ async function purchase(userId, productId, count) {
     let purchasedProductAfterPurchase = await product.editProduct({ remaining: newRemaining, sold: newSold }, productId);
 
 
-    console.log(buyerUserAfterPurchase);
     return { stat: true, message: "parchused succesfully done" }
 }
 
@@ -215,15 +213,34 @@ async function getProducts(state) {
         state.where.name = like;
     }
 
+    if (state.price_range.min >= 0 && state.price_range.max >= 0 && state.price_range.max >= state.price_range.min) {
+        state.where.price = {
+            [Sequelize.Op.between]: [state.price_range.min, state.price_range.max]
+        }
+    }
+
     let products = await product.getProducts(state);
 
+    let range = {min:0, max: 1};
+    if (products.length > 0) {
+        range.min = products[0].price;
+        range.max = products[0].price;
+    }
     for (pro of products) {
         pro.category = await category.mapCategoryIdToCategoryName(pro.category_id);
+        
+        if (pro.price < range.min) {
+            range.min = pro.price;
+        }
+        if (pro.price > range.max) {
+            range.max = pro.price;
+        }
+
     }
 
     let pages = await product.getPages(state);
 
-    return [products, pages];
+    return [products, pages, range];
 }
 
 async function getProduct(product_id) {
@@ -231,6 +248,19 @@ async function getProduct(product_id) {
     pro.category = await category.mapCategoryIdToCategoryName(pro.category_id);
     return pro;
 }
+
+async function getPriceRange() {
+    let maxPrice = await product.getMaxPrice();
+    let minPrice = await product.getMinPrice();
+
+    if (minPrice && maxPrice) {
+        return {stat: true, obj: {min: minPrice, max: maxPrice}};
+    } else {
+        return {stat: false, obj: null};
+    }
+}
+
+
 module.exports = {
     // getAllProducts,
     getAllCategories,
@@ -246,5 +276,6 @@ module.exports = {
     purchase,
     chargeCredit,
     getProducts,
-    getProduct
+    getProduct,
+    getPriceRange
 };

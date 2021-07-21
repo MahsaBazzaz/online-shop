@@ -281,6 +281,16 @@ app.post('/viewer/getProducts', async(req, res) => {
 
 });
 
+
+app.get('/viewer/getPriceRange', async(req, res) => {
+    const response = await userService.getPriceRange();
+    if (response.stat) {
+        res.send(response.obj);
+    }
+
+});
+
+
 // app.get('/user/getFirstname', async(req, res) => {
 //     console.log("dfhvgdfskghkdfshbkhdfbgngfbnukfgnbukgfnbkubgk");
 //     res.sendStatus(200);

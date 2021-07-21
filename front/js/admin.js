@@ -1,6 +1,7 @@
 let currentPage = 1;
 let pages = 0;
-const productsInPage = 15;
+const pageOptions = [10, 15, 20];
+let productsInPage = 15;
 let selected_product_id = -1;
 window.onload = function() {
 
@@ -21,6 +22,22 @@ window.onload = function() {
                         //everything has to be implented here
 
                         getUserFirstName(getCookie("Authorization"));
+
+                        for (option of pageOptions) {
+                            const op = document.createElement("option");
+                            op.value = option;
+                            op.innerText = option;
+                            if (option == productsInPage) {
+                                op.selected = "selected";
+                            }
+                            document.getElementById("page-options").appendChild(op);
+                        }
+
+                        document.getElementById("page-options").addEventListener("change", function() {
+                            productsInPage = this.value;
+                            currentPage = 1;
+                            getAllProducts(getCookie("Authorization"), currentPage, productsInPage);
+                        });
 
                         document.getElementById("homepage").addEventListener("click", function() {
                             window.location.replace("index.html");

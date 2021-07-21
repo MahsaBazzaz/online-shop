@@ -28,6 +28,7 @@ async function getAllProducts(page, productsInPage) {
     return [products, pages];
 }
 
+
 async function getProduct(product_id) {
 
     let product = await Product.getProductById(product_id);

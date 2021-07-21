@@ -21,6 +21,15 @@ function getAllProducts(page, productsInPage) {
         });
 }
 
+function getMaxPrice() {
+    return Product.max("price");
+}
+
+function getMinPrice() {
+    return Product.min("price");
+}
+
+
 function createProduct(newProduct) {
     return Product.create(newProduct)
         .then((createdProduct) => {
@@ -264,5 +273,7 @@ module.exports = {
     getProducts,
     getPages,
     getAllPages,
-    createOrUpdateProduct
+    createOrUpdateProduct,
+    getMaxPrice,
+    getMinPrice
 };

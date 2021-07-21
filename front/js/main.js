@@ -12,9 +12,11 @@ let sortingState = { by: "sold", order: "DESC" };
 let searchedTerm = ""
 let currentPage = 1;
 let pages = 6;
-let priceRange = { min: 0, max: 100 };
-const productsInPage = 15;
-
+let priceRange = { min: 0, max: 1 };
+let minPrice = 0;
+let maxPrice = 1;
+let productsInPage = 15;
+const pageOptions = [10, 15, 20];
 function getState() {
     return {
         category_states: category_states,
@@ -63,6 +65,7 @@ var pricefilter_inputRight;
 var pricefilter_thumbLeft;
 var pricefilter_thumbRight;
 var pricefilter_range;
+
 window.onload = function() {
 
     // check if cookie is set or not
@@ -136,7 +139,6 @@ window.onload = function() {
 
     } else {
         //viewer access here
-
         document.getElementsByClassName("dropdown-content")[0].style.display = "none";
 
         // transition between login and signup
@@ -180,12 +182,28 @@ window.onload = function() {
     }
 
 
+    for (option of pageOptions) {
+        const op = document.createElement("option");
+        op.value = option;
+        op.innerText = option;
+        if (option == productsInPage) {
+            op.selected = "selected";
+        }
+        document.getElementById("page-options").appendChild(op);
+    }
+
+    document.getElementById("page-options").addEventListener("change", function() {
+        productsInPage = this.value;
+        currentPage = 1;
+        getProducts();
+    });
 
     //sort
     document.getElementById("best-seller").addEventListener("click", sortBySold);
     document.getElementById("price").addEventListener("click", sortByPrice);
     document.getElementById("creation-date").addEventListener("click", sortByCreationDate);
     document.getElementById("order-checkbox").addEventListener("click", changeSortOrder);
+    
 
     //ajax request for getting categories list
     getAllCategories();
@@ -202,7 +220,6 @@ window.onload = function() {
         //ajax request for getting products by name
         // console.log("search product by name");
         searchedTerm = document.getElementsByClassName('search-box')[0].value;
-        console.log(getState());
         getProducts();
         // searchProductByName(document.getElementsByClassName('search-box')[0].value, 1);
     });
@@ -230,6 +247,8 @@ window.onload = function() {
     });
     pricefilter_inputLeft.addEventListener("mouseup", function() {
         pricefilter_thumbLeft.classList.remove("active");
+        currentPage = 1;
+        getProducts();
     });
 
     pricefilter_inputRight.addEventListener("mouseover", function() {
@@ -243,9 +262,9 @@ window.onload = function() {
     });
     pricefilter_inputRight.addEventListener("mouseup", function() {
         pricefilter_thumbRight.classList.remove("active");
+        currentPage = 1;
+        getProducts();
     });
-    setLeftValue();
-    setRightValue();
 
     setTimeout(function(){ 
         document.getElementsByTagName("html")[0].style.visibility = "visible";
@@ -271,6 +290,7 @@ function getProducts(option) {
                 const response = JSON.parse(xhttp.responseText);
                 const products = response[0];
                 pages = response[1];
+                //console.log(response[2]);
                 createPagination();
                 showProducts(products);
                 if (!option) {
@@ -316,7 +336,6 @@ function showProducts(products) {
                             xhttp.onreadystatechange = (e) => {
                                 if (xhttp.readyState == 4 && xhttp.status == 200) {
                                     if (xhttp.responseText) {
-                                        console.log(xhttp.responseText);
                                         jsonObj = JSON.parse(xhttp.responseText);
                                         document.getElementById("total-price").innerText = jsonObj.price;
                                         selected_product_price = jsonObj.price;
@@ -372,6 +391,25 @@ function getAllCategories() {
                     category_states[category.id] = false;
                 }
                 showCategories(categories);
+                getPriceRange();
+            }
+        }
+    }
+}
+
+function getPriceRange() {
+    var xhttp = new XMLHttpRequest();
+    xhttp.open("GET", `http://localhost:3000/viewer/getPriceRange`, true);
+    xhttp.send();
+
+    xhttp.onreadystatechange = (e) => {
+        if (xhttp.readyState == 4 && xhttp.status == 200) {
+            if (xhttp.responseText) {
+                response = JSON.parse(xhttp.responseText);
+                minPrice = response.min;
+                maxPrice = response.max;
+                setLeftValue();
+                setRightValue();
                 getProducts("firstTime");
             }
         }
@@ -402,14 +440,11 @@ function checkboxHandler(category_id) {
     category_states[category_id] = !category_states[category_id];
     currentPage = 1;
     getProducts();
-    //getProductsByCategoryState(1);
-    console.log(getState());
 }
 
 
 function goToProfilePage(cookie) {
     //ajax request for redirecting to profile page
-    console.log(getCookie("Authorization"));
     var xhttp = new XMLHttpRequest();
     xhttp.open("GET", `http://localhost:3000/getProfilePageUrl`, true);
     xhttp.setRequestHeader("Authorization", cookie);
@@ -603,8 +638,13 @@ function setLeftValue() {
 
     var percent = ((_this.value - min) / (max - min)) * 100;
 
+    let leftPrice = Math.floor(minPrice + percent*(maxPrice - minPrice)/100);
+    
+    document.getElementById("left-range-label").innerText = leftPrice;
     pricefilter_thumbLeft.style.left = percent + "%";
     pricefilter_range.style.left = percent + "%";
+
+    priceRange.min = leftPrice;
 }
 
 function setRightValue() {
@@ -615,9 +655,13 @@ function setRightValue() {
     _this.value = Math.max(parseInt(_this.value), parseInt(pricefilter_inputLeft.value) + 1);
 
     var percent = ((_this.value - min) / (max - min)) * 100;
+    let rightPrice = Math.ceil(minPrice + percent*(maxPrice - minPrice)/100);
 
+    document.getElementById("right-range-label").innerText = rightPrice;
     pricefilter_thumbRight.style.right = (100 - percent) + "%";
     pricefilter_range.style.right = (100 - percent) + "%";
+
+    priceRange.max = rightPrice;
 }
 
 
