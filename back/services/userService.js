@@ -125,11 +125,20 @@ async function getReceipts(userId) {
 }
 
 async function purchase(userId, productId, count) {
+    //check if count > 0
+    if (count <= 0) {
+        return { stat: false, message: "Count must be positive" }
+    }
+    //check if count is integer
+    if (count != Math.floor(count)) {
+        console.log(count, Math.floor(count))
+        return { stat: false, message: "Count must be integer" }
+    }
     //check if number of remaining products in stock is enough
     let purchasedProduct = await product.getProductById(productId);
     if (count > purchasedProduct.remaining) {
         return { stat: false, message: "Not enough in stock" }
-    }
+    }   
     //check if credit is enough
     let buyerUser = await user.getUserById(userId);
     totalCost = count * purchasedProduct.price;

@@ -274,7 +274,9 @@ function editReceiptStatus(receiptId, field) {
         if (xhttp.readyState == 4 && xhttp.status == 200) {
             if (xhttp.responseText) {
                 res = JSON.parse(xhttp.responseText);
-                getAllReceipts(getCookie("Authorization"));
+                const term = document.getElementById("search_code_text").value;
+                searchReceiptsByTrackingCode(getCookie("Authorization"), term);
+                //getAllReceipts(getCookie("Authorization"));
             }
         }
     }

@@ -5,7 +5,11 @@ const Category = require('../../models/Category');
 const Product = require('../../models/Product');
 
 function getAllCategory() {
-    return Category.findAll()
+    return Category.findAll({
+        order: [
+            ['createdat', "ASC"]
+        ]
+    })
         .then((categories) => { return categories; })
         .catch(err => {
             console.log(err);
