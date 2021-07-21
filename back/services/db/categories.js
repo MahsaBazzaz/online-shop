@@ -23,7 +23,6 @@ function createCategory(newcategory) {
             return createdCategory;
         })
         .catch(err => {
-            console.log(err);
             return null;
         });
 }

@@ -805,6 +805,7 @@ hr {
 #create-category-modal {
     display: none;
     position: fixed;
+    background-color: var(--back-color-light);
     z-index: 1;
     flex-direction: column;
     flex-wrap: nowrap;
@@ -827,7 +828,6 @@ hr {
 }
 
 #create-category-modal .close-category-div {
-    color: #aaa;
     position: absolute;
     right: 10px;
     top: 0px;
@@ -845,7 +845,6 @@ hr {
     justify-content: center;
     align-items: center;
     margin-top: 20px;
-    background-color: var(--back-color-light);
     padding: 10px 5px;
     border-radius: 24px;
     max-width: 800px;

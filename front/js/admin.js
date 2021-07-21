@@ -655,15 +655,16 @@ function showCategories(categories) {
             xhttp.onreadystatechange = (e) => {
                 if (xhttp.readyState == 4 && xhttp.status == 200) {
                     if (xhttp.responseText) {
-                        //put your code here 
                         result = JSON.parse(xhttp.responseText);
                         if (result.stat) {
+                            //edited successfully
                             alert(result.message);
                             getAllCategories();
 
                         } else {
+                            //could not edit
                             alert(result.message);
-
+                            getAllCategories();
                         }
                     }
                 }

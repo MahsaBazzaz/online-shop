@@ -585,7 +585,7 @@ function showModal() {
 
 span.onclick = function() {
         modal.style.display = "none";
-    }
+}
     //FIXME: the exit modal by clicking on anything rather than itself doesn't work
     // window.onclick = function(event) {
     //     if (event.target.id != modal.id && event.target.id != btn.id) {
